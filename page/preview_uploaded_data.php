@@ -23,7 +23,8 @@
   <div class="row">
   <?php
     // error_reporting(0);
-    require '../function/conn.php';
+    // require '../function/conn.php';
+    require '../function/session.php';
     if(!empty($_FILES['csv-import-file']['name']))
     {
     $file_data = fopen($_FILES['csv-import-file']['tmp_name'], 'r');
@@ -47,11 +48,13 @@
     echo '<th># OF ABSENCE</th>';
     echo '<th>REASON</th>';
     echo '<th>REASON2</th>';
+    echo '<th>ABSENT FROM</th>';
+    echo '<th>ABSENT TO</th>';
     echo '</thead>';
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
-        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id'";
+        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptSection = '$deptSection' AND empSubSect = '$deptSection'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         
@@ -67,7 +70,7 @@
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
-                echo '<td contenteditable class="absence"></td>';
+                echo '<td contenteditable class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default reason">
                             <option value=""></option>
@@ -76,10 +79,28 @@
                             <option value="ML">ML</option>
                             <option value="AWOL">AWOL</option>
                             <option value="LWOP">LWOP</option>
-                            <option value="Quarantine">Quarantine</option>
                         </select>
                         </td>';
+
+                echo '<td >
+                        <select id="reason2'.$c.'" class="browser-default reason2">
+                            <option value=""></option>
+                            <option value="Family Matter">Family Matter</option>
+                            <option value="Personal Matter">Personal Matter</option>
+                            <option value="Quarantine">Quarantine</option>
+                        </select>
+                    </td>';
+
+                echo '<td >
+                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'">
+                    </td>';
+
+                echo '<td >
+                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'">
+                </td>';
+                
                 echo '</tr>';
+                
             }
         }
     }
@@ -104,8 +125,17 @@
 
         function submit_report(){
             // ROW
-            
-
+            // var thisTable = [];
+            // $('table#tbl tr').each(function(){
+            //     var arrayOfThisRow =[]
+            //     var tableData = $(this).find('td');
+            //     if(tableData. length > 0){
+            //         tableData.each(function() {arrayOfThisRow.push($(this).text());
+            //         });
+            //         thisTable.push(arrayOfThisRow);
+            //     }
+            // });
+            // console.log(thisTable);
             // PROVIDER
             var providerArray = [];
             $('.provider').each(function(){
@@ -152,8 +182,8 @@
 
             // ABSENCE
             var absenceArray = [];
-            $('.absence').each(function(){
-                absenceArray.push($(this).html());
+            $('.absence input').each(function(){
+                absenceArray.push($(this).val());
             });
             console.log(absenceArray);
 
@@ -163,7 +193,53 @@
                 reasonArray.push($(this).val());
             });
             console.log(reasonArray);
+            // REASON 2
+            var reason2Array = [];
+            $('.reason2').each(function(){
+                reason2Array.push($(this).val());
+            });
 
+            // ABSENT FROM
+
+            var date_from = [];
+            $('.absent_date_from').each(function(){
+                date_from.push($(this).val());
+            });
+
+            // ABSENT TO
+            var date_to = [];
+            $('.absent_date_to').each(function(){
+                date_to.push($(this).val());
+            });
+
+
+            // SERIALIZE ARRAY USING FOR LOOP
+            for(let i = 0; i < idArray.length;i++){
+                console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*' + absenceArray[i] + '*!*' + reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + date_from[i] + '*!*' + date_to[i]); 
+
+                $.ajax({
+                    url: '../function/controller.php',
+                    type: 'POST',
+                    cache: false,
+                    data:{
+                        method: 'file_absent',
+                        provider: providerArray[i],
+                        empID: idArray[i],
+                        name: nameArray[i],
+                        deptSection: deptSectArray[i],
+                        group: subSectArray[i],
+                        line: lineArray[i],
+                        absence: absenceArray[i],
+                        reason: reasonArray[i],
+                        reason2: reason2Array[i],
+                        uploader: '<?=$fullname;?>',
+                        absent_from: date_from[i],
+                        absent_to: date_to[i]
+                    },success:function(response){
+                        console.log(response);
+                    }
+                });
+            }
                 
           
         }

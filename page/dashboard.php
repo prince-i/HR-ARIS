@@ -15,21 +15,24 @@
     }
     include '../components/Modals/modal_logout.php';
     include '../components/Modals/modal_upload_absent.php';
+    include '../components/Modals/modal_file_absent.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
 </head>
 <body>
     <div class="navbar-fixed">
-        <nav class="blue darken-3 z-depth-1">
+        <nav class="blue darken-3 z-depth-3">
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">HR-ARIS (Clerk Dashboard) </a>
             <ul class="right hide-on-med-and-down">
             <!-- <li><a href="sass.html">Sass</a></li> -->
-            <li><a href="#modal_logout" class="modal-trigger z-depth-5"><?=$_SESSION['fullname'];?></a></li>
+            <li><a href="#modal_logout" class="modal-trigger z-depth-5"><?=$fullname;?></a></li>
             </ul>
         </div>
         </nav>
   </div>
+  <input type="hidden" name="" id="deptcode" value="<?=$deptCode;?>">
+  <input type="hidden" name="" id="handleemp" value="<?=$handle;?>">
   <!-- CONTENT -->
     <div class="row">
         <div class="col s12 z-depth-5">
@@ -46,7 +49,6 @@
             <div class="col s1 input-field">
                 <button id="search_btn" class="btn-large blue z-depth-5" style="border-radius:30px;">Search</button>    
             </div>
-
             <!-- BLANK -->
 
             <div class="col s2 right input-field">
@@ -54,8 +56,9 @@
             </div>
         </div>
         <div class="col s12 divider"></div>
-
-         
+        <!-- <div class="col s5 input-field">
+            <button id="file_absent_btn" class="btn-large blue z-depth-5 modal-trigger" style="border-radius:30px;" data-target="modal-file-absent" onclick="load_emp()">File Absent</button>    
+        </div> -->
     </div>
 
 
@@ -71,6 +74,8 @@
             });
             $('.modal').modal();
         });
+
     </script>
+    <script src="../components/JS/main.js"></script>
 </body>
 </html>
