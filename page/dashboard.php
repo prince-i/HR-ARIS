@@ -73,6 +73,7 @@
                 autoClose: true
             });
             $('.modal').modal();
+            load_today_file();
         });
 
     </script>

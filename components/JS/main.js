@@ -15,3 +15,7 @@ const load_emp =()=>{
     });
    
 }
+
+const load_today_file =()=>{
+    
+}

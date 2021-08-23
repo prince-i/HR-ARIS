@@ -34,7 +34,7 @@
                     }
                 }
             }else{
-                echo 'invalid';
+                echo 'INVALID CREDENTIALS';
             }
         }
     }
