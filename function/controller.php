@@ -43,7 +43,7 @@
         if(empty($reason) || empty($reason2)){
             echo "error"."~!~".$rowID;
         }else{
-             // CHECK DATA IF EXISTED
+        // CHECK DATA IF EXISTED
         $check = "SELECT *FROM aris_absent_filing WHERE date_absent_from >= '$absent_from' AND date_absent_to >= '$absent_to' AND emp_id_number = '$empID'";
         $stmt = $conn->prepare($check);
         $stmt->execute();
