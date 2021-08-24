@@ -26,8 +26,7 @@
     // error_reporting(0);
     // require '../function/conn.php';
     require '../function/session.php';
-    if(!empty($_FILES['csv-import-file']['name']))
-    {
+    if(!empty($_FILES['csv-import-file']['name'])){
     $file_data = fopen($_FILES['csv-import-file']['tmp_name'], 'r');
     fgetcsv($file_data);
     while($row = fgetcsv($file_data))
@@ -51,6 +50,7 @@
     echo '<th>REASON2</th>';
     echo '<th>ABSENT FROM</th>';
     echo '<th>ABSENT TO</th>';
+    echo '<th>SHIFT</th>';
     echo '</thead>';
     foreach($row_data as $x){
         $c++;
@@ -64,7 +64,7 @@
             foreach($stmt->fetchALL() as $d){
                 
                 echo '<tr id="row'.$c.'" class="row_data">';
-                echo '<td>'.$c.'</td>';
+                echo '<td class="row_count">'.$c.'</td>';
                 echo '<td id="provider" class="provider">'.$d['empAgency'].'</td>';
                 echo '<td class="idnumber">'.$d['idNumber'].'</td>';
                 echo '<td class="empname">'.$d['empName'].'</td>';
@@ -99,13 +99,18 @@
                 echo '<td >
                        <input type="text" class="datepicker absent_date_to" value="'.$server_date.'">
                 </td>';
-                
+                echo '<td class="eachShift">'.$d['empShift'].'</td>';
                 echo '</tr>';
                 
             }
         }
     }
     echo '</table>';
+    }else{
+        
+        echo '<div class="row col s12">';
+        echo '<div class="card center"><h5>NO CSV FILE IS UPLOADED!</h5></div>';
+        echo '</div>';
     }
 
 ?>
@@ -195,6 +200,16 @@
                 date_to.push($(this).val());
             });
 
+            // SHIFT
+            var shift = [];
+            $('.eachShift').each(function(){
+                shift.push($(this).html());
+            });
+
+            var row_data = [];
+            $('.row_count').each(function(){
+                row_data.push($(this).html());
+            });
             // SERIALIZE ARRAY USING FOR LOOP
             for(let i = 0; i < idArray.length;i++){
                 // console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*' + absenceArray[i] + '*!*' + reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + date_from[i] + '*!*' + date_to[i]); 
@@ -216,12 +231,25 @@
                             uploader: '<?=$fullname;?>',
                             absent_from: date_from[i],
                             absent_to: date_to[i],
+                            shift:shift[i],
+                            row_data:row_data[i]
                         },success:function(response){
                             console.log(response);
-                            M.toast({
-                                html: response,
-                                classes: 'rounded blue'
-                            });
+                            var report = response.split("~!~");
+                            var res = report[0];
+                            var row = report[1];
+                            if(res == 'error'){
+                                $('#row'+row).addClass('#e57373 red lighten-2');
+                            }
+                            if(res == 'exist'){
+                            // ALERT 
+                            M.toast({html: 'Existing absent file for '+row,classes: 'rounded blue'});
+                            }
+                            
+                            if(res == 'success'){
+                                $('#row'+row).addClass('#a5d6a7 green lighten-3');
+                            }
+
                         }               
                     });
                 }

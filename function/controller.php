@@ -38,23 +38,28 @@
         $uploader = $_POST['uploader'];
         $absent_from = $_POST['absent_from'];
         $absent_to = $_POST['absent_to'];
+        $shift = $_POST['shift'];
+        $rowID =  $_POST['row_data'];
         if(empty($reason) || empty($reason2)){
-            echo 'Please complete absent details of '.$name;
-            // echo 
+            echo "error"."~!~".$rowID;
         }else{
              // CHECK DATA IF EXISTED
         $check = "SELECT *FROM aris_absent_filing WHERE date_absent_from >= '$absent_from' AND date_absent_to >= '$absent_to' AND emp_id_number = '$empID'";
         $stmt = $conn->prepare($check);
         $stmt->execute();
         if($stmt->rowCount() > 0){
-            echo 'Existing record for'." ".$name;
+            echo "exist"."~!~".$name;
         }else{
-            $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to')";
+            $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`,`shift`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to','$shift')";
         $stmt = $conn->prepare($file);
         $stmt->execute();
-        echo 'Success file for '.$name;
+        if($stmt->execute()){
+            echo "success"."~!~".$rowID;
+        }else{
+            echo "error"."~!~".$rowID;
         }
-    }  
     }
+    }  
+}
 
 ?>
