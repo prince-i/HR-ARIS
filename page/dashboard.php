@@ -39,17 +39,20 @@
             
             <!-- DATE FROM -->
                 <div class="col s2 input-field ">
-                    <input type="text" class="datepicker" placeholder="Date From" value="<?=date('Y-m-d')?>">
+                    <input type="text" class="datepicker" id="dateFrom" placeholder="Date From" value="<?=date('Y-m-d')?>">
                 </div>
+
             <!-- DATE TO -->
                 <div class="col s2 input-field">
-                    <input type="text" class="datepicker" placeholder="Date To" value="<?=date('Y-m-d')?>">
+                    <input type="text" class="datepicker" id="dateTo" placeholder="Date To" value="<?=date('Y-m-d')?>">
                 </div>
+
             <!-- SHIFT -->
                 <div class="col s2 input-field">
-                    <select name="" id="shiftFilter" class="browser-select">
+                    <select name="" id="shiftFilter" class="browser-default z-depth-3">
                         <option value="">--SELECT SHIFT--</option>
-                        <option value="DS"></option>
+                        <option value="DS">DS</option>
+                        <option value="NS">NS</option>
                     </select>
                 </div>
 
@@ -58,10 +61,7 @@
                 <button id="search_btn" class="btn-large blue z-depth-5" style="border-radius:30px;">Search</button>    
             </div>
 
-
-            
             <!-- BLANK -->
-
             <div class="col s2 right input-field">
                 <button id="search_btn" class="btn-large blue col s12 z-depth-5 modal-trigger" style="border-radius:30px;" data-target="modal_upload_absent">Upload Absent</button>    
             </div>
