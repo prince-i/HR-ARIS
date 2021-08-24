@@ -245,11 +245,11 @@
                             // ALERT 
                             M.toast({html: 'Existing absent file for '+row,classes: 'rounded blue'});
                             }
-                            
+                            // SUCCESS
                             if(res == 'success'){
                                 $('#row'+row).addClass('#a5d6a7 green lighten-3');
                             }
-
+                            
                         }               
                     });
                 }
