@@ -39,16 +39,27 @@
             
             <!-- DATE FROM -->
                 <div class="col s2 input-field ">
-                    <input type="text" class="datepicker" placeholder="Date From">
+                    <input type="text" class="datepicker" placeholder="Date From" value="<?=date('Y-m-d')?>">
                 </div>
             <!-- DATE TO -->
                 <div class="col s2 input-field">
-                    <input type="text" class="datepicker" placeholder="Date To">
+                    <input type="text" class="datepicker" placeholder="Date To" value="<?=date('Y-m-d')?>">
                 </div>
+            <!-- SHIFT -->
+                <div class="col s2 input-field">
+                    <select name="" id="shiftFilter" class="browser-select">
+                        <option value="">--SELECT SHIFT--</option>
+                        <option value="DS"></option>
+                    </select>
+                </div>
+
                 <!-- BUTTON -->
             <div class="col s1 input-field">
                 <button id="search_btn" class="btn-large blue z-depth-5" style="border-radius:30px;">Search</button>    
             </div>
+
+
+            
             <!-- BLANK -->
 
             <div class="col s2 right input-field">
