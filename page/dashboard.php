@@ -67,27 +67,60 @@
             </div>
         </div>
         <div class="col s12 divider"></div>
-        <!-- <div class="col s5 input-field">
-            <button id="file_absent_btn" class="btn-large blue z-depth-5 modal-trigger" style="border-radius:30px;" data-target="modal-file-absent" onclick="load_emp()">File Absent</button>    
-        </div> -->
     </div>
-
 
 
     <!-- JS & JQUERY -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script>
-        $(document).ready(function(){
+         $(document).ready(function(){
             $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
                 autoClose: true
             });
             $('.modal').modal();
-            load_today_file();
+            load_filed_absent();
         });
 
-    </script>
-    <script src="../components/JS/main.js"></script>
+    const load_emp =()=>{
+        deptCode = $('#deptcode').val();
+        handleEmp = $('#handleemp').val();
+        $.ajax({
+            url : '../function/controller.php' ,
+            type: 'POST',
+            cache: false,
+            data:{
+                method:'filter_emp',
+                deptCode: deptCode,
+                handleEmp:handleEmp
+            },success:function(response){
+                document.querySelector('#emp_data').innerHTML = response;
+            }
+        });
+    }
+
+    const load_filed_absent =()=>{
+        var dateFrom = $('#dateFrom').val();
+        var dateTo = $('#dateTo').val();
+        var shift = $('#shiftFilter').val();
+        $.ajax({
+            url : '../function/controller.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'load_file_history',
+                dateFrom:dateFrom,
+                dateTo:dateTo,
+                shift:shift
+            },success:function(response){
+                console.log(response);
+            } 
+        });
+    }
+
+
+
+</script>
 </body>
 </html>
