@@ -210,6 +210,10 @@
             $('.row_count').each(function(){
                 row_data.push($(this).html());
             });
+
+
+        
+
             // SERIALIZE ARRAY USING FOR LOOP
             for(let i = 0; i < idArray.length;i++){
                 // console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*' + absenceArray[i] + '*!*' + reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + date_from[i] + '*!*' + date_to[i]); 
@@ -248,6 +252,7 @@
                             // SUCCESS
                             if(res == 'success'){
                                 $('#row'+row).addClass('#a5d6a7 green lighten-3');
+                                // $('#row)
                             }
                             
                         }               
