@@ -77,7 +77,7 @@ if($method == 'load_file_history'){
             echo '<td>
             <p>
                 <label>
-                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_user_select()">
+                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_absent_select()">
                     <span></span>
                 </label>
                 </p>

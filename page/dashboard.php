@@ -161,7 +161,7 @@
     const get_checked_length =()=>{
         var checkArr = [];
         $('input.singleCheckFile:checkbox:checked').each(function(){
-            
+            checkArr.push($(this).val());
         });
     }
 
