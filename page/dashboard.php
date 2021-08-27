@@ -58,7 +58,7 @@
 
                 <!-- BUTTON -->
             <div class="col s1 input-field">
-                <button id="search_btn" class="btn-large blue z-depth-5" style="border-radius:30px;">Search</button>    
+                <button id="search_btn" class="btn-large blue z-depth-5" style="border-radius:30px;" onclick="load_filed_absent()">Search</button>    
             </div>
 
             <!-- BLANK -->
@@ -69,11 +69,34 @@
         <div class="col s12 divider"></div>
     </div>
 
+    <div class="row">
+        <div class="col s12">
+            <table class="centered">
+                <thead>
+                    <th>
+                        <p>
+                        <label>
+                            <input type="checkbox" name="" id="checkAllAbsent" class=""value="'.$x['id'].'" onclick="select_all_file()">
+                            <span></span>
+                        </label>
+                    </p>
+                    </th>
+                    <th>PROVIDER</th>
+                    <th>EMPLOYEE ID</th>
+                    <th>NAME</th>
+                    <th>SECTION</th>
+                </thead>
+                <tbody id="filed_data"></tbody>
+            </table>
+        </div>
+    </div>
+
 
     <!-- JS & JQUERY -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script>
+    console.log('%cRESTRICTED VIEW, YOU ARE MONITORED','color:red;font-size:20px;');
          $(document).ready(function(){
             $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
@@ -113,13 +136,34 @@
                 dateFrom:dateFrom,
                 dateTo:dateTo,
                 shift:shift
-            },success:function(response){
-                console.log(response);
+            },success:function(response){  
+                $('#filed_data').html(response);
             } 
         });
     }
 
+    // CHECK ALL
+    const select_all_file =()=>{
+        var checked_all = document.getElementById('checkAllAbsent');
+        if(check_all.checked == true){
+            $('.singleCheckFile').each(function(){
+                this.checked =true;
+            });
+        }else{
+            $('.singleCheckFile').each(function(){
+                this.checked = false;
+            });
+        }
+        get_checked_length();
+    }
 
+    // GET CHECKED ITEMS
+    const get_checked_length =()=>{
+        var checkArr = [];
+        $('input.singleCheckFile:checkbox:checked').each(function(){
+            
+        });
+    }
 
 </script>
 </body>

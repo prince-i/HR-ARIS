@@ -48,18 +48,61 @@
         $stmt = $conn->prepare($check);
         $stmt->execute();
         if($stmt->rowCount() > 0){
-            echo "exist"."~!~".$name;
+            echo "exist"."~!~".$rowID."~!~".$name;
         }else{
-            $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`,`shift`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to','$shift')";
+            $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`,`shift`,`date_upload`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to','$shift','$server_date')";
         $stmt = $conn->prepare($file);
         // $stmt->execute();
         if($stmt->execute()){
             echo "success"."~!~".$rowID;
         }else{
             echo "error"."~!~".$rowID;
+            }
         }
-    }
     }  
+}
+
+if($method == 'load_file_history'){
+    $dateFrom = $_POST['dateFrom'];
+    $dateTo = $_POST['dateTo'];
+    $shift = $_POST['shift'];
+    // $count = 0;
+    $query = "SELECT *FROM aris_absent_filing WHERE (date_upload >= '$dateFrom' AND date_upload = '$dateTo') AND shift LIKE '$shift%'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    if($stmt->rowCount() > 0){
+        foreach($stmt->fetchALL() as $x){
+            // $count++;
+            echo '<tr>';
+            echo '<td>
+            <p>
+                <label>
+                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_user_select()">
+                    <span></span>
+                </label>
+                </p>
+            </td>';
+            echo '<td>'.$x['provider'].'</td>';
+            echo '<td>'.$x['emp_id_number'].'</td>';
+            echo '<td>'.$x['name'].'</td>';
+            echo '<td>'.$x['section'].'</td>';
+            echo '<td>'.$x['carmodel_group'].'</td>';
+            echo '<td>'.$x['process_line'].'</td>';
+            echo '<td>'.$x['absence_num'].'</td>';
+            echo '<td>'.$x['reason'].'</td>';
+            echo '<td>'.$x['reason_2'].'</td>';
+            echo '<td>'.$x['uploader'].'</td>';
+            echo '<td>'.$x['date_absent_from'].'</td>';
+            echo '<td>'.$x['date_absent_to'].'</td>';
+            echo '<td>'.$x['shift'].'</td>';
+            echo '<td>'.$x['date_upload'].'</td>';
+            echo '</tr>';
+        }
+    }else{
+        echo '<tr>';
+        echo '<td colspan="15">NO FILED YET</td>';
+        echo '</tr>';
+    }
 }
 
 ?>

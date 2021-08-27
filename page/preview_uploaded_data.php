@@ -212,6 +212,7 @@
             });
 
 
+            
         
 
             // SERIALIZE ARRAY USING FOR LOOP
@@ -242,23 +243,27 @@
                             var report = response.split("~!~");
                             var res = report[0];
                             var row = report[1];
+                            var name = report[2];
                             if(res == 'error'){
                                 $('#row'+row).addClass('#e57373 red lighten-2');
                             }
                             if(res == 'exist'){
                             // ALERT 
-                            M.toast({html: 'Existing absent file for '+row,classes: 'rounded blue'});
+                            
+                            M.toast({html: 'Existing absent file for '+name,classes: 'rounded blue'});
+                            $('#row'+row).remove();
                             }
                             // SUCCESS
                             if(res == 'success'){
                                 $('#row'+row).addClass('#a5d6a7 green lighten-3');
-                                // $('#row)
+                                $('#row'+row).remove();
+                                
                             }
+                            
                             
                         }               
                     });
                 }
-            
         }
     </script>
 </body>
