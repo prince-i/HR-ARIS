@@ -70,8 +70,11 @@
     </div>
 
     <div class="row">
+        <div class="col s4">
+            <button class="btn-small red" disabled id="delete_absent" onclick="del_selected_data()">DELETE &times;</button>
+        </div>
         <div class="col s12">
-            <table class="centered">
+            <table class="centered" style="zoom:80%;">
                 <thead>
                     <th>
                         <p>
@@ -85,6 +88,16 @@
                     <th>EMPLOYEE ID</th>
                     <th>NAME</th>
                     <th>SECTION</th>
+                    <th>CARMODEL/GROUP</th>
+                    <th>PROCESS/LINE</th>
+                    <th># OF DAYS ABSENT</th>
+                    <th>REASON</th>
+                    <th>REASON2</th>
+                    <th>FILED BY</th>
+                    <th>ABSENT FROM</th>
+                    <th>ABSENT TO</th>
+                    <th>SHIFT</th>
+                    <th>DATE UPLOAD</th>
                 </thead>
                 <tbody id="filed_data"></tbody>
             </table>
@@ -127,6 +140,7 @@
         var dateFrom = $('#dateFrom').val();
         var dateTo = $('#dateTo').val();
         var shift = $('#shiftFilter').val();
+        // console.log(dateFrom);
         $.ajax({
             url : '../function/controller.php',
             type: 'POST',
@@ -145,25 +159,60 @@
     // CHECK ALL
     const select_all_file =()=>{
         var checked_all = document.getElementById('checkAllAbsent');
-        if(check_all.checked == true){
+        
+        if(checked_all.checked == true){
             $('.singleCheckFile').each(function(){
-                this.checked =true;
+                this.checked = true;
             });
         }else{
             $('.singleCheckFile').each(function(){
                 this.checked = false;
             });
         }
-        get_checked_length();
+        get_checked_item();
     }
 
-    // GET CHECKED ITEMS
-    const get_checked_length =()=>{
+    // GET CHECKED ITEMS AND LENGTH
+    const get_checked_item =()=>{
         var checkArr = [];
         $('input.singleCheckFile:checkbox:checked').each(function(){
             checkArr.push($(this).val());
         });
+        var number_selected =  checkArr.length;
+        // console.log(checkArr);
+        if(number_selected > 0){
+            $('#delete_absent').attr('disabled',false);
+        }else{
+            $('#delete_absent').attr('disabled',true);
+        }
     }
+
+    // GET SELECTED DATA ID
+    const del_selected_data =()=>{
+        var items = [];
+        $('input.singleCheckFile:checkbox:checked').each(function(){
+            items.push($(this).val());
+        });
+
+        console.log(items);
+        if(items.length > 0){
+            // RUN AJAX
+            $.ajax({
+                url: '../function/controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'deleteFileClerk',
+                    items:items
+                },success:function(x){
+                    console.log(x);
+                }
+            });
+        }else{
+            console.log('NO ITEM/S SELECTED');
+        }
+    }
+
 
 </script>
 </body>

@@ -67,7 +67,7 @@ if($method == 'load_file_history'){
     $dateTo = $_POST['dateTo'];
     $shift = $_POST['shift'];
     // $count = 0;
-    $query = "SELECT *FROM aris_absent_filing WHERE (date_upload >= '$dateFrom' AND date_upload = '$dateTo') AND shift LIKE '$shift%'";
+    $query = "SELECT *FROM aris_absent_filing WHERE date_upload >= '$dateFrom' AND date_upload <= '$dateTo' AND shift LIKE '$shift%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount() > 0){
@@ -77,7 +77,7 @@ if($method == 'load_file_history'){
             echo '<td>
             <p>
                 <label>
-                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_absent_select()">
+                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_checked_item()">
                     <span></span>
                 </label>
                 </p>
@@ -105,4 +105,25 @@ if($method == 'load_file_history'){
     }
 }
 
+    if($method == 'deleteFileClerk'){
+        $itemID = array();
+        $itemID = $_POST['items'];
+        $count = count($itemID);
+        foreach($itemID as $x){
+            // DELETE QUERY
+            $del = "DELETE FROM aris_absent_filing WHERE id = '$x'";
+            $stmt = $conn->prepare($del);
+            if($stmt->execute()){
+                // IN EVERY SUCCESS OF FUNCTION MINUS 1 TO THE ORIGINAL ARRAY ITEM COUNT
+                $count = $count - 1;
+            }
+        }
+
+        // IF COUNT == 0 THE FUNCTION RETURN SUCCESS
+        if($count == 0){
+            echo 'deleted';
+        }else{
+            echo 'failed';
+        }
+    }
 ?>
