@@ -79,7 +79,7 @@
                     <th>
                         <p>
                         <label>
-                            <input type="checkbox" name="" id="checkAllAbsent" class=""value="'.$x['id'].'" onclick="select_all_file()">
+                            <input type="checkbox" name="" id="checkAllAbsent" class="" value="" onclick="select_all_file()">
                             <span></span>
                         </label>
                     </p>
@@ -108,6 +108,7 @@
     <!-- JS & JQUERY -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
     <script>
     console.log('%cRESTRICTED VIEW, YOU ARE MONITORED','color:red;font-size:20px;');
          $(document).ready(function(){
@@ -206,6 +207,14 @@
                     items:items
                 },success:function(x){
                     console.log(x);
+                    if(x == 'deleted'){
+                        load_filed_absent();
+                        swal('Done','Successfully deleted!','success');
+                    }else{
+                        swal('Sorry','An error was occured!','error');
+                    }
+                    $('#delete_absent').attr('disabled',true);
+                    $('#checkAllAbsent:checkbox').attr('checked',false);
                 }
             });
         }else{
