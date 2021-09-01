@@ -100,7 +100,17 @@
                 echo '<td >
                        <input type="text" class="datepicker absent_date_to" value="'.$server_date.'" onchange="calculate_absent_date()">
                 </td>';
-                echo '<td class="eachShift">'.$d['empShift'].'</td>';
+                echo '<td class="">
+                        <select class="browser-default z-depth-4 eachShift">';
+                         if($d['empShift'] == 'DS'){
+                             echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                             echo '<option value="NS">NS</option>';
+                         }else{
+                            echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                            echo '<option value="DS">DS</option>';
+                         }  
+                        '</select>
+                        </td>';
                 echo '</tr>';
                 
             }
@@ -108,7 +118,6 @@
     }
     echo '</table>';
     }else{
-        
         echo '<div class="row col s12">';
         echo '<div class="card center"><h5>NO CSV FILE IS UPLOADED!</h5></div>';
         echo '</div>';
@@ -204,7 +213,7 @@
             // SHIFT
             var shift = [];
             $('.eachShift').each(function(){
-                shift.push($(this).html());
+                shift.push($(this).val());
             });
 
             var row_data = [];
