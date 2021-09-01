@@ -71,15 +71,11 @@
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
-                echo '<td contenteditable class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
+                echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default reason">
                             <option value=""></option>
-                            <option value="SL">SL</option>
-                            <option value="VL">VL</option>
-                            <option value="ML">ML</option>
-                            <option value="AWOL">AWOL</option>
-                            <option value="LWOP">LWOP</option>
+                            
                         </select>
                         </td>';
 
@@ -93,11 +89,11 @@
                     </td>';
 
                 echo '<td >
-                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'">
+                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'" onchange="calculate_absent_date()">
                     </td>';
 
                 echo '<td >
-                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'">
+                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'" onchange="calculate_absent_date()">
                 </td>';
                 echo '<td class="eachShift">'.$d['empShift'].'</td>';
                 echo '</tr>';
@@ -210,11 +206,6 @@
             $('.row_count').each(function(){
                 row_data.push($(this).html());
             });
-
-
-            
-        
-
             // SERIALIZE ARRAY USING FOR LOOP
             for(let i = 0; i < idArray.length;i++){
                 // console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*' + absenceArray[i] + '*!*' + reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + date_from[i] + '*!*' + date_to[i]); 
@@ -259,12 +250,17 @@
                                 $('#row'+row).remove();
                                 
                             }
-                            
-                            
                         }               
                     });
                 }
         }
+
+    // CALCULATE ABSENT DAYS BASE TO FALP CALENDAR
+    const calculate_absent_date =()=>{
+
+    }    
+
+
     </script>
 </body>
 </html>

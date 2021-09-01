@@ -52,7 +52,6 @@
         }else{
             $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`,`shift`,`date_upload`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to','$shift','$server_date')";
         $stmt = $conn->prepare($file);
-        // $stmt->execute();
         if($stmt->execute()){
             echo "success"."~!~".$rowID;
         }else{
