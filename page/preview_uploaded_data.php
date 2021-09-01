@@ -36,7 +36,7 @@
     );
     }
     $c = 0;
-    echo '<table class="centered" id="tbl">';
+    echo '<table class="centered" id="tbl" style="zoom:80%;">';
     echo '<thead>';
     echo '<th>#</th>';
     echo '<th>PROVIDER</th>';
@@ -73,9 +73,16 @@
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
                 echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
                 echo '<td >
-                        <select id="reason'.$c.'" class="browser-default reason">
-                            <option value=""></option>
-                            
+                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason">
+                            <option value="">REASON</option>';
+                            $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason";
+                            $stmt = $conn->prepare($get_reason);
+                            $stmt->execute();
+                            foreach($stmt->fetchALL() as $x){
+                                echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                            }
+                        
+                        echo'
                         </select>
                         </td>';
 
