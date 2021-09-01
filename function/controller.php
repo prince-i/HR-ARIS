@@ -104,6 +104,7 @@ if($method == 'load_file_history'){
     }
 }
 
+    // DELETE OF FILE BY CLERK
     if($method == 'deleteFileClerk'){
         $itemID = array();
         $itemID = $_POST['items'];
@@ -125,4 +126,19 @@ if($method == 'load_file_history'){
             echo 'failed';
         }
     }
+
+    // FETCH REASON BY CATEGORY
+    if($method == 'getReason'){
+        $categ = $_POST['value'];
+        $fetchReason = "SELECT reason2 FROM aris_absent_reason WHERE reason_categ = '$categ'";
+        $stmt = $conn->prepare($fetchReason);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+            }
+        }
+    }
+
+
 ?>

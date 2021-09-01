@@ -73,7 +73,7 @@
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
                 echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
                 echo '<td >
-                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason">
+                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
                             <option value="">REASON</option>';
                             $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason";
                             $stmt = $conn->prepare($get_reason);
@@ -87,11 +87,9 @@
                         </td>';
 
                 echo '<td >
-                        <select id="reason2'.$c.'" class="browser-default reason2">
-                            <option value=""></option>
-                            <option value="Family Matter">Family Matter</option>
-                            <option value="Personal Matter">Personal Matter</option>
-                            <option value="Quarantine">Quarantine</option>
+                        <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">
+                            <option value="">REASON 2</option>
+                           
                         </select>
                     </td>';
 
@@ -249,7 +247,7 @@
                             // ALERT 
                             
                             M.toast({html: 'Existing absent file for '+name,classes: 'rounded blue'});
-                            $('#row'+row).remove();
+                            // $('#row'+row).remove();
                             }
                             // SUCCESS
                             if(res == 'success'){
@@ -267,7 +265,23 @@
 
     }    
 
-
+    const load_reason =(x)=>{
+        // VARIABLE X IS THE ID OF REASON SELECT TAG
+        var value = $('#reason'+x).val();
+        console.log(value);
+        $.ajax({
+            url: '../function/controller.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'getReason',
+                value:value
+            },success:function(data){
+                console.log(data);
+                $('#reason2'+x).html(data);
+            }
+        });
+    }
     </script>
 </body>
 </html>
