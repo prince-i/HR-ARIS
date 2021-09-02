@@ -40,7 +40,7 @@
         $absent_to = $_POST['absent_to'];
         $shift = $_POST['shift'];
         $rowID =  $_POST['row_data'];
-        if(empty($reason) || empty($reason2)){
+        if(empty($reason) || empty($reason2) || empty($absent_from) || empty($absent_to)){
             echo "error"."~!~".$rowID;
         }else{
         // CHECK DATA IF EXISTED
@@ -140,5 +140,6 @@ if($method == 'load_file_history'){
         }
     }
 
+    // CALCULATE ABSENT DAYS
 
 ?>

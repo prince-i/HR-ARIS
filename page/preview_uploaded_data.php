@@ -94,11 +94,11 @@
                     </td>';
 
                 echo '<td >
-                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'" onchange="calculate_absent_date()">
+                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'" onchange="calculate_absent_date('.$c.')" id="date_from'.$c.'">
                     </td>';
 
                 echo '<td >
-                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'" onchange="calculate_absent_date()">
+                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'" onchange="calculate_absent_date('.$c.')" id="date_to'.$c.'">
                 </td>';
                 echo '<td class="">
                         <select class="browser-default z-depth-4 eachShift">';
@@ -270,8 +270,22 @@
         }
 
     // CALCULATE ABSENT DAYS BASE TO FALP CALENDAR
-    const calculate_absent_date =()=>{
-
+    const calculate_absent_date =(x)=>{
+        // console.log(x);
+        var date_from = document.querySelector('#date_from'+x).value;
+        var date_to = document.querySelector('#date_to'+x).value;
+        $.ajax({
+            url: '../function/controller.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'calculateAbsent',
+                date_from:date_from,
+                date_to:date_to
+            },success:function(response){
+                console.log(response);
+            }
+        });
     }    
 
     const load_reason =(x)=>{
@@ -286,7 +300,7 @@
                 method: 'getReason',
                 value:value
             },success:function(data){
-                console.log(data);
+                // console.log(data);
                 $('#reason2'+x).html(data);
             }
         });
