@@ -141,5 +141,7 @@ if($method == 'load_file_history'){
     }
 
     // CALCULATE ABSENT DAYS
-
+    if($method == 'calculateAbsent'){
+        
+    }
 ?>
