@@ -82,7 +82,10 @@ if($method == 'load_file_history'){
                 </p>
             </td>';
             echo '<td>'.$x['provider'].'</td>';
-            echo '<td>'.$x['emp_id_number'].'</td>';
+            echo '<td>
+                    <a href="#modal-edit-absent-file" class="modal-trigger">
+                    '.$x['emp_id_number'].'</a>
+                </td>';
             echo '<td>'.$x['name'].'</td>';
             echo '<td>'.$x['section'].'</td>';
             echo '<td>'.$x['carmodel_group'].'</td>';
@@ -95,8 +98,7 @@ if($method == 'load_file_history'){
             echo '<td>'.$x['date_absent_to'].'</td>';
             echo '<td>'.$x['shift'].'</td>';
             echo '<td>'.$x['date_upload'].'</td>';
-            echo '<td><button class="modal-trigger btn-small blue">Edit</button></td>';
-            echo '</tr>';
+            
         }
     }else{
         echo '<tr>';

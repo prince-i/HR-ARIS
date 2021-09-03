@@ -16,13 +16,10 @@
     include '../components/Modals/modal_logout.php';
     include '../components/Modals/modal_upload_absent.php';
     include '../components/Modals/modal_file_absent.php';
+    include '../components/Modals/edit_uploaded_clerk.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
-    <style>
-        thead th{
-            min-width:130px;
-        }
-    </style>
+
 </head>
 <body>
     <div class="navbar-fixed">
@@ -78,7 +75,7 @@
         <div class="col s4">
             <button class="btn-small red" disabled id="delete_absent" onclick="del_selected_data()">DELETE &times;</button>
         </div>
-        <div class="col s12" style="overflow:auto;">
+        <div class="col s12" style="overflow:auto;max-height:65vh;">
             <table class="centered" style="zoom:80%;">
                 <thead style="font-size:12px;">
                     <th>
