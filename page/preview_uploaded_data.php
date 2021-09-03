@@ -71,7 +71,7 @@
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
-                echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;"/></td>';
+                echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;" id="absence_no'.$c.'"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
                             <option value="">REASON</option>';
@@ -89,7 +89,6 @@
                 echo '<td >
                         <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">
                             <option value="">REASON 2</option>
-                           
                         </select>
                     </td>';
 
@@ -283,7 +282,8 @@
                 date_from:date_from,
                 date_to:date_to
             },success:function(response){
-                console.log(response);
+                // console.log(response);
+                $('#absence_no'+x).val(response);
             }
         });
     }    

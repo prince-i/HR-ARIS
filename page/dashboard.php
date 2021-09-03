@@ -18,6 +18,11 @@
     include '../components/Modals/modal_file_absent.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <style>
+        thead th{
+            min-width:130px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar-fixed">
@@ -73,9 +78,9 @@
         <div class="col s4">
             <button class="btn-small red" disabled id="delete_absent" onclick="del_selected_data()">DELETE &times;</button>
         </div>
-        <div class="col s12">
+        <div class="col s12" style="overflow:auto;">
             <table class="centered" style="zoom:80%;">
-                <thead>
+                <thead style="font-size:12px;">
                     <th>
                         <p>
                         <label>
@@ -180,7 +185,7 @@
             checkArr.push($(this).val());
         });
         var number_selected =  checkArr.length;
-        // console.log(checkArr);
+        console.log(checkArr);
         if(number_selected > 0){
             $('#delete_absent').attr('disabled',false);
         }else{

@@ -40,7 +40,7 @@
         $absent_to = $_POST['absent_to'];
         $shift = $_POST['shift'];
         $rowID =  $_POST['row_data'];
-        if(empty($reason) || empty($reason2) || empty($absent_from) || empty($absent_to)){
+        if(empty($reason) || empty($reason2) || empty($absent_from) || empty($absent_to) || $absence <= 0){
             echo "error"."~!~".$rowID;
         }else{
         // CHECK DATA IF EXISTED
@@ -76,7 +76,7 @@ if($method == 'load_file_history'){
             echo '<td>
             <p>
                 <label>
-                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onclick="get_checked_item()">
+                    <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onchange="get_checked_item()">
                     <span></span>
                 </label>
                 </p>
@@ -95,6 +95,7 @@ if($method == 'load_file_history'){
             echo '<td>'.$x['date_absent_to'].'</td>';
             echo '<td>'.$x['shift'].'</td>';
             echo '<td>'.$x['date_upload'].'</td>';
+            echo '<td><button class="modal-trigger btn-small blue">Edit</button></td>';
             echo '</tr>';
         }
     }else{
@@ -172,12 +173,11 @@ if($method == 'load_file_history'){
         if(is_numeric($dateFromID) && is_numeric($dateToID)){
             echo $absence =  ($dateToID - $dateFromID) + 1;
         }else{
-            echo '1';
+            echo '0';
         }
-        // if($dateFromID != '' || $dateToID != ''){
-        //  echo   $absence =  $dateToID - $dateFromID;
-        // }else{
-        //     echo '1';
-        // }
     }
+
+
+
+    $conn = null;
 ?>
