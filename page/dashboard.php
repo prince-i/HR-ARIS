@@ -224,6 +224,35 @@
         }
     }
 
+    const getToEdit =(param)=>{
+        // console.log(param);
+        var str = param.split('*!*');
+        var id = str[0];
+        var provider = str[1];
+        var employee_id = str[2];
+        var name = str[3];
+        var section = str[4];
+        var carmodelGroup = str[5];
+        var process_line = str[6];
+        var absence_num =  str[7];
+        var reason = str[8];
+        var reason2 = str[9];
+        var absentFrom = str[10];
+        var absentTo = str[11];
+        var shift = str[12];
+
+        // DISTRIBUTING VALUES
+        $('#editIDAbsent').val(id);
+        $('#providerPrev').html(provider);
+        $('#employeeIDPrev').html(employee_id);
+        $('#employeeName').html(name);
+        $('#sectionPrev').html(section);
+        $('#carmodelGroupPrev').html(carmodelGroup);
+        $('#processLinePrev').html(process_line);
+        $('#absencePrev').html(absence_num);
+        $('#reasonPrev').html(reason);
+        $('#reason2Prev').html(reason2);
+    }
 
 </script>
 </body>

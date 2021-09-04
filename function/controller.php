@@ -83,7 +83,21 @@ if($method == 'load_file_history'){
             </td>';
             echo '<td>'.$x['provider'].'</td>';
             echo '<td>
-                    <a href="#modal-edit-absent-file" class="modal-trigger">
+                    <a href="#modal-edit-absent-file" class="modal-trigger" 
+                    onclick="getToEdit(&quot;'
+                    .$x['id'].'*!*'
+                    .$x['provider'].'*!*'
+                    .$x['emp_id_number'].'*!*'
+                    .$x['name'].'*!*'
+                    .$x['section'].'*!*'
+                    .$x['carmodel_group'].'*!*'
+                    .$x['process_line'].'*!*'
+                    .$x['absence_num'].'*!*'
+                    .$x['reason'].'*!*'
+                    .$x['reason_2'].'*!*'
+                    .$x['date_absent_from'].'*!*'
+                    .$x['date_absent_to'].'*!*'
+                    .$x['shift'].'&quot;)">
                     '.$x['emp_id_number'].'</a>
                 </td>';
             echo '<td>'.$x['name'].'</td>';
@@ -178,7 +192,6 @@ if($method == 'load_file_history'){
             echo '0';
         }
     }
-
 
 
     $conn = null;
