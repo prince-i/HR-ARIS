@@ -45,11 +45,9 @@
     echo '<th>SECTION</th>';
     echo '<th>CAR MODEL/GROUP</th>';
     echo '<th>PROCESS/LINE</th>';
-    echo '<th># OF ABSENCE</th>';
+    echo '<th>DATE ABSENT</th>';
     echo '<th>REASON</th>';
     echo '<th>REASON2</th>';
-    echo '<th>ABSENT FROM</th>';
-    echo '<th>ABSENT TO</th>';
     echo '<th>SHIFT</th>';
     echo '</thead>';
     foreach($row_data as $x){
@@ -71,7 +69,7 @@
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
-                echo '<td class="absence"><input type="number" value="1" class="center" style="width:50px;" id="absence_no'.$c.'"/></td>';
+                echo '<td><input type="text" class="datepicker absent_date_file" value="'.$server_date.'"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
                             <option value="">REASON</option>';
@@ -92,13 +90,6 @@
                         </select>
                     </td>';
 
-                echo '<td >
-                       <input type="text" class="datepicker absent_date_from" value="'.$server_date.'" onchange="calculate_absent_date('.$c.')" id="date_from'.$c.'">
-                    </td>';
-
-                echo '<td >
-                       <input type="text" class="datepicker absent_date_to" value="'.$server_date.'" onchange="calculate_absent_date('.$c.')" id="date_to'.$c.'">
-                </td>';
                 echo '<td class="">
                         <select class="browser-default z-depth-4 eachShift">';
                          if($d['empShift'] == 'DS'){
@@ -178,12 +169,6 @@
                 lineArray.push($(this).html());
             });
 
-            // ABSENCE
-            var absenceArray = [];
-            $('.absence input').each(function(){
-                absenceArray.push($(this).val());
-            });
-
             // REASON
             var reasonArray = [];
             $('.reason').each(function(){
@@ -197,16 +182,12 @@
                 reason2Array.push($(this).val());
             });
 
-            // ABSENT FROM
-            var date_from = [];
-            $('.absent_date_from').each(function(){
-                date_from.push($(this).val());
-            });
 
-            // ABSENT TO
-            var date_to = [];
-            $('.absent_date_to').each(function(){
-                date_to.push($(this).val());
+
+            // ABSENT DATE
+            var absent_date = [];
+            $('.absent_date_file').each(function(){
+                absent_date.push($(this).val());
             });
 
             // SHIFT
@@ -221,7 +202,7 @@
             });
             // SERIALIZE ARRAY USING FOR LOOP
             for(let i = 0; i < idArray.length;i++){
-                // console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*' + absenceArray[i] + '*!*' + reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + date_from[i] + '*!*' + date_to[i]); 
+                // console.log(providerArray[i]+ "*!*" + idArray[i] + "*!*" + nameArray[i] + '*!*' + deptSectArray[i] + '*!*' + subSectArray[i] + '*!*' + lineArray[i] + '*!*'+ reasonArray[i] + '*!*' + reason2Array[i] + '*!*' + absent_date[i]); 
                     $.ajax({
                         url: '../function/controller.php',
                         type: 'POST',
@@ -234,12 +215,10 @@
                             deptSection: deptSectArray[i],
                             group: subSectArray[i],
                             line: lineArray[i],
-                            absence: absenceArray[i],
                             reason: reasonArray[i],
                             reason2: reason2Array[i],
                             uploader: '<?=$fullname;?>',
-                            absent_from: date_from[i],
-                            absent_to: date_to[i],
+                            absent_date: absent_date[i],
                             shift:shift[i],
                             row_data:row_data[i]
                         },success:function(response){

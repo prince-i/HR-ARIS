@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <td><b>CARMODEL/GROUP:</b></td>
-                    <td contenteditable id="carmodelGroupPrev"></td>
+                    <td id="carmodelGroupPrev"></td>
                     <td><b>PROCESS/LINE:</b></td>
                     <td id="processLinePrev"></td>
                 </tr>

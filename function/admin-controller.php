@@ -1,0 +1,40 @@
+<?php
+    include 'conn.php'; 
+    $method = $_POST['method'];
+
+    if($method == 'generateAbsence'){
+        $from = $_POST['genFrom'];
+        $to = $_POST['genTo'];
+        $shift = $_POST['genShift'];
+        $count = 0;
+        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, SUM(absence_num) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE 
+        ((date_absent_from >= '$from' AND date_absent_from <= '$to') AND (date_absent_from >= '$from' AND date_absent_to <= '$to') AND (date_absent_from >= '$from' AND date_absent_to <= '$to')) 
+        GROUP BY emp_id_number";
+        $stmt = $conn->prepare($generate);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $count++;
+                echo '<tr>';
+                echo '<td>'.$count.'</td>';
+                echo '<td>'.$x['provider'].'</td>';
+                echo '<td>'.$x['emp_id_number'].'</td>';
+                echo '<td>'.$x['name'].'</td>';
+                echo '<td>'.$x['section'].'</td>';
+                echo '<td>'.$x['carmodel_group'].'</td>';
+                echo '<td>'.$x['process_line'].'</td>';
+                echo '<td>'.$x['total_absence_num'].'</td>';
+                echo '<td>'.$x['reason'].'</td>';
+                echo '<td>'.$x['reason_2'].'</td>';
+                echo '</tr>';
+            }
+            
+        }else{
+            echo '<tr>';
+            echo '<td colspan="10">NO RECORD</td>';
+            echo '</tr>';
+        }
+
+    }
+
+?>

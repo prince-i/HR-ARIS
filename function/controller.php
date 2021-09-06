@@ -32,25 +32,25 @@
         $deptSection = $_POST['deptSection'];
         $group = $_POST['group'];
         $line = $_POST['line'];
-        $absence = $_POST['absence'];
         $reason = $_POST['reason'];
         $reason2 = $_POST['reason2'];
         $uploader = $_POST['uploader'];
-        $absent_from = $_POST['absent_from'];
-        $absent_to = $_POST['absent_to'];
+        $absent_date = $_POST['absent_date'];
         $shift = $_POST['shift'];
         $rowID =  $_POST['row_data'];
-        if(empty($reason) || empty($reason2) || empty($absent_from) || empty($absent_to) || $absence <= 0){
+        if(empty($reason) || empty($reason2) || empty($absent_date)){
             echo "error"."~!~".$rowID;
         }else{
         // CHECK DATA IF EXISTED
-        $check = "SELECT id FROM aris_absent_filing WHERE date_absent_from >= '$absent_from' AND date_absent_to >= '$absent_to' AND emp_id_number = '$empID'";
+        $check = "SELECT id FROM aris_absent_filing WHERE date_absent = '$absent_date'  AND emp_id_number = '$empID'";
         $stmt = $conn->prepare($check);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             echo "exist"."~!~".$rowID."~!~".$name;
         }else{
-            $file = "INSERT INTO aris_absent_filing (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`absence_num`,`reason`,`reason_2`,`uploader`,`date_absent_from`,`date_absent_to`,`shift`,`date_upload`) VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$absence','$reason','$reason2','$uploader','$absent_from','$absent_to','$shift','$server_date')";
+            $file = "INSERT INTO aris_absent_filing 
+            (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`reason`,`reason_2`,`uploader`,`shift`,`date_absent`,`date_upload`) 
+            VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$reason','$reason2','$uploader','$shift','$absent_date','$server_date')";
         $stmt = $conn->prepare($file);
         if($stmt->execute()){
             echo "success"."~!~".$rowID;
@@ -65,8 +65,11 @@ if($method == 'load_file_history'){
     $dateFrom = $_POST['dateFrom'];
     $dateTo = $_POST['dateTo'];
     $shift = $_POST['shift'];
+    $section = $_POST['section'];
+    $subsection = $_POST['subsection'];
+
     // $count = 0;
-    $query = "SELECT *FROM aris_absent_filing WHERE date_upload >= '$dateFrom' AND date_upload <= '$dateTo' AND shift LIKE '$shift%'";
+    $query = "SELECT *FROM aris_absent_filing WHERE date_absent >= '$dateFrom' AND date_absent <= '$dateTo' AND shift LIKE '$shift%' AND section LIKE '$section%' AND carmodel_group LIKE '$subsection%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount() > 0){
@@ -92,11 +95,9 @@ if($method == 'load_file_history'){
                     .$x['section'].'*!*'
                     .$x['carmodel_group'].'*!*'
                     .$x['process_line'].'*!*'
-                    .$x['absence_num'].'*!*'
                     .$x['reason'].'*!*'
                     .$x['reason_2'].'*!*'
-                    .$x['date_absent_from'].'*!*'
-                    .$x['date_absent_to'].'*!*'
+                    .$x['date_absent'].'*!*'
                     .$x['shift'].'&quot;)">
                     '.$x['emp_id_number'].'</a>
                 </td>';
@@ -104,12 +105,10 @@ if($method == 'load_file_history'){
             echo '<td>'.$x['section'].'</td>';
             echo '<td>'.$x['carmodel_group'].'</td>';
             echo '<td>'.$x['process_line'].'</td>';
-            echo '<td>'.$x['absence_num'].'</td>';
             echo '<td>'.$x['reason'].'</td>';
             echo '<td>'.$x['reason_2'].'</td>';
             echo '<td>'.$x['uploader'].'</td>';
-            echo '<td>'.$x['date_absent_from'].'</td>';
-            echo '<td>'.$x['date_absent_to'].'</td>';
+            echo '<td>'.$x['date_absent'].'</td>';
             echo '<td>'.$x['shift'].'</td>';
             echo '<td>'.$x['date_upload'].'</td>';
             
@@ -192,6 +191,8 @@ if($method == 'load_file_history'){
             echo '0';
         }
     }
+
+
 
 
     $conn = null;

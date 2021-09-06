@@ -92,12 +92,10 @@
                     <th>SECTION</th>
                     <th>CARMODEL/GROUP</th>
                     <th>PROCESS/LINE</th>
-                    <th># OF DAYS ABSENT</th>
                     <th>REASON</th>
                     <th>REASON2</th>
                     <th>FILED BY</th>
-                    <th>ABSENT FROM</th>
-                    <th>ABSENT TO</th>
+                    <th>ABSENT DATE</th>
                     <th>SHIFT</th>
                     <th>DATE UPLOAD</th>
                 </thead>
@@ -143,7 +141,9 @@
         var dateFrom = $('#dateFrom').val();
         var dateTo = $('#dateTo').val();
         var shift = $('#shiftFilter').val();
-        // console.log(dateFrom);
+        var section = '<?=$deptSection?>';
+        var subsection = '<?=$deptSubSection;?>';
+        // console.log(section);
         $.ajax({
             url : '../function/controller.php',
             type: 'POST',
@@ -152,7 +152,9 @@
                 method: 'load_file_history',
                 dateFrom:dateFrom,
                 dateTo:dateTo,
-                shift:shift
+                shift:shift,
+                section:section,
+                subsection:subsection
             },success:function(response){  
                 $('#filed_data').html(response);
             } 

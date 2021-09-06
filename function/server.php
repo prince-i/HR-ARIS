@@ -30,7 +30,7 @@
                         $_SESSION['role'] = $x['role'];
                         $_SESSION['deptCode'] = $x['deptCode'];
                         $_SESSION['handleLine'] = $x['handleLine'];
-                        header('location: page/admin_dashboard.php');
+                        header('location: page/admin.php');
                     }
                 }
             }else{
