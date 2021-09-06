@@ -52,7 +52,7 @@
             <!-- SHIFT -->
                 <div class="col s2 input-field">
                     <select name="" id="shiftFilter" class="browser-default z-depth-3">
-                        <option value="">--SELECT SHIFT--</option>
+                        <option value="">COMBINE SHIFT</option>
                         <option value="DS">DS</option>
                         <option value="NS">NS</option>
                     </select>

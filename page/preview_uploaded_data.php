@@ -20,7 +20,7 @@
         </div>
         </nav>
   </div>
-
+  
   <div class="row">
   <?php
     // error_reporting(0);

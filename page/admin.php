@@ -19,6 +19,7 @@
     <style>
         #container {
             min-height:90vh;
+            overflow-y:auto;
         }
     </style>
 </head>
@@ -36,13 +37,9 @@
   
 <!-- CONTENT -->
     <div class="row">
-            <div class="col l2 m2 s3">
-                <div class="collection">
-                    <a href="admin.php" class="collection-item blue-text">ABSENT REPORT</a>
-                    <a href="content-admin.php" class="collection-item blue-text">CONTENT MANAGEMENT</a>
-                    <a href="#" class="collection-item blue-text">ACCOUNT MANAGEMENT</a>
-                </div>
-            </div>
+            <!-- SIDE LINKS -->
+            <?php include 'side-nav-admin.php';?>
+
             <!-- CONTAINER -->
             <div class="col l10 m10 s10">
                 <div class="collection" id="container">
@@ -54,25 +51,28 @@
                         <div class="col s3 input-field">
                             <input type="date" name="" value="<?=$server_date;?>" id="generatedateTo"><label for="">Date To:</label>
                         </div>
-
                         <div class="col s2 input-field">
                             <select name="" id="generateShift" class="browser-default">
-                                <option value="">--</option>
+                                <option value="">ALL SHIFT</option>
                                 <option value="DS">DS</option>
                                 <option value="NS">NS</option>
                             </select>
                         </div>
 
-                        <div class="col s3 input-field">
+                        <div class="col s2 input-field">
                             <button class="btn #448aff blue accent-2 col s12" onclick="load_absence_report()">generate</button>
+                        </div>
+                        <!-- EXPORT -->
+                        <div class="col s2 input-field">
+                            <button class="btn #2196f3 blue col s12" onclick="">export</button>
                         </div>
                     </div>
                     </div>
 
                     <div class="row">
-                        <div class="col s12" style="min-height:40px;">
-                        <h5 class="center blue-text">ABSENCES</h5>
-                            <table class="center">
+                        <h5 class="center blue-text">ABSENCES REPORT</h5>
+                        <div class="col s12" style="max-height:70vh;overflow:auto;">
+                            <table class="centered" style="zoom:75%;">
                                 <thead>
                                 <th>#</th>
                                 <th>PROVIDER</th>

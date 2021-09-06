@@ -7,9 +7,7 @@
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
         $count = 0;
-        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, SUM(absence_num) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE 
-        ((date_absent_from >= '$from' AND date_absent_from <= '$to') AND (date_absent_from >= '$from' AND date_absent_to <= '$to') AND (date_absent_from >= '$from' AND date_absent_to <= '$to')) 
-        GROUP BY emp_id_number";
+        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, COUNT(id) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY emp_id_number";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -28,7 +26,6 @@
                 echo '<td>'.$x['reason_2'].'</td>';
                 echo '</tr>';
             }
-            
         }else{
             echo '<tr>';
             echo '<td colspan="10">NO RECORD</td>';

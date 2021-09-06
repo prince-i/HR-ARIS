@@ -1,0 +1,9 @@
+<div class="col l2 m2 s3">
+<div class="collection">
+    <a href="admin.php" class="collection-item blue-text">ABSENCES REPORT</a>
+    <a href="" class="collection-item blue-text">SUMMARY REPORT</a>
+    <a href="" class="collection-item blue-text">TOP REASON</a>
+    <a href="content-admin.php" class="collection-item blue-text">CONTENT MANAGEMENT</a>
+    <a href="#" class="collection-item blue-text">ACCOUNT MANAGEMENT</a>
+</div>
+</div>

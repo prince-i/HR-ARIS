@@ -134,7 +134,6 @@ if($method == 'load_file_history'){
                 $count = $count - 1;
             }
         }
-
         // IF COUNT == 0 THE FUNCTION RETURN SUCCESS
         if($count == 0){
             echo 'deleted';
