@@ -53,7 +53,7 @@
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
-        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptSection = '$deptSection' AND empSubSect = '$deptSection'";
+        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode = '$deptSection' AND empDeptSection = '$deptSubSection'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         
