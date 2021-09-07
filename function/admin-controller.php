@@ -44,4 +44,31 @@
             echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';
         }
     }
+
+    // GENERATE USER 
+    if($method == 'fetchUsers'){
+        $username = $_POST['username'];
+        $fullname = $_POST['fullname'];
+        $role = $_POST['role'];
+        $section = $_POST['section'];
+        $count = 0;
+        $sql = "SELECT *FROM aris_users WHERE username LIKE '$username%' AND fullname LIKE '$fullname%' AND role LIKE '$role%' AND deptSection LIKE '$section%'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $count++;
+                echo '<tr>';
+                echo '<td>'.$count.'</td>';
+                echo '<td>'.$x['username'].'</td>';
+                echo '<td>'.$x['fullname'].'</td>';
+                echo '<td>'.$x['role'].'</td>';
+                echo '<td>'.$x['deptCode'].'</td>';
+                echo '<td>'.$x['deptSection'].'</td>';
+                echo '<td>'.$x['handleLine'].'</td>';
+                echo '</tr>';
+            }
+        }
+    }
+
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2021 at 05:31 AM
+-- Generation Time: Sep 07, 2021 at 11:21 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -55,7 +55,13 @@ INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `se
 (325, 'MAXIM', 'BF-41123', 'Orenday, Marivic S', 'Section 3', 'Daihatsu Initial', 'Secondary Process (Daihatsu D01L)', 'VL', 'Wedding Preparation', 'PD5 CLERK', 'NS', '2021-09-07', '2021-09-07'),
 (326, 'MAXIM', 'BF-40294', 'Señadan, Julie Ann P', 'Section 3', 'Daihatsu Final', '2111', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
 (327, 'MAXIM', 'BF-17750', 'De Guzman, Allan D', 'Section 3', 'Daihatsu Final', '2109', 'VL', 'Settle Important Matter', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(328, 'MAXIM', 'BF-40717', 'Sollivan, Rea  P', 'Section 3', 'Daihatsu Final', 'N/A', 'VL', 'Vaccination', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07');
+(328, 'MAXIM', 'BF-40717', 'Sollivan, Rea  P', 'Section 3', 'Daihatsu Final', 'N/A', 'VL', 'Vaccination', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
+(329, 'FAS', '12-0116', 'Malibiran, Mary Angelique C.', 'Section 3', 'Daihatsu Final', '2121', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
+(330, 'FAS', '12-0081', 'Cailao, Eugenio V.', 'Section 3', 'Daihatsu Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
+(331, 'FAS', '13-00910', 'Pastoral, Lady Lyn D.', 'Section 3', 'Daihatsu Final', '2111', 'ML', 'Maternity leave', 'PD5 CLERK', 'NS', '2021-09-07', '2021-09-07'),
+(332, 'FAS', '13-0156', 'Falogme, Jenny Ann F.', 'Section 3', 'Daihatsu Initial', 'First Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'ADS', '2021-09-07', '2021-09-07'),
+(333, 'FAS', '13-0242', 'De Guzman, Mary Rose U.', 'Section 3', 'Daihatsu Final', '2120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
+(334, 'FAS', '13-0167', 'Silva, Romana B.', 'Section 3', 'Daihatsu Final', '2114', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07');
 
 -- --------------------------------------------------------
 
@@ -161,6 +167,32 @@ INSERT INTO `aris_absent_reason` (`id`, `reason_categ`, `reason2`) VALUES
 (85, 'BL', 'Others'),
 (86, 'For Cancel', 'Others'),
 (87, 'CL', 'Others');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aris_agency`
+--
+
+CREATE TABLE `aris_agency` (
+  `id` int(14) NOT NULL,
+  `agencyCode` varchar(200) DEFAULT NULL,
+  `agencyName` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `aris_agency`
+--
+
+INSERT INTO `aris_agency` (`id`, `agencyCode`, `agencyName`) VALUES
+(1, 'ADD EVEN', 'Add Even Manpower Resources & Solutions'),
+(2, 'FAS', 'Furukawa Automotive System'),
+(3, 'GOLDENHAND', 'Goldenhand Management Services Inc.'),
+(4, 'IPROMOTE', 'IPromote People Enterprise, Inc.'),
+(5, 'MAXIM', 'Maxim'),
+(6, 'MEGATREND', 'Megatrend Workforce Management'),
+(7, 'ONE SOURCE', 'One Source General Solution Inc.'),
+(8, 'PKIMT', 'PKI Manufacturing and Technology. Inc.');
 
 -- --------------------------------------------------------
 
@@ -501,6 +533,12 @@ ALTER TABLE `aris_absent_reason`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `aris_agency`
+--
+ALTER TABLE `aris_agency`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `aris_users`
 --
 ALTER TABLE `aris_users`
@@ -520,13 +558,19 @@ ALTER TABLE `falp_calendar`
 -- AUTO_INCREMENT for table `aris_absent_filing`
 --
 ALTER TABLE `aris_absent_filing`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=329;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
 
 --
 -- AUTO_INCREMENT for table `aris_absent_reason`
 --
 ALTER TABLE `aris_absent_reason`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
+--
+-- AUTO_INCREMENT for table `aris_agency`
+--
+ALTER TABLE `aris_agency`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `aris_users`

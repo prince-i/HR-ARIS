@@ -14,6 +14,7 @@
         header('location:../index.php');
     }
     include '../components/Modals/modal_logout.php';
+    include '../components/Modals/add-user-menu.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -79,7 +80,7 @@
 
                         <!-- CREATE USER -->
                         <div class="col s2 input-field">
-                            <button class="btn blue btn-large col s12" onclick="">&plus; User</button>
+                            <button class="btn #2196f3 blue btn-large col s12 modal-trigger" onclick="load_create_account_menu()" data-target="modal-add-user-menu">&plus; User</button>
                         </div>
                     </div>
                     </div>
@@ -90,17 +91,14 @@
                             <table class="centered" style="zoom:75%;">
                                 <thead>
                                 <th>#</th>
-                                <th>PROVIDER</th>
-                                <th>ID NO.</th>
-                                <th>NAME</th>
-                                <th>AREA</th>
-                                <th>GROUP</th>
-                                <th>PROCESS</th>
-                                <th>NO OF ABSENCES</th>
-                                <th>REASON</th>
-                                <th>REASON 2</th>
+                                <th>USERNAME</th>
+                                <th>FULLNAME</th>
+                                <th>ROLE</th>
+                                <th>DEPTCODE</th>
+                                <th>SECTION</th>
+                                <th>SUBSECTION</th>
                                 </thead>
-                                <tbody id="absences_data_render"></tbody>
+                                <tbody id="users_data_render"></tbody>
                             </table>
                         </div>
                     </div>
@@ -119,6 +117,7 @@
         $(document).ready(function(){
             $('.modal').modal();
             load_section();
+            generateUser();
         });
 
         const load_section =()=>{
@@ -136,7 +135,34 @@
         }
 
         const generateUser =()=>{
-            
+            var username = document.getElementById('searchUserName').value;
+            var fullname = document.getElementById('searchName').value;
+            var role = document.getElementById('searchRole').value;
+            var section = document.getElementById('searchSection').value;
+
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'fetchUsers',
+                    username:username,
+                    fullname:fullname,
+                    role:role,
+                    section:section
+                },success:function(response){
+                    // console.log(response);
+                    document.getElementById('users_data_render').innerHTML = response;
+                }
+            });
+        }
+
+        const load_create_account_menu =()=>{
+            $('#renderAddUserForm').load('../components/Modules/create-account-menu.php');
+        }
+
+        const load_clerk_user_form =()=>{
+            $('#renderAddUserForm').load('../components/Modules/create-clerk.php');
         }
        
     </script>
