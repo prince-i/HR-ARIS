@@ -37,8 +37,8 @@
     // LOAD SECTION FROM HRIS
     if($method == 'load_section_master'){
         echo '<option value="">SECTION</option>';
-        $section  = "SELECT DISTINCT deptSection FROM a_m_department";
-        $stmt = $conn_sas->prepare($section);
+        $section  = "SELECT DISTINCT deptSection FROM aris_department";
+        $stmt = $conn->prepare($section);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
             echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2021 at 11:21 AM
+-- Generation Time: Sep 07, 2021 at 11:54 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -193,6 +193,132 @@ INSERT INTO `aris_agency` (`id`, `agencyCode`, `agencyName`) VALUES
 (6, 'MEGATREND', 'Megatrend Workforce Management'),
 (7, 'ONE SOURCE', 'One Source General Solution Inc.'),
 (8, 'PKIMT', 'PKI Manufacturing and Technology. Inc.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aris_department`
+--
+
+CREATE TABLE `aris_department` (
+  `id` int(14) NOT NULL,
+  `deptCode` varchar(100) DEFAULT NULL,
+  `deptSection` varchar(200) DEFAULT NULL,
+  `deptSubsection` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `aris_department`
+--
+
+INSERT INTO `aris_department` (`id`, `deptCode`, `deptSection`, `deptSubsection`) VALUES
+(1, 'HR', 'Human Resource & GA', 'General Affairs'),
+(2, 'ACC', 'Accounting & Taxation', 'Accounting & Taxation'),
+(3, 'HR', 'Human Resource', 'Human Resource'),
+(4, 'G-Assist', 'G-Assist Team', 'G-Assist Team'),
+(5, 'QA', 'Quality Control', 'QC-Clerk'),
+(6, 'QA', 'Quality Control', 'QC-CSG'),
+(7, 'QA', 'Quality Management', 'QM-CAG'),
+(8, 'QA', 'Quality Management', 'QM-CAG Clerk'),
+(9, 'QA', 'Quality Management', 'QM-QMS'),
+(10, 'QA', 'Quality Management', 'QM-QMS Clerk'),
+(11, 'QA', 'Quality Assurance', 'QA-Final (Mass Pro)'),
+(12, 'QA', 'Quality Assurance', 'QA-Final (SWAT)'),
+(13, 'QA', 'Quality Assurance', 'QA-Initial (Mass Pro)'),
+(14, 'QA', 'Quality Assurance', 'QA-Initial (SWAT)'),
+(15, 'QA', 'Quality Control', 'QC Dock Audit'),
+(16, 'QA', 'Quality Control', 'QC I-ALERT'),
+(17, 'QA', 'Quality Control', 'QC-Improvement'),
+(18, 'QA', 'Quality Assurance', 'QA-FGI'),
+(19, 'QA', 'Quality Assurance', 'QA-FGI Clerk'),
+(20, 'QA', 'Quality Assurance', 'QA-PPG'),
+(21, 'QA', 'Quality Assurance', 'QA-PPG Clerk'),
+(22, 'PMD', 'Production Control', 'PM_JAP'),
+(23, 'PMD', 'Production Control', 'FG Preparation'),
+(24, 'PMD', 'Production Control', 'PC Clerk'),
+(25, 'PMD', 'Production Control', 'Production Control'),
+(26, 'MPD', 'Material Management', 'Material Management'),
+(27, 'MPD', 'Material Management', 'MH (WHSE)'),
+(28, 'MPD', 'Material Management', 'MM Clerk'),
+(29, 'MPD', 'Procurement', 'Procurement'),
+(30, 'PMD', 'Production Control', 'IMPEX'),
+(31, 'PROD', 'Section 2', 'Toyota Initial'),
+(32, 'PROD', 'Section 3', 'Daihatsu Initial'),
+(33, 'PROD', 'Section 5', 'Honda Initial '),
+(34, 'PROD', 'Section 5', 'Honda_TKRA Initial '),
+(35, 'PROD', 'Section 2', 'Mazda J12 Initial'),
+(36, 'PROD', 'Section 2', 'Mazda Merge Initial'),
+(37, 'PROD', 'Section 3', 'Nissan Initial'),
+(38, 'PROD', 'Section 1', 'Section 1 Clerk Initial'),
+(39, 'PROD', 'Section 2', 'Section 2 Clerk Initial'),
+(40, 'PROD', 'Section 3', 'Section 3 Clerk Initial'),
+(41, 'PROD', 'Section 4', 'Section 4 Clerk Initial'),
+(42, 'PROD', 'Section 5', 'Section 5 Clerk Initial'),
+(43, 'PROD', 'Section 6', 'Section 6 Clerk Initial'),
+(44, 'PROD', 'Section 4', 'Subaru Initial'),
+(45, 'PROD', 'Section 1', 'Suzuki Initial'),
+(46, 'PROD', 'Section 2', 'Toyota Final'),
+(47, 'PROD', 'Section 3', 'Daihatsu Final'),
+(48, 'PROD', 'Section 5', 'Honda Final'),
+(49, 'PROD', 'Section 5', 'Honda_TKRA Final'),
+(50, 'PROD', 'Section 2', 'Mazda J12 Final'),
+(51, 'PROD', 'Section 2', 'Mazda Merge Final'),
+(52, 'PROD', 'Section 3', 'Nissan Final'),
+(53, 'PROD', 'Section 1', 'Section 1 Clerk Final'),
+(54, 'PROD', 'Section 2', 'Section 2 Clerk Final'),
+(55, 'PROD', 'Section 3', 'Section 3 Clerk Final'),
+(56, 'PROD', 'Section 4', 'Section 4 Clerk Final'),
+(57, 'PROD', 'Section 5', 'Section 5 Clerk Final'),
+(58, 'PROD', 'Section 6', 'Section 6 Clerk Final'),
+(59, 'PROD', 'Section 4', 'Subaru Final'),
+(60, 'PROD', 'Section 1', 'Suzuki Final'),
+(61, 'PE', 'MPPD', 'PE Clerk'),
+(62, 'PE', 'MPPD', 'PE-Final ( MPPD )'),
+(63, 'PE', 'PEC&C', 'PE Initial'),
+(64, 'PROD', 'Section 6', 'Distributor'),
+(65, 'PROD', 'Section 6', 'PPET'),
+(66, 'PROD', 'Section 6', 'Repair Person'),
+(67, 'PROD', 'Section 6', 'SWAT Final'),
+(68, 'PROD', 'Section 6', 'SWAT Initial'),
+(69, 'PROD', 'Section 6', 'Battery Final'),
+(70, 'PROD', 'Section 6', 'Battery Initial'),
+(71, 'PROD', 'Section 6', 'Tube Cutting'),
+(72, 'PROD', 'Section 6', 'Tube Making'),
+(73, 'EQD', 'Equipment Engineering', 'Machinery Center'),
+(74, 'PROD', 'Section 6', 'VS Laminating'),
+(75, 'HR', 'Recruitment & Training', 'Recruitment'),
+(76, 'HR', 'Recruitment & Training', 'Non- PD Technical Training'),
+(77, 'HR', 'Recruitment & Training', 'PD Technical Training'),
+(78, 'PROD', 'Trainees', 'Final Process OJT (Mass Pro)'),
+(79, 'PROD', 'Trainees', 'Final Process OJT (New Product)'),
+(80, 'PROD', 'Trainees', 'Initial Process OJT (Mass Pro)'),
+(81, 'PROD', 'Trainees', 'Initial Process OJT (New Product)'),
+(82, 'PE', 'AME', 'PE-Final ( AME )'),
+(83, 'IT', 'Information Technology', 'Information Technology'),
+(84, 'EQD', 'Equipment Management', 'Calibration'),
+(85, 'EQD', 'Equipment Management', 'EM Final (Corrective Maintenance)'),
+(86, 'EQD', 'Equipment Management', 'EM Final (Preventive Maintenance)'),
+(87, 'EQD', 'Equipment Management', 'EM Initial (Preventive Maintenance)'),
+(88, 'EQD', 'Equipment Management', 'EM Initial (Corrective Maintenance)'),
+(89, 'EQD', 'Equipment Engineering', 'EQ Clerk'),
+(90, 'EQD', 'Equipment Engineering', 'Fabrication'),
+(91, 'EQD', 'Equipment Management', 'Machine Data'),
+(92, 'EQD', 'Equipment Management', 'Machine Development'),
+(93, 'EQD', 'Equipment Management', 'Spareparts'),
+(94, 'EQD', 'Equipment Management', 'Facilities'),
+(95, 'NF', 'NF Kaizen', 'NF Kaizen'),
+(96, 'PDC', 'Production Design Center', 'Production Design Center'),
+(97, 'PDC', 'Vietnamese Officers', 'Vietnamese Officers'),
+(98, 'PROD', 'Section 6', 'PPET Initial'),
+(99, 'PROD', 'Section 6', 'PPET Final'),
+(100, 'SHD', 'Safety & Health', 'Safety & Health'),
+(101, 'QA', 'Quality Management', 'QM-SMG'),
+(102, 'QA', 'Quality Management', 'QM-SQM'),
+(103, 'QA', 'Quality Management', 'QM-IQC'),
+(104, 'QA', 'Quality Assurance', 'QA-Clerk'),
+(105, 'EQD', 'Equipment Management', 'Equipment Management'),
+(106, 'EQD', 'Equipment Management', 'ISO / Document Control'),
+(107, 'EQD', 'Equipment Engineering', 'Equipment Engineering');
 
 -- --------------------------------------------------------
 
@@ -539,6 +665,12 @@ ALTER TABLE `aris_agency`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `aris_department`
+--
+ALTER TABLE `aris_department`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `aris_users`
 --
 ALTER TABLE `aris_users`
@@ -571,6 +703,12 @@ ALTER TABLE `aris_absent_reason`
 --
 ALTER TABLE `aris_agency`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `aris_department`
+--
+ALTER TABLE `aris_department`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `aris_users`
