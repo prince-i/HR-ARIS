@@ -1,7 +1,7 @@
 <?php
     include 'conn.php'; 
+    include 'sas-conn.php';
     $method = $_POST['method'];
-
     if($method == 'generateAbsence'){
         $from = $_POST['genFrom'];
         $to = $_POST['genTo'];
@@ -34,4 +34,14 @@
 
     }
 
+    // LOAD SECTION FROM HRIS
+    if($method == 'load_section_master'){
+        echo '<option value="">SECTION</option>';
+        $section  = "SELECT DISTINCT deptSection FROM a_m_department";
+        $stmt = $conn_sas->prepare($section);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';
+        }
+    }
 ?>

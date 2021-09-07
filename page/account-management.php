@@ -45,32 +45,47 @@
                 <div class="collection" id="container">
                 <div class="row">
                     <div class="col s12 z-depth-3">
-                        <div class="col s3 input-field">
-                            <input type="date" name="" id="generatedateFrom" value="<?=$server_date;?>"><label for="">Date From:</label>
-                        </div>
-                        <div class="col s3 input-field">
-                            <input type="date" name="" value="<?=$server_date;?>" id="generatedateTo"><label for="">Date To:</label>
-                        </div>
+                        <!-- USERNAME -->
                         <div class="col s2 input-field">
-                            <select name="" id="generateShift" class="browser-default">
-                                <option value="">ALL SHIFT</option>
-                                <option value="DS">DS</option>
-                                <option value="NS">NS</option>
+                            <input type="text" name="" id="searchUserName"><label for="">USERNAME</label>
+                        </div>
+
+                        <!-- FULLNAME -->
+                        <div class="col s2 input-field">
+                            <input type="text" name="" id="searchName"><label for="">FULLNAME</label>
+                        </div>
+
+                        <!-- ROLE -->
+                        <div class="col s2 input-field">
+                            <select name="" id="searchRole" class="browser-default z-depth-3">
+                                <option value="">ROLE</option>
+                                <option value="admin">ADMIN</option>
+                                <option value="clerk">CLERK</option>
+                                <option value="coordinator">COORDINATOR</option>
                             </select>
                         </div>
 
+                        <!-- SECTION -->
                         <div class="col s2 input-field">
-                            <button class="btn #448aff blue accent-2 col s12" onclick="load_absence_report()">generate</button>
+                            <select name="" id="searchSection" class="browser-default z-depth-3">
+                                <option value="">SECTION</option>
+                            </select>
                         </div>
-                        <!-- EXPORT -->
+                        
+                        <!-- GENERATE -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12" onclick="">export</button>
+                            <button class="btn blue btn-large col s12" onclick="generateUser()">generate</button>
+                        </div>
+
+                        <!-- CREATE USER -->
+                        <div class="col s2 input-field">
+                            <button class="btn blue btn-large col s12" onclick="">&plus; User</button>
                         </div>
                     </div>
                     </div>
 
                     <div class="row">
-                        <h5 class="center blue-text">ABSENCES REPORT</h5>
+                        <h5 class="center blue-text">HR-ARIS SYSTEM ACCOUNTS</h5>
                         <div class="col s12" style="max-height:70vh;overflow:auto;">
                             <table class="centered" style="zoom:75%;">
                                 <thead>
@@ -103,29 +118,27 @@
     <script>
         $(document).ready(function(){
             $('.modal').modal();
-            load_absence_report();
+            load_section();
         });
 
-        const load_absence_report =()=>{
-            var genFrom = $('#generatedateFrom').val();
-            var genTo =$('#generatedateTo').val();
-            var genShift = $('#generateShift').val();
-            
+        const load_section =()=>{
             $.ajax({
                 url: '../function/admin-controller.php',
                 type: 'POST',
                 cache: false,
                 data:{
-                    method: 'generateAbsence',
-                    genFrom:genFrom,
-                    genTo:genTo,
-                    genShift:genShift
-                },success:function(response){
-                    $('#absences_data_render').html(response);
-                    // console.log(response);
+                    method: 'load_section_master'
+                },success:function(data){
+                    // console.log(data);
+                    document.getElementById('searchSection').innerHTML = data;
                 }
             });
         }
+
+        const generateUser =()=>{
+            
+        }
+       
     </script>
 </body>
 

@@ -24,7 +24,7 @@
   <div class="row">
   <?php
     // error_reporting(0);
-    // require '../function/conn.php';
+    require '../function/sas-conn.php';
     require '../function/session.php';
     if(!empty($_FILES['csv-import-file']['name'])){
     $file_data = fopen($_FILES['csv-import-file']['tmp_name'], 'r');
@@ -42,6 +42,7 @@
     echo '<th>PROVIDER</th>';
     echo '<th>ID#</th>';
     echo '<th>NAME</th>';
+    // echo '<th>DEPTCODE</th>';
     echo '<th>SECTION</th>';
     echo '<th>CAR MODEL/GROUP</th>';
     echo '<th>PROCESS/LINE</th>';
@@ -53,12 +54,11 @@
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
-        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode = '$deptSection' AND empDeptSection = '$deptSubSection'";
-        $stmt = $conn->prepare($query);
+        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode LIKE '$deptCode%' AND empDeptSection LIKE '$deptSection%' AND status  = 'Active'";
+        $stmt = $conn_sas->prepare($query);
         $stmt->execute();
         
         if($stmt->rowCount() > 0){
-           
             foreach($stmt->fetchALL() as $d){
                 
                 echo '<tr id="row'.$c.'" class="row_data">';
@@ -66,10 +66,11 @@
                 echo '<td id="provider" class="provider">'.$d['empAgency'].'</td>';
                 echo '<td class="idnumber">'.$d['idNumber'].'</td>';
                 echo '<td class="empname">'.$d['empName'].'</td>';
+                // echo '<td class="empname">'.$d['empDeptCode'].'</td>';
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
-                echo '<td><input type="text" class="datepicker absent_date_file" value="'.$server_date.'"/></td>';
+                echo '<td><input type="text" class="datepicker absent_date_file center" value="'.$server_date.'"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
                             <option value="">REASON</option>';

@@ -26,14 +26,18 @@
                     <td id="processLinePrev"></td>
                 </tr>
                 <tr>
-                    <td><b>NO. OF ABSENT:</b></td>
-                    <td id="absencePrev"></td>
                     <td><b>REASON:</b></td>
                     <td id="reasonPrev"></td>
                 </tr>
                 <tr>
                     <td><b>REASON2:</b></td>
                     <td colspan="3" id="reason2Prev"></td>
+                </tr>
+                <tr>
+                    <td><b>Date Absent:</b></td>
+                    <td id="date_absentPrev"></td>
+                    <td><b>SHIFT:</b></td>
+                    <td id="shiftPrev"></td>
                 </tr>
             </table>
         </div>

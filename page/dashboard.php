@@ -17,6 +17,11 @@
     include '../components/Modals/modal_upload_absent.php';
     include '../components/Modals/modal_file_absent.php';
     include '../components/Modals/edit_uploaded_clerk.php';
+   
+    // echo $deptCode;
+    // echo $deptSection;
+    // echo $deptSubSection;
+
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
 
@@ -236,12 +241,10 @@
         var section = str[4];
         var carmodelGroup = str[5];
         var process_line = str[6];
-        var absence_num =  str[7];
-        var reason = str[8];
-        var reason2 = str[9];
-        var absentFrom = str[10];
-        var absentTo = str[11];
-        var shift = str[12];
+        var reason = str[7];
+        var reason2 = str[8];
+        var absent_date = str[9];
+        var shift = str[10];
 
         // DISTRIBUTING VALUES
         $('#editIDAbsent').val(id);
@@ -251,9 +254,10 @@
         $('#sectionPrev').html(section);
         $('#carmodelGroupPrev').html(carmodelGroup);
         $('#processLinePrev').html(process_line);
-        $('#absencePrev').html(absence_num);
         $('#reasonPrev').html(reason);
         $('#reason2Prev').html(reason2);
+        $('#date_absentPrev').html(absent_date);
+        $('#shiftPrev').html(shift);
     }
 
 </script>

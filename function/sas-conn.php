@@ -6,7 +6,7 @@
     $username = 'root';
     $password = '';
     try{
-        $conn = new PDO("mysql:host=$servername;dbname=hraris",$username,$password);
+        $conn_sas = new PDO("mysql:host=$servername;dbname=live_hris",$username,$password);
     }catch(PDOException $e){
         echo 'No Connection!'.$e->getMessage();
     }

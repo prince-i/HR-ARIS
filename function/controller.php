@@ -155,42 +155,7 @@ if($method == 'load_file_history'){
         }
     }
 
-    // CALCULATE ABSENT DAYS
-    if($method == 'calculateAbsent'){
-        $dateFrom = $_POST['date_from'];
-        $dateTo = $_POST['date_to'];
-        // CHECK CALENDAR ID OF DATE START
-        $calendarIDFrom = "SELECT id FROM falp_calendar WHERE date_value = '$dateFrom' LIMIT 1";
-        $stmt = $conn->prepare($calendarIDFrom);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            foreach($stmt->fetchALL() as $f){
-                $dateFromID = $f['id'];
-             }
-        }else{
-            $dateFromID = '';
-        }
-
-        // SELECT THE ID OF DATE END 
-        $calendarIDTo = "SELECT id FROM falp_calendar WHERE date_value = '$dateTo' LIMIT 1";
-        $stmt2 = $conn->prepare($calendarIDTo);
-        $stmt2->execute();
-        if($stmt2->rowCount() > 0){
-            foreach($stmt2->fetchALL() as $t){
-                $dateToID = $t['id'];
-             }
-        }else{
-            $dateToID = '';
-        }
-
-        // CALCULATE
-        if(is_numeric($dateFromID) && is_numeric($dateToID)){
-            echo $absence =  ($dateToID - $dateFromID) + 1;
-        }else{
-            echo '0';
-        }
-    }
-
+    
 
 
 
