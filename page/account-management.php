@@ -163,9 +163,56 @@
 
         const load_clerk_user_form =()=>{
             $('#renderAddUserForm').load('../components/Modules/create-clerk.php');
+            setTimeout(load_dept_code_clerk,500);
         }
+
+        const load_dept_code_clerk =()=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'getDeptCode'
+                },success:function(data){
+                    document.getElementById('deptCodeNew').innerHTML = data;
+                }
+            });
+        }
+
+        const load_dept_section_clerk =()=>{
+            var deptCode = document.querySelector('#deptCodeNew').value;
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'getDeptSectionClerk',
+                    deptCode:deptCode
+                },success:function(data){
+                    // console.log(data);
+                    document.getElementById('deptSectionNew').innerHTML = data;
+                }
+            });
+        }
+
+        const load_dept_subsection_clerk =()=>{
+            var deptCode = document.querySelector('#deptCodeNew').value;
+            var deptSection = document.querySelector('#deptSectionNew').value;
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'getDeptSubSect',
+                    deptSection:deptSection
+                },success:function(data){
+                    // console.log(data);
+                    document.getElementById('deptSubSectionNew').innerHTML = data;
+                }
+            })
+        }
+
        
     </script>
 </body>
-
 </html>

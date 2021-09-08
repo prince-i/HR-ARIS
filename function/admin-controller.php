@@ -71,4 +71,39 @@
         }
     }
 
+    // LOAD DEPT CODE CLERK
+    if($method == 'getDeptCode'){
+        echo '<option value="">DEPT CODE</option>';
+        $getDeptCodeQL = "SELECT DISTINCT deptCode FROM aris_department";
+        $stmt = $conn->prepare($getDeptCodeQL);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['deptCode'].'">'.$x['deptCode'].'</option>';
+        }
+    }
+
+    // LOAD DEPT SECTION CLERK
+    if($method == 'getDeptSectionClerk'){
+        echo '<option value="">SECTION</option>';
+        $deptcode = $_POST['deptCode'];
+        $sql = "SELECT DISTINCT deptSection FROM aris_department WHERE deptCode = '$deptcode'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';
+        }
+    }
+
+    // GETSUBSECTION
+    if($method == 'getDeptSubSect'){
+        $section = $_POST['deptSection'];
+        echo '<option value="">SUB-SECTION</option>';
+        $sql = "SELECT DISTINCT deptSubSection FROM aris_department WHERE deptSection LIKE '$section%' ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['deptSubSection'].'">'.$x['deptSubSection'].'</option>';
+        }
+    }
+
 ?>
