@@ -157,4 +157,32 @@
             }
         }
     }
+
+    // CREATE COORDINATOR ACCOUNT
+    if($method == 'createCoordinatorAccount'){
+        $coorUsername = $_POST['coorUsername'];
+        $coorPassword = $_POST['coorPassword'];
+        $coorFullname = $_POST['coorFullname'];
+        $coorAgencyCode = $_POST['coorAgencyCode'];
+        $coorDesc = $_POST['coorDescription'];
+        $role = 'coordinator';
+        // CHECK USER
+        $checkQL = "SELECT username FROM aris_users WHERE username = '$coorUsername' AND deptCode ='$coorAgencyCode'";
+        $stmt = $conn->prepare($checkQL);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            echo 'exists';
+        }else{
+            $createCoor = "INSERT INTO aris_users (`username`,`password`,`fullname`,`role`,`deptCode`,`deptSection`) VALUES ('$coorUsername','$coorPassword','$coorFullname','$role','$coorAgencyCode','$coorDesc')";
+            $stmt = $conn->prepare($createCoor);
+            if($stmt->execute()){
+                echo 'created';
+            }else{
+                echo 'fail';
+            }
+        }
+    }
+
+
+    $conn = null;
 ?>

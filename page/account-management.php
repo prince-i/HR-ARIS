@@ -300,6 +300,31 @@
         var coorFullname = $('#coordinatorNameNew').val();
         var coorAgencyCode = $('#coordinatorAgencyCode').val();
         var coorDescription = $('#coordinatorDescNew').val();
+        if(coorUsername == ''){
+            swal('Please enter username!');
+        }else if(coorPassword == ''){
+            swal('Please enter the password to be use!');
+        }else if(coorFullname == ''){
+            swal('Please tell me the name of the user!');
+        }else if(coorAgencyCode == ''){
+            swal('Please select the agency!');
+        }else{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'createCoordinatorAccount',
+                    coorUsername:coorUsername,
+                    coorPassword:coorPassword,
+                    coorFullname:coorFullname,
+                    coorAgencyCode:coorAgencyCode,
+                    coorDescription:coorDescription,
+                },success:function(response){
+                    console.log(response);
+                }
+            }); 
+        }
     }
 
 
