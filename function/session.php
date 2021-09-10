@@ -5,7 +5,7 @@
     $role = $_SESSION['role'];
     $deptCode = $_SESSION['deptCode'];
     $deptSection = $_SESSION['deptSection'];
-    $deptSubSection = $_SESSION['handleLine'];
+    $deptSubSection = $_SESSION['subSection'];
     if($_SESSION['username'] == ''){
         session_destroy();
         session_unset();

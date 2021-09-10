@@ -9,7 +9,7 @@
             echo 'PLEASE ENTER LOGIN CREDENTIALS PROPERLY!';
         }else{
             // CHECK USER TO DB
-            $query = "SELECT username,fullname,role,deptCode,deptSection,handleLine FROM aris_users WHERE username ='$username' AND password ='$password' LIMIT 1";
+            $query = "SELECT username,fullname,role,deptCode,deptSection,subSection FROM aris_users WHERE username ='$username' AND password ='$password' LIMIT 1";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -22,7 +22,7 @@
                         $_SESSION['role'] = $x['role'];
                         $_SESSION['deptCode'] = $x['deptCode'];
                         $_SESSION['deptSection'] = $x['deptSection'];
-                        $_SESSION['handleLine'] = $x['handleLine'];
+                        $_SESSION['subSection'] = $x['subSection'];
                         header('location: page/dashboard.php');
                     }
                     if($role == 'admin'){
@@ -31,7 +31,7 @@
                         $_SESSION['role'] = $x['role'];
                         $_SESSION['deptCode'] = $x['deptCode'];
                         $_SESSION['deptSection'] = $x['deptSection'];
-                        $_SESSION['handleLine'] = $x['handleLine'];
+                        $_SESSION['subSection'] = $x['subSection'];
                         header('location: page/admin.php');
                     }
                 }

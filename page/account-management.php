@@ -75,12 +75,12 @@
                         
                         <!-- GENERATE -->
                         <div class="col s2 input-field">
-                            <button class="btn blue btn-large col s12" onclick="generateUser()">generate</button>
+                            <button class="btn #0d47a1 blue darken-4 btn-large col s12 waves-effect waves-light" onclick="generateUser()">generate</button>
                         </div>
 
                         <!-- CREATE USER -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue btn-large col s12 modal-trigger" onclick="load_create_account_menu()" data-target="modal-add-user-menu">&plus; User</button>
+                            <button class="btn #2196f3 #448aff blue accent-2 btn-large col s12 modal-trigger waves-effect waves-light" onclick="load_create_account_menu()" data-target="modal-add-user-menu">&plus; User</button>
                         </div>
                     </div>
                     </div>
@@ -164,6 +164,7 @@
         const load_clerk_user_form =()=>{
             $('#renderAddUserForm').load('../components/Modules/create-clerk.php');
             setTimeout(load_dept_code_clerk,500);
+            
         }
 
         const load_dept_code_clerk =()=>{
@@ -212,7 +213,96 @@
             })
         }
 
+        const load_coordinator_user_form =()=>{
+            $('#renderAddUserForm').load('../components/Modules/create-coordinator.php');
+            setTimeout(load_agency_code,500);
+        }
+
+        const load_agency_code =()=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'getAgencyCode'
+                },success:function(response){
+                    // console.log(response);
+                    document.getElementById('coordinatorAgencyCode').innerHTML = response;
+                }
+            });
+        }
+
+        const getAgencyDesc =()=>{
+            var agency_code = document.querySelector('#coordinatorAgencyCode').value;
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'getAgencyDesc',
+                    agency_code:agency_code
+                },success:function(x){
+                    document.getElementById('coordinatorDescNew').value = x;
+                }
+            });
+        }
        
+       const createNewClerkUser=()=>{
+           var clerkUsername = $('#usernameNew').val();
+           var clerkPassword = $('#passwordNew').val();
+           var clerkFullname = $('#fullnameNew').val();
+           var clerkDeptCode = $('#deptCodeNew').val();
+           var clerkSection = $('#deptSectionNew').val();
+           var clerkSubSection = $('#deptSubSectionNew').val();
+           if(clerkUsername == ''){
+               swal('Notification','Please enter username!','info');
+           }else if(clerkPassword == ''){
+            swal('Notification','Please enter password!','info');
+           }else if(clerkFullname == ''){
+            swal('Notification','Please enter full name!','info');
+           }else if(clerkDeptCode == ''){
+            swal('Notification','Please select Department Code!','info');
+           }else if(clerkSection == ''){
+            swal('Notification','Please select Section!','info');
+           }else{
+               $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'createClerkAccount',
+                    clerkUsername:clerkUsername,
+                    clerkPassword:clerkPassword,
+                    clerkFullname:clerkFullname,
+                    clerkDeptCode:clerkDeptCode,
+                    clerkSection:clerkSection,
+                    clerkSubSection:clerkSubSection
+                },success:function(response){
+                    console.log(response);
+                    if(response == 'exists'){
+                        swal('This user is already exists!');
+                    }else if(response == 'success'){
+                        swal('This user is successfully added!');
+                        generateUser();
+                        load_clerk_user_form();
+                    }else{
+                        swal('Failed!');
+                    }
+                }
+               });
+           }
+       }
+
+    //    CREATE COORDINATOR ACCOUNT
+    const createNewCoordinator =()=>{
+        var coorUsername = $('#coordinatorUsernameNew').val();
+        var coorPassword = $('#coordinatorPassNew').val();
+        var coorFullname = $('#coordinatorNameNew').val();
+        var coorAgencyCode = $('#coordinatorAgencyCode').val();
+        var coorDescription = $('#coordinatorDescNew').val();
+    }
+
+
     </script>
 </body>
 </html>

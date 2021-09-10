@@ -65,7 +65,7 @@
                 echo '<td>'.$x['role'].'</td>';
                 echo '<td>'.$x['deptCode'].'</td>';
                 echo '<td>'.$x['deptSection'].'</td>';
-                echo '<td>'.$x['handleLine'].'</td>';
+                echo '<td>'.$x['subSection'].'</td>';
                 echo '</tr>';
             }
         }
@@ -105,5 +105,56 @@
             echo '<option value="'.$x['deptSubSection'].'">'.$x['deptSubSection'].'</option>';
         }
     }
+    // GET AGENCY CODE
+    if($method == 'getAgencyCode'){
+        echo '<option value="">AGENCY CODE</option>';
+        $sql = "SELECT agencyCode FROM aris_agency";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo '<option value="'.$x['agencyCode'].'">'.$x['agencyCode'].'</option>';
+            }
+        }
+    }
+    
+    // GET AGENCY DESC
+    if($method == 'getAgencyDesc'){
+        $agency_code = $_POST['agency_code'];
+        $sql = "SELECT agencyName FROM aris_agency WHERE agencyCode = '$agency_code'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo $x['agencyName'];
+            }
+        }
+    }
 
+    // CREATE CLERK USER
+    if($method == 'createClerkAccount'){
+        $clerkUsername = $_POST['clerkUsername'];
+        $clerkPassword = $_POST['clerkPassword'];
+        $clerkFullname = $_POST['clerkFullname'];
+        $clerkDeptCode = $_POST['clerkDeptCode'];
+        $clerkSection = $_POST['clerkSection'];
+        $clerkSubSection = $_POST['clerkSubSection'];
+        $role  = 'clerk';
+        // CHECK USER IF ALREADY EXIST
+        $checkQL = "SELECT username FROM aris_users WHERE username = '$clerkUsername' AND deptCode = '$clerkDeptCode' AND deptSection = '$clerkSection'";
+        $stmt = $conn->prepare($checkQL);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            echo 'exists';
+        }else{
+            // INSERT TO USERS
+            $createUser = "INSERT INTO aris_users (`username`,`password`,`fullname`,`role`, `deptCode`,`deptSection`,`subSection`) VALUES ('$clerkUsername','$clerkPassword','$clerkFullname','$role','$clerkDeptCode','$clerkSection','$clerkSubSection')";
+            $stmt = $conn->prepare($createUser);
+            if($stmt->execute() == TRUE){
+                echo 'success';
+            }else{
+                echo 'fail';
+            }
+        }
+    }
 ?>

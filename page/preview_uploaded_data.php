@@ -54,7 +54,7 @@
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
-        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode LIKE '$deptCode%' AND empDeptSection LIKE '$deptSection%' AND status  = 'Active'";
+        $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode LIKE '$deptCode%' AND empDeptSection LIKE '$deptSection%' AND empSubSect LIKE '$deptSubSection%' AND status  = 'Active' AND empAgency = 'FAS'";
         $stmt = $conn_sas->prepare($query);
         $stmt->execute();
         
