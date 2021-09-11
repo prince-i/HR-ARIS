@@ -25,6 +25,15 @@
                         $_SESSION['subSection'] = $x['subSection'];
                         header('location: page/dashboard.php');
                     }
+                    if($role == 'coordinator'){
+                        $_SESSION['username'] = $username;
+                        $_SESSION['fullname'] = $x['fullname'];
+                        $_SESSION['role'] = $x['role'];
+                        $_SESSION['deptCode'] = $x['deptCode'];
+                        $_SESSION['deptSection'] = $x['deptSection'];
+                        $_SESSION['subSection'] = $x['subSection'];
+                        header('location: page/coordinator.php');
+                    }
                     if($role == 'admin'){
                         $_SESSION['username'] = $username;
                         $_SESSION['fullname'] = $x['fullname'];
