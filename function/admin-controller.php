@@ -141,7 +141,7 @@
         $clerkSubSection = $_POST['clerkSubSection'];
         $role  = 'clerk';
         // CHECK USER IF ALREADY EXIST
-        $checkQL = "SELECT username FROM aris_users WHERE username = '$clerkUsername' AND deptCode = '$clerkDeptCode' AND deptSection = '$clerkSection'";
+        $checkQL = "SELECT username FROM aris_users WHERE username = '$clerkUsername' AND deptCode = '$clerkDeptCode' AND deptSection = '$clerkSection' AND role = 'clerk'";
         $stmt = $conn->prepare($checkQL);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -167,7 +167,7 @@
         $coorDesc = $_POST['coorDescription'];
         $role = 'coordinator';
         // CHECK USER
-        $checkQL = "SELECT username FROM aris_users WHERE username = '$coorUsername' AND deptCode ='$coorAgencyCode'";
+        $checkQL = "SELECT username FROM aris_users WHERE username = '$coorUsername' AND deptCode ='$coorAgencyCode' AND role ='coordinator'";
         $stmt = $conn->prepare($checkQL);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -183,6 +183,28 @@
         }
     }
 
-
+    // CREATE ADMIN USER ACCOUNT
+    if($method == 'createAdminUser'){
+        $username = $_POST['usernameAdmin'];
+        $password = $_POST['passwordAdmin'];
+        $fullname = $_POST['fullnameAdmin'];
+        $role = 'admin';
+        //CHECK USER
+        $check_user = "SELECT username FROM aris_users WHERE username = '$username' AND role = '$role'";
+        $stmt = $conn->prepare($check_user);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            echo 'exists';
+        }else{
+            // INSERT USER 
+            $create = "INSERT INTO aris_users (`username`,`password`,`fullname`,`role`) VALUES ('$username','$password','$fullname','$role')";
+            $stmt = $conn->prepare($create);
+            if($stmt->execute()){
+                echo 'created';
+            }else{
+                echo 'fail';
+            }
+        }
+    }
     $conn = null;
 ?>

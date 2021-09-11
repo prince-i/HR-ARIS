@@ -164,7 +164,10 @@
         const load_clerk_user_form =()=>{
             $('#renderAddUserForm').load('../components/Modules/create-clerk.php');
             setTimeout(load_dept_code_clerk,500);
-            
+        }
+
+        const load_admin_user_form =()=>{
+            $('#renderAddUserForm').load('../components/Modules/create-admin.php');
         }
 
         const load_dept_code_clerk =()=>{
@@ -321,10 +324,57 @@
                     coorAgencyCode:coorAgencyCode,
                     coorDescription:coorDescription,
                 },success:function(response){
-                    console.log(response);
+                    // console.log(response);
+                    if(response == 'exists'){
+                        swal('Notification','This username already exists!','info');
+                    }else if(response == 'created'){
+                        swal('Notification','Successfully created the account!','success');
+                        load_coordinator_user_form()
+                    }else{
+                        swal('Notification','Error!','error');
+                    }
+                    generateUser();
                 }
             }); 
         }
+    }
+
+    const createNewAdminUser =()=>{
+        var usernameAdmin = document.getElementById('usernameAdminNew').value;
+        var passwordAdmin = document.getElementById('passwordAdminNew').value;
+        var fullnameAdmin = document.getElementById('fullnameAdminNew').value;
+        // console.log(username);
+        if(usernameAdmin == ''){
+            swal('Please enter username!');
+        }else if(passwordAdmin == ''){
+            swal('Please enter password!');
+        }else if(fullnameAdmin == ''){
+            swal('Please tell me the full name of the user!');
+        }else{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'createAdminUser',
+                    usernameAdmin:usernameAdmin,
+                    passwordAdmin:passwordAdmin,
+                    fullnameAdmin:fullnameAdmin
+                },success:function(response){
+                    // console.log(response);
+                    if(response == 'exists'){
+                        swal('Notification','This username already exists!','info');
+                    }else if(response == 'created'){
+                        swal('Notification','Successfully created the account!','success');
+                        load_admin_user_form();
+                    }else{
+                        swal('Notification','Error!','error');
+                    }
+                    generateUser();
+                }
+            });
+        }
+
     }
 
 
