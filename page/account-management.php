@@ -15,6 +15,7 @@
     }
     include '../components/Modals/modal_logout.php';
     include '../components/Modals/add-user-menu.php';
+    include '../components/Modals/modal_edit_user.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -374,7 +375,73 @@
                 }
             });
         }
+    }
 
+    const getUserID =(id)=>{
+        document.querySelector('#userIDPrev').value = id;
+        $.ajax({
+            url: '../function/admin-controller.php',
+            type:'POST',
+            cache: false,
+            data:{
+                method: 'prevAccountUser',
+                id:id
+            },success:function(response){
+                // console.log(response);
+                document.querySelector('#prevUserData').innerHTML = response;
+            }
+        });
+    }
+
+    const updatePassword =()=>{
+        var id = document.getElementById('userIDPrev').value;
+        var newPass = document.getElementById('newPasswordUpdate').value;
+
+        if(newPass == ''){
+            swal('Notification','Please enter the new password to complete the operation!','info');
+        }else{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'updatePassword',
+                    id:id,
+                    newPass:newPass
+                },success:function(data){
+                    // console.log(data);
+                    if(data == 'updated'){
+                        swal('Notification','Successfully updated!','success');
+                        $('.modal').modal('close','#change_password_user_modal');
+                        generateUser();
+                    }else{
+                        swal('Notification','Error!','error');
+                    }
+                }
+            });
+        }   
+    }
+
+    const removeUser =()=>{
+        var id = document.getElementById('userIDPrev').value;
+        $.ajax({
+            url: '../function/admin-controller.php',
+            type: 'POST',
+            cache:false,
+            data:{
+                method: 'deleteUser',
+                id:id
+            },success:function(x){
+                console.log(x);
+                if(x == 'deleted'){
+                    swal('Notification','Successfully deleted!','success');
+                    $('.modal').modal('close','#change_password_user_modal');
+                    generateUser();
+                }else{
+                    swal('Notification','Error!','error');
+                }
+            }
+        });
     }
 
 

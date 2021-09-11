@@ -57,12 +57,24 @@
         $stmt->execute();
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
+                if($x['deptSection'] == ''){
+                    $x['deptSection'] = '--';
+                }
+
+                if($x['deptCode'] == ''){
+                    $x['deptCode'] = '--';
+                }
+
+                if($x['subSection'] == ''){
+                    $x['subSection'] = '--';
+                }
+
                 $count++;
-                echo '<tr>';
+                echo '<tr onclick="getUserID(&quot;'.$x['id'].'&quot;)" class="modal-trigger" data-target="change_password_user_modal">';
                 echo '<td>'.$count.'</td>';
                 echo '<td>'.$x['username'].'</td>';
                 echo '<td>'.$x['fullname'].'</td>';
-                echo '<td>'.$x['role'].'</td>';
+                echo '<td>'.strtoupper($x['role']).'</td>';
                 echo '<td>'.$x['deptCode'].'</td>';
                 echo '<td>'.$x['deptSection'].'</td>';
                 echo '<td>'.$x['subSection'].'</td>';
@@ -206,5 +218,57 @@
             }
         }
     }
+  
+
+    // LOAD ACCOUNT DATA
+    if($method == 'prevAccountUser'){
+        $id = $_POST['id'];
+        $sql ="SELECT username,password,fullname FROM aris_users WHERE id ='$id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<table style="zoom:80%;">';
+            echo '<tr>';
+            echo '<td>USERNAME:</td>';
+            echo '<td>'.$x['username'].'</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>PASSWORD:</td>';
+            echo '<td>'.$x['password'].'</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>NAME:</td>';
+            echo '<td>'.$x['fullname'].'</td>';
+            echo '</tr>';
+            echo '</table>';
+        }
+        
+    }
+
+    // UPDATE PASSWORD 
+    if($method == 'updatePassword'){
+        $id = $_POST['id'];
+        $newPass = $_POST['newPass'];
+        $sql = "UPDATE aris_users SET password = '$newPass' WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'updated';
+        }else{
+            echo 'fail';
+        }
+    }
+    // REMOVE USER
+
+    if($method == 'deleteUser'){
+        $id = $_POST['id'];
+        $sql = "DELETE FROM aris_users WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute() ==  TRUE){
+            echo 'deleted';
+        }else{
+            echo 'fail';
+        }
+    }
+
     $conn = null;
 ?>

@@ -1,4 +1,5 @@
 <div class="col s12">
+<h5 class="center">ADMIN REGISTRATION</h5>
     <div class="col s4 input-field">
         <input type="text" name="" id="usernameAdminNew"><label for="">Username</label>
     </div>
