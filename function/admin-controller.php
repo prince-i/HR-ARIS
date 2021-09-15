@@ -1,4 +1,5 @@
 <?php
+    ini_set('memory_limit','256M');
     include 'conn.php'; 
     include 'sas-conn.php';
     $method = $_POST['method'];
@@ -7,7 +8,8 @@
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
         $count = 0;
-        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, COUNT(id) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY emp_id_number";
+        // GROUP BY ID NUMBER AND REASON
+        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, COUNT(id) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -269,6 +271,100 @@
             echo 'fail';
         }
     }
+
+    // GENERATE ABSENCE PER AGENCY
+    if($method == 'generateAbsencePerProvider'){
+        $from = $_POST['genFrom'];
+        $to = $_POST['genTo'];
+        $shift = $_POST['genShift'];
+        $row = 0;
+        // GENERATE
+        $get_data = "SELECT provider,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY provider ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $row++;
+                echo '<tr>';
+                echo '<td>'.$row.'</td>';
+                echo '<td class="provider_row">'.$x['provider'].'</td>';
+                echo '<td class="absent_provider">'.$x['absent_count'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            // NO RESULT
+        }
+    }
+
+    if($method == 'generate_absence_per_reason'){
+        $from = $_POST['genFrom'];
+        $to = $_POST['genTo'];
+        $shift = $_POST['genShift'];
+        $row = 0;
+        // GENERATE
+        $get_data = "SELECT reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $row++;
+                echo '<tr>';
+                echo '<td>'.$row.'</td>';
+                echo '<td class="reason_label">'.$x['reason'].'</td>';
+                echo '<td class="reason_data">'.$x['absent_count'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            // NO RESULT
+        }
+    }
+
+    if($method == 'generate_absence_per_reason_2'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        $row = 0;
+        // GENERATE
+        $get_data = "SELECT reason_2,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason_2 ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $row++;
+                echo '<tr>';
+                echo '<td>'.$row.'</td>';
+                echo '<td class="reason2_label">'.$x['reason_2'].'</td>';
+                echo '<td class="reason2_data">'.$x['absent_count'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            // NO RESULT
+        }
+    }
+
+    if($method == 'generate_absence_per_section'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        $row = 0;
+        // GENERATE
+        $get_data = "SELECT section,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $row++;
+                echo '<tr>';
+                echo '<td>'.$row.'</td>';
+                echo '<td class="section_label">'.$x['section'].'</td>';
+                echo '<td class="section_data">'.$x['absent_count'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            // NO RESULT
+        }
+    }
+
 
     $conn = null;
 ?>

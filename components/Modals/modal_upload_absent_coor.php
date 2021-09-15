@@ -2,7 +2,7 @@
 <div class="modal-content">
     <div class="row">
         <div class="col s12 input-field">
-        <form action="preview_uploaded_data.php" method="POST" enctype="multipart/form-data">
+        <form action="preview_uploaded_data_coor.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="uploader" value="<?=$_SESSION['username'];?>">
             <div class="file-field input-field col s8">
                 <div class="btn blue z-depth-5">

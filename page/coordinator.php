@@ -14,7 +14,7 @@
         header('location:../index.php');
     }
     include '../components/Modals/modal_logout.php';
-    include '../components/Modals/modal_upload_absent.php';
+    include '../components/Modals/modal_upload_absent_coor.php';
     include '../components/Modals/modal_file_absent.php';
     include '../components/Modals/edit_uploaded_coordinator.php';
    
