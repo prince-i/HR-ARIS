@@ -365,6 +365,64 @@
         }
     }
 
+    if($method == 'generate_absence_per_section_expanded'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        $row = 0;
+        // GENERATE
+        $get_data = "SELECT section,reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section,reason ORDER BY section DESC, absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $row++;
+                echo '<tr>';
+                echo '<td>'.$row.'</td>';
+                echo '<td class="section_label_expanded">'.$x['section'].'</td>';
+                echo '<td class="section_data">'.$x['reason'].'</td>';
+                echo '<td class="section_data">'.$x['absent_count'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            // NO RESULT
+        }
+    }
+
+
+
+
+
+
+    if($method == 'generate_top_reason'){
+        $from = $_POST['genFrom'];
+        $to = $_POST['genTo'];
+        $shift = $_POST['genShift'];
+        $row = 0;
+        // CHECK TOTAL ABSENT
+        $total = "SELECT count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%'";
+        $stmt2 = $conn->prepare($total);
+        $stmt2->execute();
+        foreach($stmt2->fetchALL() as $total){
+            $total_absent = $total['absent_count'];
+        }
+
+        $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            $row++;
+            $absent =  $x['absent_count'];
+            $percentage = round(($absent/$total_absent)*100,2);
+            echo '<tr>';
+            echo '<td>'.$row.'</td>';
+            echo '<td>'.$x['reason'].'</td>';
+            echo '<td>'.$x['absent_count'].'</td>';
+            echo '<td>'.$percentage.'</td>';
+            echo '</tr>';
+        }
+
+    }
 
     $conn = null;
 ?>

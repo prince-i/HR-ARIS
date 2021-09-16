@@ -155,6 +155,28 @@
                             </div>
                         </div>
 
+                        <!-- =--------------------------- -->
+                        <div class="row divider"></div>
+                        <h5 class="center blue-text">PER SECTION EXPANDED</h5>
+                        <!-- REPORT 3 -->
+                        <div class="row col s12">
+                            <div class="col s6" id="">
+                                <table class="centered" style="zoom:75%;" id="">
+                                    <thead>
+                                    <th>#</th>
+                                    <th>SECTION</th>
+                                    <th>REASON</th>
+                                    <th>ABSENT</th>
+                                    </thead>
+                                    <tbody id="absence_per_section_expanded"></tbody>
+                                </table>
+                            </div>
+                            <!-- GRAPH -->
+                            <div class="col s6">
+                                <canvas id="per_section_chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+
 
 
 
@@ -216,7 +238,7 @@
                     generate_chart_per_provider(provider_data,provider_data_count);
                     setTimeout(() => {
                         load_per_reason(genFrom,genTo,genShift);
-                    }, 1000);
+                    }, 500);
                   }
             });
         }
@@ -246,7 +268,7 @@
                     generate_chart_per_reason(reason_label,reason_data);
                     setTimeout(() => {
                         load_per_reason_2(x,y,z);
-                    }, 1000);
+                    }, 500);
                 }
             });
         }
@@ -276,7 +298,7 @@
                     generate_chart_per_reason2(reason2_label,reason2_data);
                     setTimeout(() => {
                         load_per_section(from,to,shift);
-                    }, 1000);
+                    }, 500);
                 }
             });
         }
@@ -304,9 +326,29 @@
                     });
 
                     generate_chart_per_section(section_label,section_data);
+                    setTimeout(() => {
+                        load_per_section_expanded(from,to,shift);
+                    }, 500);
                 }
             });
         }
+
+        const load_per_section_expanded =(from,to,shift)=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'generate_absence_per_section_expanded',
+                    from:from,
+                    to:to,
+                    shift:shift
+                },success:function(response){
+                    $('#absence_per_section_expanded').html(response);
+                }
+            });
+        }
+
 
         // PER AGENCY CHART
         const generate_chart_per_provider =(x,y)=>{
