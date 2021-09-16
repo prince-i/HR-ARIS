@@ -137,29 +137,26 @@
                 },success:function(response){
                     // console.log(response);
                     $('#top_reason_data').html(response);
-                    // var provider_data = [];
-                    // $('.provider_row').each(function(){
-                    //     provider_data.push($(this).html());
-                    // }); 
-                    // var provider_data_count = [];
-                    // $('.absent_provider').each(function(){
-                    //     provider_data_count.push($(this).html());
-                    // }); 
-                    // // CALL FUNCTION GENERATE CHART FOR PER PROVIDER
-                    // generate_chart_per_provider(provider_data,provider_data_count);
-                    // setTimeout(() => {
-                    //     load_per_reason(genFrom,genTo,genShift);
-                    // }, 500);
+                    var reason_label = [];
+                    $('.reason_label_percentage').each(function(){
+                        reason_label.push($(this).html());
+                    }); 
+                    var reason_data = [];
+                    $('.reason_data_percentage').each(function(){
+                        reason_data.push($(this).html());
+                    }); 
+                    // CALL FUNCTION GENERATE CHART FOR PER PROVIDER
+                    generate_chart_per_provider(reason_label,reason_data);
+                    
                   }
             });
         }
-
        
 
 
         // PER AGENCY CHART
         const generate_chart_per_provider =(x,y)=>{
-            var ctx = document.getElementById('per_agency_chart');
+            var ctx = document.getElementById('top_reason_chart');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {

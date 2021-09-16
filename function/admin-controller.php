@@ -416,9 +416,9 @@
             $percentage = round(($absent/$total_absent)*100,2);
             echo '<tr>';
             echo '<td>'.$row.'</td>';
-            echo '<td>'.$x['reason'].'</td>';
-            echo '<td>'.$x['absent_count'].'</td>';
-            echo '<td>'.$percentage.'</td>';
+            echo '<td class="reason_label_percentage">'.$x['reason'].'</td>';
+            echo '<td class="reason_data_percentage">'.$x['absent_count'].'</td>';
+            echo '<td class="reason_average_percentage">'.$percentage.'</td>';
             echo '</tr>';
         }
 

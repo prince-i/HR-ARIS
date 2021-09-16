@@ -16,11 +16,11 @@
         $stmt2 = $conn->prepare($get_reason);
         $stmt2->execute();
         foreach($stmt2->fetchALL() as $reason){
-            echo '<td>'.$reason['reason'].'=>'.$reason['countid'].'</td>';
+            echo '<td>'.$reason['reason'].'</td>';
+            echo '<td>'.$reason['countid'].'</td>';
         }
         echo '</tr>';
         echo '</tbody>';
-        
     }
     echo '</table>';
 ?>
