@@ -414,6 +414,8 @@
          $stmt->execute();
          foreach($stmt->fetchALL() as $x){
             $row++;
+            // CALCULATE LESS ML
+            $less_ml = $x['total_absent'] - $x['ml'];
             echo '<tr>';
             echo '<td>'.$row.'</td>';
             echo '<td>'.$x['section'].'</td>';
@@ -427,6 +429,7 @@
             echo '<td>'.$x['sus'].'</td>';
             echo '<td>'.$x['vl'].'</td>';
             echo '<td>'.$x['total_absent'].'</td>';
+            echo '<td>'.$less_ml.'</td>';
             echo '</tr>';
          }
         }
