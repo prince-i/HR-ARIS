@@ -94,6 +94,7 @@
                     <th>PROVIDER</th>
                     <th>EMPLOYEE ID</th>
                     <th>NAME</th>
+                    <th>POSITION</th>
                     <th>SECTION</th>
                     <th>CARMODEL/GROUP</th>
                     <th>PROCESS/LINE</th>
@@ -101,6 +102,7 @@
                     <th>REASON2</th>
                     <th>FILED BY</th>
                     <th>ABSENT DATE</th>
+                    <th>NUMBER OF ABSENT</th>
                     <th>SHIFT</th>
                     <th>DATE UPLOAD</th>
                 </thead>

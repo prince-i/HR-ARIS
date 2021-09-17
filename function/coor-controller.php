@@ -39,16 +39,18 @@
                         .$x['shift'].'&quot;)">
                         '.$x['emp_id_number'].'</a>
                     </td>';
-                echo '<td>'.$x['name'].'</td>';
-                echo '<td>'.$x['section'].'</td>';
-                echo '<td>'.$x['carmodel_group'].'</td>';
-                echo '<td>'.$x['process_line'].'</td>';
-                echo '<td>'.$x['reason'].'</td>';
-                echo '<td>'.$x['reason_2'].'</td>';
-                echo '<td>'.$x['uploader'].'</td>';
-                echo '<td>'.$x['date_absent'].'</td>';
-                echo '<td>'.$x['shift'].'</td>';
-                echo '<td>'.$x['date_upload'].'</td>';
+                    echo '<td>'.$x['name'].'</td>';
+                    echo '<td>'.$x['position'].'</td>';
+                    echo '<td>'.$x['section'].'</td>';
+                    echo '<td>'.$x['carmodel_group'].'</td>';
+                    echo '<td>'.$x['process_line'].'</td>';
+                    echo '<td>'.$x['reason'].'</td>';
+                    echo '<td>'.$x['reason_2'].'</td>';
+                    echo '<td>'.$x['uploader'].'</td>';
+                    echo '<td>'.$x['date_absent'].'</td>';
+                    echo '<td>'.$x['number_absent'].'</td>';
+                    echo '<td>'.$x['shift'].'</td>';
+                    echo '<td>'.$x['date_upload'].'</td>';
                 
             }
         }else{

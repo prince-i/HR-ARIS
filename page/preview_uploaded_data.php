@@ -42,11 +42,12 @@
     echo '<th>PROVIDER</th>';
     echo '<th>ID#</th>';
     echo '<th>NAME</th>';
-    // echo '<th>DEPTCODE</th>';
+    echo '<th>POSITION</th>';
     echo '<th>SECTION</th>';
     echo '<th>CAR MODEL/GROUP</th>';
     echo '<th>PROCESS/LINE</th>';
     echo '<th>DATE ABSENT</th>';
+    echo '<th># OF ABSENCES</th>';
     echo '<th>REASON</th>';
     echo '<th>REASON2</th>';
     echo '<th>SHIFT</th>';
@@ -66,11 +67,12 @@
                 echo '<td id="provider" class="provider">'.$d['empAgency'].'</td>';
                 echo '<td class="idnumber">'.$d['idNumber'].'</td>';
                 echo '<td class="empname">'.$d['empName'].'</td>';
-                // echo '<td class="empname">'.$d['empDeptCode'].'</td>';
+                echo '<td class="empPosition">'.$d['empPosition'].'</td>';
                 echo '<td class="deptsection">'.$d['empDeptSection'].'</td>';
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
                 echo '<td><input type="text" class="datepicker absent_date_file center" value="'.$server_date.'"/></td>';
+                echo '<td><input type="number" class="no_of_absence center" value="1" min="0"/></td>';
                 echo '<td >
                         <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
                             <option value="">REASON</option>';
@@ -150,6 +152,11 @@
             $('.empname').each(function(){
                 nameArray.push($(this).html());
             });
+            // POSITIONS
+            var positionArray = [];
+            $('.empPosition').each(function(){
+                positionArray.push($(this).html());
+            });
           
             // DEPT SECTION
             var deptSectArray = [];
@@ -190,6 +197,12 @@
             $('.absent_date_file').each(function(){
                 absent_date.push($(this).val());
             });
+            
+            // NUMBER OF ABSENT
+            var number_absent = [];
+            $('.no_of_absence').each(function(){
+                number_absent.push($(this).val());
+            });
 
             // SHIFT
             var shift = [];
@@ -221,7 +234,9 @@
                             uploader: '<?=$fullname;?>',
                             absent_date: absent_date[i],
                             shift:shift[i],
-                            row_data:row_data[i]
+                            row_data:row_data[i],
+                            number_absent:number_absent[i],
+                            position:positionArray[i]
                         },success:function(response){
                             console.log(response);
                             var report = response.split("~!~");

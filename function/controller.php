@@ -37,6 +37,8 @@
         $uploader = $_POST['uploader'];
         $absent_date = $_POST['absent_date'];
         $shift = $_POST['shift'];
+        $number_absent = $_POST['number_absent'];
+        $position = $_POST['position'];
         $rowID =  $_POST['row_data'];
         if(empty($reason) || empty($reason2) || empty($absent_date)){
             echo "error"."~!~".$rowID;
@@ -48,14 +50,18 @@
         if($stmt->rowCount() > 0){
             echo "exist"."~!~".$rowID."~!~".$name;
         }else{
+            // DECREASE DATE WITH  DAY
+            // $subtract_date =  date('Y-m-d',(strtotime('-1 day', strtotime($absent_date))));
+
+
             $file = "INSERT INTO aris_absent_filing 
-            (`id`,`provider`,`emp_id_number`,`name`,`section`,`carmodel_group`,`process_line`,`reason`,`reason_2`,`uploader`,`shift`,`date_absent`,`date_upload`) 
-            VALUES ('0','$provider','$empID','$name','$deptSection','$group','$line','$reason','$reason2','$uploader','$shift','$absent_date','$server_date')";
-        $stmt = $conn->prepare($file);
-        if($stmt->execute()){
-            echo "success"."~!~".$rowID;
-        }else{
-            echo "error"."~!~".$rowID;
+            (`id`,`provider`,`emp_id_number`,`name`,`position`,`section`,`carmodel_group`,`process_line`,`reason`,`reason_2`,`uploader`,`shift`,`date_absent`,`number_absent`,`date_upload`) 
+            VALUES ('0','$provider','$empID','$name','$position','$deptSection','$group','$line','$reason','$reason2','$uploader','$shift','$absent_date','$number_absent','$server_date')";
+            $stmt = $conn->prepare($file);
+            if($stmt->execute()){
+                echo "success"."~!~".$rowID;
+            }else{
+                echo "error"."~!~".$rowID;
             }
         }
     }  
@@ -102,6 +108,7 @@ if($method == 'load_file_history'){
                     '.$x['emp_id_number'].'</a>
                 </td>';
             echo '<td>'.$x['name'].'</td>';
+            echo '<td>'.$x['position'].'</td>';
             echo '<td>'.$x['section'].'</td>';
             echo '<td>'.$x['carmodel_group'].'</td>';
             echo '<td>'.$x['process_line'].'</td>';
@@ -109,6 +116,7 @@ if($method == 'load_file_history'){
             echo '<td>'.$x['reason_2'].'</td>';
             echo '<td>'.$x['uploader'].'</td>';
             echo '<td>'.$x['date_absent'].'</td>';
+            echo '<td>'.$x['number_absent'].'</td>';
             echo '<td>'.$x['shift'].'</td>';
             echo '<td>'.$x['date_upload'].'</td>';
             

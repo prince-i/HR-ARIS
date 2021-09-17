@@ -37,7 +37,7 @@
     }
 
     // LOAD SECTION FROM HRIS
-    if($method == 'load_section_master'){
+    elseif($method == 'load_section_master'){
         echo '<option value="">SECTION</option>';
         $section  = "SELECT DISTINCT deptSection FROM aris_department";
         $stmt = $conn->prepare($section);
@@ -48,7 +48,7 @@
     }
 
     // GENERATE USER 
-    if($method == 'fetchUsers'){
+    elseif($method == 'fetchUsers'){
         $username = $_POST['username'];
         $fullname = $_POST['fullname'];
         $role = $_POST['role'];
@@ -86,7 +86,7 @@
     }
 
     // LOAD DEPT CODE CLERK
-    if($method == 'getDeptCode'){
+    elseif($method == 'getDeptCode'){
         echo '<option value="">DEPT CODE</option>';
         $getDeptCodeQL = "SELECT DISTINCT deptCode FROM aris_department";
         $stmt = $conn->prepare($getDeptCodeQL);
@@ -97,7 +97,7 @@
     }
 
     // LOAD DEPT SECTION CLERK
-    if($method == 'getDeptSectionClerk'){
+    elseif($method == 'getDeptSectionClerk'){
         echo '<option value="">SECTION</option>';
         $deptcode = $_POST['deptCode'];
         $sql = "SELECT DISTINCT deptSection FROM aris_department WHERE deptCode = '$deptcode'";
@@ -109,7 +109,7 @@
     }
 
     // GETSUBSECTION
-    if($method == 'getDeptSubSect'){
+    elseif($method == 'getDeptSubSect'){
         $section = $_POST['deptSection'];
         echo '<option value="">SUB-SECTION</option>';
         $sql = "SELECT DISTINCT deptSubSection FROM aris_department WHERE deptSection LIKE '$section%' ";
@@ -120,7 +120,7 @@
         }
     }
     // GET AGENCY CODE
-    if($method == 'getAgencyCode'){
+    elseif($method == 'getAgencyCode'){
         echo '<option value="">AGENCY CODE</option>';
         $sql = "SELECT agencyCode FROM aris_agency";
         $stmt = $conn->prepare($sql);
@@ -133,7 +133,7 @@
     }
     
     // GET AGENCY DESC
-    if($method == 'getAgencyDesc'){
+    elseif($method == 'getAgencyDesc'){
         $agency_code = $_POST['agency_code'];
         $sql = "SELECT agencyName FROM aris_agency WHERE agencyCode = '$agency_code'";
         $stmt = $conn->prepare($sql);
@@ -146,7 +146,7 @@
     }
 
     // CREATE CLERK USER
-    if($method == 'createClerkAccount'){
+    elseif($method == 'createClerkAccount'){
         $clerkUsername = $_POST['clerkUsername'];
         $clerkPassword = $_POST['clerkPassword'];
         $clerkFullname = $_POST['clerkFullname'];
@@ -173,7 +173,7 @@
     }
 
     // CREATE COORDINATOR ACCOUNT
-    if($method == 'createCoordinatorAccount'){
+    elseif($method == 'createCoordinatorAccount'){
         $coorUsername = $_POST['coorUsername'];
         $coorPassword = $_POST['coorPassword'];
         $coorFullname = $_POST['coorFullname'];
@@ -198,7 +198,7 @@
     }
 
     // CREATE ADMIN USER ACCOUNT
-    if($method == 'createAdminUser'){
+    elseif($method == 'createAdminUser'){
         $username = $_POST['usernameAdmin'];
         $password = $_POST['passwordAdmin'];
         $fullname = $_POST['fullnameAdmin'];
@@ -223,7 +223,7 @@
   
 
     // LOAD ACCOUNT DATA
-    if($method == 'prevAccountUser'){
+    elseif($method == 'prevAccountUser'){
         $id = $_POST['id'];
         $sql ="SELECT username,password,fullname FROM aris_users WHERE id ='$id'";
         $stmt = $conn->prepare($sql);
@@ -248,7 +248,7 @@
     }
 
     // UPDATE PASSWORD 
-    if($method == 'updatePassword'){
+    elseif($method == 'updatePassword'){
         $id = $_POST['id'];
         $newPass = $_POST['newPass'];
         $sql = "UPDATE aris_users SET password = '$newPass' WHERE id = '$id'";
@@ -261,7 +261,7 @@
     }
     // REMOVE USER
 
-    if($method == 'deleteUser'){
+    elseif($method == 'deleteUser'){
         $id = $_POST['id'];
         $sql = "DELETE FROM aris_users WHERE id = '$id'";
         $stmt = $conn->prepare($sql);
@@ -273,7 +273,7 @@
     }
 
     // GENERATE ABSENCE PER AGENCY
-    if($method == 'generateAbsencePerProvider'){
+    elseif($method == 'generateAbsencePerProvider'){
         $from = $_POST['genFrom'];
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
@@ -296,7 +296,7 @@
         }
     }
 
-    if($method == 'generate_absence_per_reason'){
+    elseif($method == 'generate_absence_per_reason'){
         $from = $_POST['genFrom'];
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
@@ -319,7 +319,7 @@
         }
     }
 
-    if($method == 'generate_absence_per_reason_2'){
+    elseif($method == 'generate_absence_per_reason_2'){
         $from = $_POST['from'];
         $to = $_POST['to'];
         $shift = $_POST['shift'];
@@ -342,7 +342,7 @@
         }
     }
 
-    if($method == 'generate_absence_per_section'){
+    elseif($method == 'generate_absence_per_section'){
         $from = $_POST['from'];
         $to = $_POST['to'];
         $shift = $_POST['shift'];
@@ -365,36 +365,90 @@
         }
     }
 
-    if($method == 'generate_absence_per_section_expanded'){
+    // if($method == 'generate_absence_per_section_expanded'){
+    //     $from = $_POST['from'];
+    //     $to = $_POST['to'];
+    //     $shift = $_POST['shift'];
+    //     $row = 0;
+    //     // GENERATE
+    //     $get_data = "SELECT section,reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section,reason ORDER BY section DESC, absent_count DESC";
+    //     $stmt = $conn->prepare($get_data);
+    //     $stmt->execute();
+    //     if($stmt->rowCount() > 0){
+    //         foreach($stmt->fetchALL() as $x){
+    //             $row++;
+    //             echo '<tr>';
+    //             echo '<td>'.$row.'</td>';
+    //             echo '<td class="section_label_expanded">'.$x['section'].'</td>';
+    //             echo '<td class="section_data">'.$x['reason'].'</td>';
+    //             echo '<td class="section_data">'.$x['absent_count'].'</td>';
+    //             echo '</tr>';
+    //         }
+    //     }else{
+    //         // NO RESULT
+    //     }
+    // }
+    
+    elseif($method == 'generate_absence_per_section_expanded'){
         $from = $_POST['from'];
         $to = $_POST['to'];
         $shift = $_POST['shift'];
         $row = 0;
         // GENERATE
-        $get_data = "SELECT section,reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section,reason ORDER BY section DESC, absent_count DESC";
-        $stmt = $conn->prepare($get_data);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            foreach($stmt->fetchALL() as $x){
-                $row++;
-                echo '<tr>';
-                echo '<td>'.$row.'</td>';
-                echo '<td class="section_label_expanded">'.$x['section'].'</td>';
-                echo '<td class="section_data">'.$x['reason'].'</td>';
-                echo '<td class="section_data">'.$x['absent_count'].'</td>';
-                echo '</tr>';
-            }
-        }else{
-            // NO RESULT
+
+        $generate = "SELECT section,
+         COUNT(if(reason LIKE 'AWOL%',1,NULL)) as awol, 
+         COUNT(if(reason LIKE 'BL%',1,NULL)) as bl, 
+         COUNT(if(reason LIKE 'EL%',1,NULL)) as el, 
+         COUNT(if(reason LIKE 'For Cancel%',1,NULL)) as cancel, 
+         COUNT(if(reason LIKE 'ML%',1,NULL)) as ml, 
+         COUNT(if(reason LIKE 'Prolong%',1,NULL)) as prolong, 
+         COUNT(if(reason LIKE 'SL%',1,NULL)) as sl, 
+         COUNT(if(reason LIKE 'SUS%',1,NULL)) as sus, 
+         COUNT(if(reason LIKE 'VL%',1,NULL)) as vl, 
+         COUNT(id) as total_absent
+         FROM aris_absent_filing 
+         WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' 
+         GROUP BY section
+         ORDER BY total_absent DESC";
+         $stmt = $conn->prepare($generate);
+         $stmt->execute();
+         foreach($stmt->fetchALL() as $x){
+            $row++;
+            echo '<tr>';
+            echo '<td>'.$row.'</td>';
+            echo '<td>'.$x['section'].'</td>';
+            echo '<td>'.$x['awol'].'</td>';
+            echo '<td>'.$x['bl'].'</td>';
+            echo '<td>'.$x['el'].'</td>';
+            echo '<td>'.$x['cancel'].'</td>';
+            echo '<td>'.$x['ml'].'</td>';
+            echo '<td>'.$x['prolong'].'</td>';
+            echo '<td>'.$x['sl'].'</td>';
+            echo '<td>'.$x['sus'].'</td>';
+            echo '<td>'.$x['vl'].'</td>';
+            echo '<td>'.$x['total_absent'].'</td>';
+            echo '</tr>';
+         }
         }
-    }
+    
+
+    // SELECT section, 
+    // COUNT(if(reason LIKE 'AWOL%',1,NULL)) as awol,
+    // COUNT(if(reason LIKE 'BL%',1,NULL)) as bl,
+    // COUNT(if(reason LIKE 'EL%',1,NULL)) as el,
+    // COUNT(if(reason LIKE 'For Cancel%',1,NULL)) as cancel,
+    // COUNT(if(reason LIKE 'ML%',1,NULL)) as ml,
+    // COUNT(if(reason LIKE 'Prolong%',1,NULL)) as prolong,
+    // COUNT(if(reason LIKE 'SL%',1,NULL)) as sl,
+    // COUNT(if(reason LIKE 'SUS%',1,NULL)) as sus,
+    // COUNT(if(reason LIKE 'VL%',1,NULL)) as vl,
+    // COUNT(id) as total
+    // FROM aris_absent_filing GROUP BY section
 
 
 
-
-
-
-    if($method == 'generate_top_reason'){
+    elseif($method == 'generate_top_reason'){
         $from = $_POST['genFrom'];
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
@@ -407,7 +461,7 @@
             $total_absent = $total['absent_count'];
         }
 
-        $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason";
+        $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){

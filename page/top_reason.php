@@ -145,8 +145,13 @@
                     $('.reason_data_percentage').each(function(){
                         reason_data.push($(this).html());
                     }); 
+
+                    var reason_percentage = [];
+                    $('.reason_average_percentage').each(function(){
+                        reason_percentage.push($(this).html());
+                    });
                     // CALL FUNCTION GENERATE CHART FOR PER PROVIDER
-                    generate_chart_per_provider(reason_label,reason_data);
+                    generate_chart_per_provider(reason_label,reason_data,reason_percentage);
                     
                   }
             });
@@ -155,28 +160,29 @@
 
 
         // PER AGENCY CHART
-        const generate_chart_per_provider =(x,y)=>{
+        const generate_chart_per_provider =(x,y,z)=>{
             var ctx = document.getElementById('top_reason_chart');
             var myChart = new Chart(ctx, {
-                type: 'bar',
+                // type: 'bar',
                 data: {
                     labels: x,
                     datasets: [{
+                        type: 'bar',
                         label: '# of Absences',
                         data: y,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
@@ -193,6 +199,18 @@
                             'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1
+                    },
+                    {
+                    type: 'bar',
+                    label: 'Percentage',
+                        data: z,
+                        backgroundColor: [
+                            'rgba(190,190,190)'
+                        ],
+                        borderColor: [
+                            'rgba(190,190,190)'
+                        ],
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -204,7 +222,6 @@
                 }
             });
         }
-
    
     </script>
 </body>
