@@ -25,7 +25,7 @@
         }
     }
 
-    if($method == 'file_absent'){
+    elseif($method == 'file_absent'){
         $provider = $_POST['provider'];
         $empID = $_POST['empID'];
         $name = $_POST['name'];
@@ -67,7 +67,7 @@
     }  
 }
 
-if($method == 'load_file_history'){
+elseif($method == 'load_file_history'){
     $dateFrom = $_POST['dateFrom'];
     $dateTo = $_POST['dateTo'];
     $shift = $_POST['shift'];
@@ -129,7 +129,7 @@ if($method == 'load_file_history'){
 }
 
     // DELETE OF FILE BY CLERK
-    if($method == 'deleteFileClerk'){
+    elseif($method == 'deleteFileClerk'){
         $itemID = array();
         $itemID = $_POST['items'];
         $count = count($itemID);
@@ -151,7 +151,7 @@ if($method == 'load_file_history'){
     }
 
     // FETCH REASON BY CATEGORY
-    if($method == 'getReason'){
+    elseif($method == 'getReason'){
         $categ = $_POST['value'];
         $fetchReason = "SELECT reason2 FROM aris_absent_reason WHERE reason_categ = '$categ'";
         $stmt = $conn->prepare($fetchReason);
