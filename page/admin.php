@@ -46,13 +46,11 @@
                 <div class="row">
                     <div class="col s12 z-depth-3">
                         <div class="col s3 input-field">
-                            <input type="date" name="" id="generatedateFrom" value="<?=$server_date;?>"><label for="">Date From:</label>
+                            <input type="date" name="" id="generatedateFrom" value="<?=$server_date;?>"><label for="">Date:</label>
                         </div>
-                        <div class="col s3 input-field">
-                            <input type="date" name="" value="<?=$server_date;?>" id="generatedateTo"><label for="">Date To:</label>
-                        </div>
+
                         <div class="col s2 input-field">
-                            <select name="" id="generateShift" class="browser-default">
+                            <select name="" id="generateShift" class="browser-default z-depth-3">
                                 <option value="">ALL SHIFT</option>
                                 <option value="DS">DS</option>
                                 <option value="NS">NS</option>
@@ -60,11 +58,11 @@
                         </div>
 
                         <div class="col s2 input-field">
-                            <button class="btn #448aff blue accent-2 col s12" onclick="load_absence_report()">generate</button>
+                            <button class="btn #448aff blue accent-2 col s12 waves-effect waves-light" onclick="load_absence_report()">generate</button>
                         </div>
                         <!-- EXPORT -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12" onclick="">export</button>
+                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="">export</button>
                         </div>
                     </div>
                     </div>
@@ -108,7 +106,6 @@
 
         const load_absence_report =()=>{
             var genFrom = $('#generatedateFrom').val();
-            var genTo =$('#generatedateTo').val();
             var genShift = $('#generateShift').val();
             
             $.ajax({
@@ -118,7 +115,6 @@
                 data:{
                     method: 'generateAbsence',
                     genFrom:genFrom,
-                    genTo:genTo,
                     genShift:genShift
                 },success:function(response){
                     $('#absences_data_render').html(response);

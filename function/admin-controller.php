@@ -5,11 +5,10 @@
     $method = $_POST['method'];
     if($method == 'generateAbsence'){
         $from = $_POST['genFrom'];
-        $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
         $count = 0;
         // GROUP BY ID NUMBER AND REASON
-        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, COUNT(id) as total_absence_num, reason, reason_2 FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
+        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -23,7 +22,7 @@
                 echo '<td>'.$x['section'].'</td>';
                 echo '<td>'.$x['carmodel_group'].'</td>';
                 echo '<td>'.$x['process_line'].'</td>';
-                echo '<td>'.$x['total_absence_num'].'</td>';
+                echo '<td>'.$x['number_absent'].'</td>';
                 echo '<td>'.$x['reason'].'</td>';
                 echo '<td>'.$x['reason_2'].'</td>';
                 echo '</tr>';
