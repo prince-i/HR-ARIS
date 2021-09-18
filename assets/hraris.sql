@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2021 at 08:02 AM
+-- Generation Time: Sep 18, 2021 at 05:36 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -32,6 +32,7 @@ CREATE TABLE `aris_absent_filing` (
   `provider` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_id_number` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `section` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `carmodel_group` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `process_line` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -40,6 +41,7 @@ CREATE TABLE `aris_absent_filing` (
   `uploader` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `shift` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `date_absent` date NOT NULL,
+  `number_absent` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `date_upload` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -47,21 +49,94 @@ CREATE TABLE `aris_absent_filing` (
 -- Dumping data for table `aris_absent_filing`
 --
 
-INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `section`, `carmodel_group`, `process_line`, `reason`, `reason_2`, `uploader`, `shift`, `date_absent`, `date_upload`) VALUES
-(321, 'FAS', '21-06711', 'Arce, Prince C.', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', '2021-09-07'),
-(322, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', '2021-09-07'),
-(323, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', '2021-09-07'),
-(324, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', '2021-09-07'),
-(325, 'MAXIM', 'BF-41123', 'Orenday, Marivic S', 'Section 3', 'Daihatsu Initial', 'Secondary Process (Daihatsu D01L)', 'VL', 'Wedding Preparation', 'PD5 CLERK', 'NS', '2021-09-07', '2021-09-07'),
-(326, 'MAXIM', 'BF-40294', 'Señadan, Julie Ann P', 'Section 3', 'Daihatsu Final', '2111', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(327, 'MAXIM', 'BF-17750', 'De Guzman, Allan D', 'Section 3', 'Daihatsu Final', '2109', 'VL', 'Settle Important Matter', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(328, 'MAXIM', 'BF-40717', 'Sollivan, Rea  P', 'Section 3', 'Daihatsu Final', 'N/A', 'VL', 'Vaccination', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(329, 'FAS', '12-0116', 'Malibiran, Mary Angelique C.', 'Section 3', 'Daihatsu Final', '2121', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(330, 'FAS', '12-0081', 'Cailao, Eugenio V.', 'Section 3', 'Daihatsu Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(331, 'FAS', '13-00910', 'Pastoral, Lady Lyn D.', 'Section 3', 'Daihatsu Final', '2111', 'ML', 'Maternity leave', 'PD5 CLERK', 'NS', '2021-09-07', '2021-09-07'),
-(332, 'FAS', '13-0156', 'Falogme, Jenny Ann F.', 'Section 3', 'Daihatsu Initial', 'First Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'ADS', '2021-09-07', '2021-09-07'),
-(333, 'FAS', '13-0242', 'De Guzman, Mary Rose U.', 'Section 3', 'Daihatsu Final', '2120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07'),
-(334, 'FAS', '13-0167', 'Silva, Romana B.', 'Section 3', 'Daihatsu Final', '2114', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', '2021-09-07');
+INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `position`, `section`, `carmodel_group`, `process_line`, `reason`, `reason_2`, `uploader`, `shift`, `date_absent`, `number_absent`, `date_upload`) VALUES
+(321, 'FAS', '21-06711', 'Arce, Prince C.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', '1', '2021-09-07'),
+(322, 'FAS', '14-01871', 'Jalla, John Bernard L.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(323, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(324, 'FAS', '14-01899', 'Bathan, Laurice A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(325, 'MAXIM', 'BF-41123', 'Orenday, Marivic S', NULL, 'Section 3', 'Daihatsu Initial', 'Secondary Process (Daihatsu D01L)', 'VL', 'Wedding Preparation', 'PD5 CLERK', 'NS', '2021-09-07', NULL, '2021-09-07'),
+(326, 'MAXIM', 'BF-40294', 'Señadan, Julie Ann P', NULL, 'Section 3', 'Daihatsu Final', '2111', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(327, 'MAXIM', 'BF-17750', 'De Guzman, Allan D', NULL, 'Section 3', 'Daihatsu Final', '2109', 'VL', 'Settle Important Matter', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(328, 'MAXIM', 'BF-40717', 'Sollivan, Rea  P', NULL, 'Section 3', 'Daihatsu Final', 'N/A', 'VL', 'Vaccination', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(329, 'FAS', '12-0116', 'Malibiran, Mary Angelique C.', NULL, 'Section 3', 'Daihatsu Final', '2121', 'VL', 'Taking Care of Family Member', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(330, 'FAS', '12-0081', 'Cailao, Eugenio V.', NULL, 'Section 3', 'Daihatsu Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(331, 'FAS', '13-00910', 'Pastoral, Lady Lyn D.', NULL, 'Section 3', 'Daihatsu Final', '2111', 'ML', 'Maternity leave', 'PD5 CLERK', 'NS', '2021-09-07', NULL, '2021-09-07'),
+(332, 'FAS', '13-0156', 'Falogme, Jenny Ann F.', NULL, 'Section 3', 'Daihatsu Initial', 'First Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'ADS', '2021-09-07', NULL, '2021-09-07'),
+(333, 'FAS', '13-0242', 'De Guzman, Mary Rose U.', NULL, 'Section 3', 'Daihatsu Final', '2120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(334, 'FAS', '13-0167', 'Silva, Romana B.', NULL, 'Section 3', 'Daihatsu Final', '2114', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'PD5 CLERK', 'DS', '2021-09-07', NULL, '2021-09-07'),
+(335, 'FAS', '21-06711', 'Arce, Prince C.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'NS', '2021-09-10', NULL, '2021-09-10'),
+(336, 'FAS', '14-01899', 'Bathan, Laurice A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-10', NULL, '2021-09-10'),
+(337, 'FAS', '14-01871', 'Jalla, John Bernard L.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-10', NULL, '2021-09-10'),
+(338, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-10', NULL, '2021-09-10'),
+(339, 'FAS', '12-0019', 'Mendoza, Christian Allen M.', NULL, 'Equipment Engineering', 'Fabrication', 'N/A', 'VL', 'Birthday celebration of family member', 'fab clerk', 'DS', '2021-09-10', NULL, '2021-09-10'),
+(340, 'FAS', '13-0439', 'De Torres, Andrew M.', NULL, 'Equipment Engineering', 'Fabrication', 'N/A', 'VL', 'Vaccination', 'fab clerk', 'DS', '2021-09-10', NULL, '2021-09-10'),
+(341, 'FAS', '15-02809', 'Casiano, Jo Marie M.', NULL, 'Equipment Engineering', 'Fabrication', 'N/A', 'VL', 'Taking Care of Family Member', 'fab clerk', 'DS', '2021-09-06', NULL, '2021-09-10'),
+(342, 'FAS', '15-02807', 'Briones, Mary Anne M.', NULL, 'Equipment Engineering', 'Fabrication', 'N/A', 'VL', 'Taking Care of Family Member', 'fab clerk', 'DS', '2021-09-06', NULL, '2021-09-10'),
+(343, 'FAS', '15-02830', 'Magadia, Judy Ann M.', NULL, 'Equipment Engineering', 'Fabrication', 'N/A', 'VL', 'Taking Care of Family Member', 'fab clerk', 'DS', '2021-09-06', NULL, '2021-09-10'),
+(344, 'FAS', '14-01871', 'Jalla, John Bernard L.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-11', NULL, '2021-09-11'),
+(345, 'FAS', '21-06711', 'Arce, Prince C.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-11', NULL, '2021-09-11'),
+(346, 'FAS', '14-01899', 'Bathan, Laurice A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Toothache', 'IT Clerk', 'DS', '2021-09-11', NULL, '2021-09-11'),
+(347, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-11', NULL, '2021-09-11'),
+(350, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', NULL, 'N/A', 'N/A', 'N/A', 'ML', 'Maternity leave', 'addeven', 'NS', '2021-09-12', NULL, '2021-09-12'),
+(351, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', NULL, 'FG Preparation', 'FG Preparation', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(352, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', NULL, 'Section 1', 'Suzuki Final', '5101', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(353, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', NULL, 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(354, 'ADD EVEN', 'AEFL18080', 'Basares, Emmalyn S.', NULL, 'Section 1', 'Suzuki Initial', '5117', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(355, 'ADD EVEN', 'AEFL18056', 'Mirabete, Maricris', NULL, 'Section 2', 'Mazda J12 Final', '1008', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(356, 'ADD EVEN', 'AEFL18081', 'Lomboy, Monica  M.', NULL, 'Section 1', 'Suzuki Initial', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(357, 'ADD EVEN', 'AEFL18083', 'Handugan, Eden G.', NULL, 'Section 1', 'Suzuki Final', '5111', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(358, 'ADD EVEN', 'AEFL18199', 'Palmero, Roxanne D.', NULL, 'Section 1', 'Suzuki Final', '5119', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(359, 'ADD EVEN', 'AEFL18228', 'Tumlos, Jennifer B.', NULL, 'Section 3', 'Daihatsu Initial', 'Second Process (Daihatsu D01L)', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-12', NULL, '2021-09-12'),
+(360, 'ADD EVEN', 'AEFL18097', 'Evangelista, Marienel F.', NULL, 'Section 1', 'Suzuki Final', '5102', 'ML', 'Maternity leave', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(361, 'ADD EVEN', 'AEFL18102', 'Seño, Cecilia S.', NULL, 'Section 2', 'Mazda Merge Final', '1123', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-12', NULL, '2021-09-12'),
+(362, 'ADD EVEN', 'AEFL18137', 'Comia, Jonalyn M. ', NULL, 'Section 1', 'Suzuki Final', '5120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(363, 'ADD EVEN', 'AEFL18191', 'Insigne, Razelle P.', NULL, 'Section 1', 'Suzuki Final', '5124', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(364, 'ADD EVEN', 'AEFL18256', 'Piol, Maricel G. ', NULL, 'Section 1', 'Suzuki Final', '5124', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(365, 'ADD EVEN', 'AEFL18260', 'Rodriguez, Aira Mae M. ', NULL, 'Section 5', 'Honda Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(366, 'ADD EVEN', 'AE17014', 'Alcaraz, Arlyn', NULL, 'N/A', 'N/A', 'N/A', 'SL', 'Pregnancy Problem', 'addeven', 'ADS', '2021-09-12', NULL, '2021-09-12'),
+(367, 'FAS', '14-01871', 'Jalla, John Bernard L.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Settle Important Matter', 'IT Clerk', 'DS', '2021-09-15', NULL, '2021-09-15'),
+(368, 'FAS', '14-01899', 'Bathan, Laurice A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Settle Important Matter', 'IT Clerk', 'DS', '2021-09-15', NULL, '2021-09-15'),
+(369, 'FAS', '21-06711', 'Arce, Prince C.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'NS', '2021-09-15', NULL, '2021-09-15'),
+(370, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Settle Important Matter', 'IT Clerk', 'DS', '2021-09-15', NULL, '2021-09-15'),
+(371, 'FAS', '12-0081', 'Cailao, Eugenio V.', NULL, 'Section 3', 'Daihatsu Final', 'N/A', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(372, 'FAS', '12-0116', 'Malibiran, Mary Angelique C.', NULL, 'Section 3', 'Daihatsu Final', '2121', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(373, 'FAS', '13-0156', 'Falogme, Jenny Ann F.', NULL, 'Section 3', 'Daihatsu Initial', 'First Process (Daihatsu D01L)', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'ADS', '2021-09-16', NULL, '2021-09-16'),
+(374, 'FAS', '13-00910', 'Pastoral, Lady Lyn D.', NULL, 'Section 3', 'Daihatsu Final', '2111', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'NS', '2021-09-16', NULL, '2021-09-16'),
+(375, 'FAS', '13-0167', 'Silva, Romana B.', NULL, 'Section 3', 'Daihatsu Final', '2114', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(376, 'FAS', '13-0242', 'De Guzman, Mary Rose U.', NULL, 'Section 3', 'Daihatsu Final', '2120', 'For Cancel', 'For Cancel', 'PD5 CLERK', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(377, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', NULL, 'FG Preparation', 'FG Preparation', 'N/A', 'SL', 'UTI', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(378, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', NULL, 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'SL', 'Hip Pain', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(379, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', NULL, 'N/A', 'N/A', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-16', NULL, '2021-09-16'),
+(380, 'ADD EVEN', 'AE17014', 'Alcaraz, Arlyn', NULL, 'N/A', 'N/A', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'ADS', '2021-09-16', NULL, '2021-09-16'),
+(381, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', NULL, 'Section 1', 'Suzuki Final', '5101', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(382, 'ADD EVEN', 'AE190109', 'Manaig, Jessa', NULL, 'N/A', 'N/A', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-16', NULL, '2021-09-16'),
+(383, 'ADD EVEN', 'AEFL18080', 'Basares, Emmalyn S.', NULL, 'Section 1', 'Suzuki Initial', '5117', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(384, 'ADD EVEN', 'AEFL18056', 'Mirabete, Maricris', NULL, 'Section 2', 'Mazda J12 Final', '1008', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(385, 'ADD EVEN', 'AEFL18097', 'Evangelista, Marienel F.', NULL, 'Section 1', 'Suzuki Final', '5102', 'VL', 'Vaccination', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(386, 'ADD EVEN', 'AEFL18083', 'Handugan, Eden G.', NULL, 'Section 1', 'Suzuki Final', '5111', 'VL', 'Vaccination', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(387, 'ADD EVEN', 'AEFL18081', 'Lomboy, Monica  M.', NULL, 'Section 1', 'Suzuki Initial', 'N/A', 'VL', 'Vaccination', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(388, 'ADD EVEN', 'AEFL18102', 'Seño, Cecilia S.', NULL, 'Section 2', 'Mazda Merge Final', '1123', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-16', NULL, '2021-09-16'),
+(389, 'ADD EVEN', 'AEFL18199', 'Palmero, Roxanne D.', NULL, 'Section 1', 'Suzuki Final', '5119', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(390, 'ADD EVEN', 'AEFL18137', 'Comia, Jonalyn M. ', NULL, 'Section 1', 'Suzuki Final', '5120', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(391, 'ADD EVEN', 'AEFL18228', 'Tumlos, Jennifer B.', NULL, 'Section 3', 'Daihatsu Initial', 'Second Process (Daihatsu D01L)', 'VL', 'Taking Care of Family Member', 'addeven', 'NS', '2021-09-16', NULL, '2021-09-16'),
+(392, 'ADD EVEN', 'AEFL18256', 'Piol, Maricel G. ', NULL, 'Section 1', 'Suzuki Final', '5124', 'ML', 'Miscarriage', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(393, 'ADD EVEN', 'AEFL18260', 'Rodriguez, Aira Mae M. ', NULL, 'Section 5', 'Honda Final', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(394, 'ADD EVEN', 'AEFL18191', 'Insigne, Razelle P.', NULL, 'Section 1', 'Suzuki Final', '5124', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-16', NULL, '2021-09-16'),
+(407, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-17', '14', '2021-09-17'),
+(408, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-17', '15', '2021-09-17'),
+(409, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-17', '1', '2021-09-17'),
+(410, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-17', '11', '2021-09-17'),
+(430, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', 'Associate', 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-17', '1', '2021-09-17'),
+(431, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', 'Associate', 'Section 1', 'Suzuki Final', '5101', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-17', '1', '2021-09-17'),
+(432, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', 'Associate', 'FG Preparation', 'FG Preparation', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-17', '1', '2021-09-17'),
+(434, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-18', '1', '2021-09-18'),
+(435, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-18', '1', '2021-09-18'),
+(436, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-18', '1', '2021-09-18'),
+(437, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-18', '1', '2021-09-18'),
+(438, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '18', '2021-09-18'),
+(439, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-20', '15', '2021-09-18'),
+(440, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '17', '2021-09-18'),
+(441, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '16', '2021-09-18');
 
 -- --------------------------------------------------------
 
@@ -334,17 +409,23 @@ CREATE TABLE `aris_users` (
   `role` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deptCode` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `deptSection` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-  `handleLine` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+  `subSection` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `aris_users`
 --
 
-INSERT INTO `aris_users` (`id`, `username`, `password`, `fullname`, `role`, `deptCode`, `deptSection`, `handleLine`) VALUES
+INSERT INTO `aris_users` (`id`, `username`, `password`, `fullname`, `role`, `deptCode`, `deptSection`, `subSection`) VALUES
 (1, '0000', '0000', 'IT Clerk', 'clerk', 'IT', 'Information Technology', 'Information Technology'),
 (2, 'admin', 'admin', 'HR', 'admin', 'HR', '', ''),
-(3, 'pd5', 'pd5', 'PD5 CLERK', 'clerk', 'PROD', 'Section 3', '');
+(3, 'pd5', 'pd5', 'PD5 CLERK', 'clerk', 'PROD', 'Section 3', ''),
+(4, 'pd3', 'pd3', 'clerk pd3', 'clerk', 'PROD', 'Section 3', ''),
+(5, 'pd1', 'pd2', 'pd1 clerk', 'clerk', 'PROD', 'Section 1', ''),
+(6, 'pd2', 'pd2', 'pd2 clerk', 'clerk', 'PROD', 'Section 2', ''),
+(7, 'eqd', 'eqd', 'eqd clerk engineering', 'clerk', 'EQD', 'Equipment Engineering', 'Equipment Engineering'),
+(8, 'fab', 'fab', 'fab clerk', 'clerk', 'EQD', 'Equipment Engineering', 'Fabrication'),
+(9, 'addeven', 'addeven', 'addeven', 'coordinator', 'ADD EVEN', 'Add Even Manpower Resources & Solutions', '');
 
 -- --------------------------------------------------------
 
@@ -690,7 +771,7 @@ ALTER TABLE `falp_calendar`
 -- AUTO_INCREMENT for table `aris_absent_filing`
 --
 ALTER TABLE `aris_absent_filing`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
 
 --
 -- AUTO_INCREMENT for table `aris_absent_reason`
@@ -714,7 +795,7 @@ ALTER TABLE `aris_department`
 -- AUTO_INCREMENT for table `aris_users`
 --
 ALTER TABLE `aris_users`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `falp_calendar`

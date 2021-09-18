@@ -212,12 +212,10 @@
         });
 
         const load_absence_per_provider =()=>{
-
             $('#generatedateFrom').attr('disabled',true);
             $('#generatedateTo').attr('disabled',true);
             $('#generateShift').attr('disabled',true);
             $('#generateBtn').attr('disabled',true);
-
             var genFrom = $('#generatedateFrom').val();
             var genTo =$('#generatedateTo').val();
             var genShift = $('#generateShift').val();
@@ -241,6 +239,9 @@
                     $('.absent_provider').each(function(){
                         provider_data_count.push($(this).html());
                     }); 
+
+                    $('#total_absent_provider').html(eval(provider_data_count.join('+')));
+
                     // CALL FUNCTION GENERATE CHART FOR PER PROVIDER
                     generate_chart_per_provider(provider_data,provider_data_count);
                     setTimeout(() => {
@@ -272,6 +273,9 @@
                     $('.reason_data').each(function(){
                         reason_data.push($(this).html());
                     });
+
+                    $('#total_absent_reason').html(eval(reason_data.join('+')));
+
                     generate_chart_per_reason(reason_label,reason_data);
                     setTimeout(() => {
                         load_per_reason_2(x,y,z);
@@ -302,6 +306,8 @@
                     $('.reason2_data').each(function(){
                         reason2_data.push($(this).html());
                     });
+
+                    $('#total_absent_reason2').html(eval(reason2_data.join('+')));
                     generate_chart_per_reason2(reason2_label,reason2_data);
                     setTimeout(() => {
                         load_per_section(from,to,shift);
@@ -331,7 +337,7 @@
                     $('.section_data').each(function(){
                         section_data.push($(this).html());
                     });
-
+                    $('#total_absent_section').html(eval(section_data.join('+')));
                     generate_chart_per_section(section_label,section_data);
                     setTimeout(() => {
                         load_per_section_expanded(from,to,shift);
@@ -339,7 +345,7 @@
                 }
             });
         }
-
+        
         const load_per_section_expanded =(from,to,shift)=>{
             $.ajax({
                 url: '../function/admin-controller.php',
@@ -356,7 +362,6 @@
                 }
             });
         }
-
 
         // PER AGENCY CHART
         const generate_chart_per_provider =(x,y)=>{

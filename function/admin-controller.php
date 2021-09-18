@@ -14,6 +14,11 @@
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
                 $count++;
+                if($x['number_absent'] >= 15 ){
+                    $reason = 'Prolong Absent';
+                }else{
+                    $reason = $x['reason'];
+                }
                 echo '<tr>';
                 echo '<td>'.$count.'</td>';
                 echo '<td>'.$x['provider'].'</td>';
@@ -23,7 +28,7 @@
                 echo '<td>'.$x['carmodel_group'].'</td>';
                 echo '<td>'.$x['process_line'].'</td>';
                 echo '<td>'.$x['number_absent'].'</td>';
-                echo '<td>'.$x['reason'].'</td>';
+                echo '<td>'.$reason.'</td>';
                 echo '<td>'.$x['reason_2'].'</td>';
                 echo '</tr>';
             }
@@ -290,6 +295,10 @@
                 echo '<td class="absent_provider">'.$x['absent_count'].'</td>';
                 echo '</tr>';
             }
+                echo '<tr>';
+                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td class="" id="total_absent_provider"></td>';
+                echo '</tr>';
         }else{
             // NO RESULT
         }
@@ -313,6 +322,10 @@
                 echo '<td class="reason_data">'.$x['absent_count'].'</td>';
                 echo '</tr>';
             }
+            echo '<tr>';
+            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td class="" id="total_absent_reason"></td>';
+            echo '</tr>';
         }else{
             // NO RESULT
         }
@@ -336,6 +349,10 @@
                 echo '<td class="reason2_data">'.$x['absent_count'].'</td>';
                 echo '</tr>';
             }
+                echo '<tr>';
+                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td class="" id="total_absent_reason2"></td>';
+                echo '</tr>';
         }else{
             // NO RESULT
         }
@@ -359,34 +376,16 @@
                 echo '<td class="section_data">'.$x['absent_count'].'</td>';
                 echo '</tr>';
             }
+                echo '<tr>';
+                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td class="" id="total_absent_section"></td>';
+                echo '</tr>';
         }else{
             // NO RESULT
         }
     }
 
-    // if($method == 'generate_absence_per_section_expanded'){
-    //     $from = $_POST['from'];
-    //     $to = $_POST['to'];
-    //     $shift = $_POST['shift'];
-    //     $row = 0;
-    //     // GENERATE
-    //     $get_data = "SELECT section,reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section,reason ORDER BY section DESC, absent_count DESC";
-    //     $stmt = $conn->prepare($get_data);
-    //     $stmt->execute();
-    //     if($stmt->rowCount() > 0){
-    //         foreach($stmt->fetchALL() as $x){
-    //             $row++;
-    //             echo '<tr>';
-    //             echo '<td>'.$row.'</td>';
-    //             echo '<td class="section_label_expanded">'.$x['section'].'</td>';
-    //             echo '<td class="section_data">'.$x['reason'].'</td>';
-    //             echo '<td class="section_data">'.$x['absent_count'].'</td>';
-    //             echo '</tr>';
-    //         }
-    //     }else{
-    //         // NO RESULT
-    //     }
-    // }
+  
     
     elseif($method == 'generate_absence_per_section_expanded'){
         $from = $_POST['from'];
@@ -394,17 +393,16 @@
         $shift = $_POST['shift'];
         $row = 0;
         // GENERATE
-
         $generate = "SELECT section,
          COUNT(if(reason LIKE 'AWOL%',1,NULL)) as awol, 
-         COUNT(if(reason LIKE 'BL%',1,NULL)) as bl, 
-         COUNT(if(reason LIKE 'EL%',1,NULL)) as el, 
+         COUNT(if(reason LIKE 'BL%' AND number_absent < 15,1,NULL)) as bl, 
+         COUNT(if(reason LIKE 'EL%' AND number_absent < 15,1,NULL)) as el, 
          COUNT(if(reason LIKE 'For Cancel%',1,NULL)) as cancel, 
          COUNT(if(reason LIKE 'ML%',1,NULL)) as ml, 
-         COUNT(if(reason LIKE 'Prolong%',1,NULL)) as prolong, 
-         COUNT(if(reason LIKE 'SL%',1,NULL)) as sl, 
+         COUNT(if((reason LIKE 'SL%' OR reason LIKE 'VL%' OR reason LIKE 'BL%' OR reason LIKE 'EL%') AND number_absent >= 15,1,NULL)) as prolong, 
+         COUNT(if(reason LIKE 'SL%' AND number_absent < 15,1,NULL)) as sl, 
          COUNT(if(reason LIKE 'SUS%',1,NULL)) as sus, 
-         COUNT(if(reason LIKE 'VL%',1,NULL)) as vl, 
+         COUNT(if(reason LIKE 'VL%' AND number_absent < 15,1,NULL)) as vl, 
          COUNT(id) as total_absent
          FROM aris_absent_filing 
          WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' 
@@ -416,6 +414,7 @@
             $row++;
             // CALCULATE LESS ML
             $less_ml = $x['total_absent'] - $x['ml'];
+            $grand_total = $x['awol'] + $x['bl'] + $x['el'] + $x['cancel'] + $x['ml'] + $x['prolong'] + $x['sl'] + $x['sus'] + $x['vl'];
             echo '<tr>';
             echo '<td>'.$row.'</td>';
             echo '<td>'.$x['section'].'</td>';
@@ -428,27 +427,11 @@
             echo '<td>'.$x['sl'].'</td>';
             echo '<td>'.$x['sus'].'</td>';
             echo '<td>'.$x['vl'].'</td>';
-            echo '<td>'.$x['total_absent'].'</td>';
+            echo '<td>'.$grand_total.'</td>';
             echo '<td>'.$less_ml.'</td>';
             echo '</tr>';
          }
         }
-    
-
-    // SELECT section, 
-    // COUNT(if(reason LIKE 'AWOL%',1,NULL)) as awol,
-    // COUNT(if(reason LIKE 'BL%',1,NULL)) as bl,
-    // COUNT(if(reason LIKE 'EL%',1,NULL)) as el,
-    // COUNT(if(reason LIKE 'For Cancel%',1,NULL)) as cancel,
-    // COUNT(if(reason LIKE 'ML%',1,NULL)) as ml,
-    // COUNT(if(reason LIKE 'Prolong%',1,NULL)) as prolong,
-    // COUNT(if(reason LIKE 'SL%',1,NULL)) as sl,
-    // COUNT(if(reason LIKE 'SUS%',1,NULL)) as sus,
-    // COUNT(if(reason LIKE 'VL%',1,NULL)) as vl,
-    // COUNT(id) as total
-    // FROM aris_absent_filing GROUP BY section
-
-
 
     elseif($method == 'generate_top_reason'){
         $from = $_POST['genFrom'];
