@@ -18,6 +18,7 @@
     include '../components/Modals/modal_file_absent.php';
     include '../components/Modals/edit_uploaded_clerk.php';
    
+    // echo $username;
     // echo $deptCode;
     // echo $deptSection;
     // echo $deptSubSection;

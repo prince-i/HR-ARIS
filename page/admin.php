@@ -12,7 +12,9 @@
         session_unset();
         session_destroy();
         header('location:../index.php');
+        
     }
+    // echo $fullname;
     include '../components/Modals/modal_logout.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
@@ -21,6 +23,18 @@
             min-height:90vh;
             overflow-y:auto;
         }
+        div::-webkit-scrollbar {
+            width: 1em;
+        }
+        
+        div::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        div::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid darkgrey;
+        }      
     </style>
 </head>
 <body>
@@ -37,8 +51,14 @@
   
 <!-- CONTENT -->
     <div class="row">
-            <!-- SIDE LINKS -->
-            <?php include 'side-nav-admin.php';?>
+            
+            <?php 
+            // <!-- SIDE LINKS -->
+                include 'side-nav-admin.php';
+            // MODALS
+                include '../components/Modals/modal_upload_absent_admin.php';
+                include '../components/Modals/modal_uploaded_admin_preview.php';
+            ?>
 
             <!-- CONTAINER -->
             <div class="col l10 m10 s10">
@@ -60,9 +80,19 @@
                         <div class="col s2 input-field">
                             <button class="btn #448aff blue accent-2 col s12 waves-effect waves-light" onclick="load_absence_report()">generate</button>
                         </div>
-                        <!-- EXPORT -->
+                        
+                        <!-- UPLOAD -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="">export</button>
+                            <button class="btn #01579b light-blue darken-4 col s12 waves-effect waves-light modal-trigger" data-target="modal_upload_absent" onclick="">upload</button>
+                        </div>
+                        <!-- PREVIEW UPLOADED DATA -->
+                        <div class="col s2 input-field">
+                            <button class="btn modal-trigger col s12 #81d4fa light-blue lighten-3 black-text" data-target="modal_admin_preview" onclick="load_uploaded_absent()">Preview Uploaded</button>
+                        </div>
+
+                        <!-- EXPORT -->
+                        <div class="col s1 input-field">
+                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="">&darr;</button>
                         </div>
                     </div>
                     </div>
@@ -93,7 +123,6 @@
 
 <!-- /CONTENT -->
 
-
   <!-- JS & JQUERY -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
@@ -101,6 +130,10 @@
     <script>
         $(document).ready(function(){
             $('.modal').modal();
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoClose: true
+            });
             load_absence_report();
         });
 
@@ -121,6 +154,28 @@
                     // console.log(response);
                 }
             });
+        }
+
+        const load_uploaded_absent =()=>{
+            var absent_from = $('#absent_from_date').val();
+            var absent_to = $('#absent_to_date').val();
+            var shift = $('#shift_filter').val();
+            $.ajax({
+                url :'../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'uploaded_absent_admin',
+                    absent_from:absent_from,
+                    absent_to:absent_to,
+                    shift:shift,
+                    uploader: '<?=$fullname;?>'
+                },success:function(response){
+                    // console.log(response);
+                    $('#filed_data_admin').html(response);
+                }
+            });
+
         }
     </script>
 </body>

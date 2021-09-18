@@ -413,8 +413,8 @@
          foreach($stmt->fetchALL() as $x){
             $row++;
             // CALCULATE LESS ML
-            $less_ml = $x['total_absent'] - $x['ml'];
             $grand_total = $x['awol'] + $x['bl'] + $x['el'] + $x['cancel'] + $x['ml'] + $x['prolong'] + $x['sl'] + $x['sus'] + $x['vl'];
+            $less_ml = $grand_total - $x['ml'];
             echo '<tr>';
             echo '<td>'.$row.'</td>';
             echo '<td>'.$x['section'].'</td>';
@@ -433,19 +433,18 @@
          }
         }
 
+    // GET TOP REASON
     elseif($method == 'generate_top_reason'){
         $from = $_POST['genFrom'];
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
         $row = 0;
-        // CHECK TOTAL ABSENT
         $total = "SELECT count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%'";
         $stmt2 = $conn->prepare($total);
         $stmt2->execute();
         foreach($stmt2->fetchALL() as $total){
             $total_absent = $total['absent_count'];
         }
-
         $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
@@ -462,6 +461,103 @@
         }
 
     }
+
+    elseif($method == 'load_agency'){
+        $fetch = "SELECT * FROM aris_agency ORDER BY agencyName ASC";
+        $stmt = $conn->prepare($fetch);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr>';
+            echo '<td>'.$x['agencyCode'].'</td>';
+            echo '<td>'.$x['agencyName'].'</td>';
+            echo '</tr>';
+        }
+    }
+
+    elseif($method == 'load_reason'){
+        $word = $_POST['keyword'];
+        $fetch = "SELECT *FROM aris_absent_reason WHERE reason_categ LIKE '$word%' OR reason2 LIKE '$word%' ORDER BY reason_categ ASC";
+        $stmt = $conn->prepare($fetch);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr>';
+            echo '<td>'.$x['reason_categ'].'</td>';
+            echo '<td>'.$x['reason2'].'</td>';
+            echo '</tr>';
+        }
+    }
+
+    elseif($method == 'load_dept'){
+        $word = $_POST['keyword'];
+        $fetch = "SELECT *FROM aris_department WHERE deptCode LIKE '$word%' OR deptSection LIKE '$word%' OR deptSubSection LIKE '$word%' ORDER BY deptCode ASC";
+        $stmt = $conn->prepare($fetch);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr>';
+            echo '<td>'.$x['deptCode'].'</td>';
+            echo '<td>'.$x['deptSection'].'</td>';
+            echo '<td>'.$x['deptSubSection'].'</td>';
+            echo '</tr>';
+        }
+    }
+
+    elseif($method == 'uploaded_absent_admin'){
+        $from = $_POST['absent_from'];
+        $to = $_POST{'absent_to'};
+        $shift = $_POST['shift'];
+        echo $uploader = $_POST['uploader'];
+        $query = "SELECT *FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' AND uploader LIKE '$uploader%'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                // $count++;
+                echo '<tr>';
+                echo '<td>
+                <p>
+                    <label>
+                        <input type="checkbox" name="" id="checkUser" class="singleCheckFile"value="'.$x['id'].'" onchange="get_checked_item()">
+                        <span></span>
+                    </label>
+                    </p>
+                </td>';
+                echo '<td>'.$x['provider'].'</td>';
+                echo '<td>
+                        <a href="#modal-edit-absent-file" class="modal-trigger" 
+                        onclick="getToEdit(&quot;'
+                        .$x['id'].'*!*'
+                        .$x['provider'].'*!*'
+                        .$x['emp_id_number'].'*!*'
+                        .$x['name'].'*!*'
+                        .$x['section'].'*!*'
+                        .$x['carmodel_group'].'*!*'
+                        .$x['process_line'].'*!*'
+                        .$x['reason'].'*!*'
+                        .$x['reason_2'].'*!*'
+                        .$x['date_absent'].'*!*'
+                        .$x['shift'].'&quot;)">
+                        '.$x['emp_id_number'].'</a>
+                    </td>';
+                echo '<td>'.$x['name'].'</td>';
+                echo '<td>'.$x['position'].'</td>';
+                echo '<td>'.$x['section'].'</td>';
+                echo '<td>'.$x['carmodel_group'].'</td>';
+                echo '<td>'.$x['process_line'].'</td>';
+                echo '<td>'.$x['reason'].'</td>';
+                echo '<td>'.$x['reason_2'].'</td>';
+                echo '<td>'.$x['uploader'].'</td>';
+                echo '<td>'.$x['date_absent'].'</td>';
+                echo '<td>'.$x['number_absent'].'</td>';
+                echo '<td>'.$x['shift'].'</td>';
+                echo '<td>'.$x['date_upload'].'</td>';
+                
+            }
+        }else{
+            echo '<tr>';
+            echo '<td colspan="15">NO FILED YET</td>';
+            echo '</tr>';
+        }
+        }
 
     $conn = null;
 ?>
