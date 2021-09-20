@@ -30,6 +30,9 @@
             </div>
         </div>
         <div class="row">
+            <div class="col s4">
+                <button class="btn-small red" disabled id="delete_absent" onclick="del_selected_data()">DELETE &times;</button>
+            </div>
             <div class="col s12 collection" style="height:70vh;overflow:auto;">
                 <table class="centered" style="zoom:80%;">
                     <thead style="font-size:12px;">

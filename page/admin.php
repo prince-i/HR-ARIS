@@ -16,6 +16,7 @@
     }
     // echo $fullname;
     include '../components/Modals/modal_logout.php';
+    include '../components/Modals/modal_uploaded_admin.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -175,8 +176,101 @@
                     $('#filed_data_admin').html(response);
                 }
             });
-
         }
+
+         // CHECK ALL
+    const select_all_file =()=>{
+        var checked_all = document.getElementById('checkAllAbsent');
+        
+        if(checked_all.checked == true){
+            $('.singleCheckFile').each(function(){
+                this.checked = true;
+            });
+        }else{
+            $('.singleCheckFile').each(function(){
+                this.checked = false;
+            });
+        }
+        get_checked_item();
+    }
+
+    // GET CHECKED ITEMS AND LENGTH
+    const get_checked_item =()=>{
+        var checkArr = [];
+        $('input.singleCheckFile:checkbox:checked').each(function(){
+            checkArr.push($(this).val());
+        });
+        var number_selected =  checkArr.length;
+        console.log(checkArr);
+        if(number_selected > 0){
+            $('#delete_absent').attr('disabled',false);
+        }else{
+            $('#delete_absent').attr('disabled',true);
+        }
+    }
+
+    // GET SELECTED DATA ID
+    const del_selected_data =()=>{
+        var items = [];
+        $('input.singleCheckFile:checkbox:checked').each(function(){
+            items.push($(this).val());
+        });
+
+        console.log(items);
+        if(items.length > 0){
+            // RUN AJAX
+            $.ajax({
+                url: '../function/controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'deleteFileClerk',
+                    items:items
+                },success:function(x){
+                    console.log(x);
+                    if(x == 'deleted'){
+                        load_uploaded_absent();
+                        swal('Done','Successfully deleted!','success');
+                    }else{
+                        swal('Sorry','An error was occured!','error');
+                    }
+                    $('#delete_absent').attr('disabled',true);
+                    $('#checkAllAbsent:checkbox').attr('checked',false);
+                }
+            });
+        }else{
+            console.log('NO ITEM/S SELECTED');
+        }
+    }
+
+    const getToEdit =(param)=>{
+        // console.log(param);
+        var str = param.split('*!*');
+        var id = str[0];
+        var provider = str[1];
+        var employee_id = str[2];
+        var name = str[3];
+        var section = str[4];
+        var carmodelGroup = str[5];
+        var process_line = str[6];
+        var reason = str[7];
+        var reason2 = str[8];
+        var absent_date = str[9];
+        var shift = str[10];
+
+        // DISTRIBUTING VALUES
+        $('#editIDAbsent').val(id);
+        $('#providerPrev').html(provider);
+        $('#employeeIDPrev').html(employee_id);
+        $('#employeeName').html(name);
+        $('#sectionPrev').html(section);
+        $('#carmodelGroupPrev').html(carmodelGroup);
+        $('#processLinePrev').html(process_line);
+        $('#reasonPrev').html(reason);
+        $('#reason2Prev').html(reason2);
+        $('#date_absentPrev').html(absent_date);
+        $('#shiftPrev').html(shift);
+    }
     </script>
 </body>
 

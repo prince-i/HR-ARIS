@@ -467,12 +467,15 @@
         $stmt = $conn->prepare($fetch);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<tr>';
+            echo '<tr ondblclick="get_agency_del(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="delete_agency_modal">';
             echo '<td>'.$x['agencyCode'].'</td>';
             echo '<td>'.$x['agencyName'].'</td>';
             echo '</tr>';
         }
     }
+
+    // DELETE AGENCY
+    // elseif($method == '')
 
     elseif($method == 'load_reason'){
         $word = $_POST['keyword'];
@@ -558,6 +561,8 @@
             echo '</tr>';
         }
         }
+
+    
 
     $conn = null;
 ?>

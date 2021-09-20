@@ -14,6 +14,7 @@
         header('location:../index.php');
     }
     include '../components/Modals/modal_logout.php';
+    include '../components/Modals/add_agency.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -64,7 +65,7 @@
                         <div class="col s12 m6">
                         <div class="card z-depth-5" style="height:70vh;overflow:auto;">
                             <div class="card-content" style="">
-                            <span class="card-title center">AGENCY <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button></span>
+                            <span class="card-title center">AGENCY <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_agency_modal">&plus;</button></span>
                             <table style="zoom:75%;">
                                 <thead>
                                     <th>AGENCY CODE</th>
@@ -135,7 +136,7 @@
             $('.modal').modal();
             load_agency_list();
         });
-
+        // LOAD AGENCY
         const load_agency_list =()=>{
              $.ajax({
                  url: '../function/admin-controller.php',
@@ -151,7 +152,7 @@
                  }
              });
         }
-
+        // LOAD REASON
         const load_reason =()=>{
             var keyword = $('#reason_keyword').val();
             $.ajax({
@@ -168,7 +169,7 @@
             });
         }
 
-
+        // LOAD DEPT
         const load_dept =()=>{
             var keyword = $('#dept_keyword').val();
             $.ajax({
@@ -183,6 +184,17 @@
                 }
             });
         }
+
+        // GET ID TO DELETE FROM AGENCY 
+        const get_agency_del =(id)=>{
+            var r = confirm("CONFIRMATION: To confirm deleting this Agency click OK!");
+            if(r == true){
+                alert('delete');
+            }else{
+                alert('no delete');
+            }
+        }
+
     </script>
 </body>
 
