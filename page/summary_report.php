@@ -358,7 +358,16 @@
                     shift:shift
                 },success:function(response){
                     $('#absence_per_section_expanded').html(response);
+                    var awol_data = [];
+                    $('.per_section_reason_awol').each(function(){
+                        awol_data.push($(this).html());
+                    });
+                    // TOTAL AWOL
+                    $('#awol_grand_total').html(eval(awol_data.join('+')));
+
+
                     // console.log(response);
+
                 }
             });
         }

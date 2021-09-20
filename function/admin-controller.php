@@ -417,7 +417,7 @@
             $less_ml = $grand_total - $x['ml'];
             echo '<tr>';
             echo '<td>'.$row.'</td>';
-            echo '<td>'.$x['section'].'</td>';
+            echo '<td class="per_section_reason_awol">'.$x['section'].'</td>';
             echo '<td>'.$x['awol'].'</td>';
             echo '<td>'.$x['bl'].'</td>';
             echo '<td>'.$x['el'].'</td>';
@@ -429,6 +429,10 @@
             echo '<td>'.$x['vl'].'</td>';
             echo '<td>'.$grand_total.'</td>';
             echo '<td>'.$less_ml.'</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td><b id="awol_grand_total"></b></td>';
             echo '</tr>';
          }
         }

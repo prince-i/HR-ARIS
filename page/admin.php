@@ -93,7 +93,7 @@
 
                         <!-- EXPORT -->
                         <div class="col s1 input-field">
-                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="">&darr;</button>
+                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="export_absent_report()">&darr;</button>
                         </div>
                     </div>
                     </div>
@@ -101,7 +101,7 @@
                     <div class="row">
                         <h5 class="center blue-text">ABSENCES REPORT</h5>
                         <div class="col s12" style="max-height:70vh;overflow:auto;">
-                            <table class="centered" style="zoom:75%;">
+                            <table class="centered" style="zoom:75%;" id="tbl_absent_report">
                                 <thead>
                                 <th>#</th>
                                 <th>PROVIDER</th>
@@ -243,6 +243,13 @@
         }
     }
 
+    // /EXPORT
+    const export_absent_report =()=>{
+        var absent_date = $('#generatedateFrom').val();
+        var shift = $('#generateShift').val();
+        window.open('export_absent_report.php?absent_date='+absent_date+'&&shift='+shift,'_blank');
+    }
+
     const getToEdit =(param)=>{
         // console.log(param);
         var str = param.split('*!*');
@@ -271,6 +278,9 @@
         $('#date_absentPrev').html(absent_date);
         $('#shiftPrev').html(shift);
     }
+
+
+
     </script>
 </body>
 
