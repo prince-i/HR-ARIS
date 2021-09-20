@@ -15,6 +15,7 @@
     }
     include '../components/Modals/modal_logout.php';
     include '../components/Modals/add_agency.php';
+    include '../components/Modals/add_reason.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -80,7 +81,7 @@
                         <div class="col s12 m6">
                         <div class="card z-depth-5" style="height:70vh;overflow:auto;">
                             <div class="card-content">
-                            <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button>
+                            <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_reason_modal">&plus;</button>
                             <span class="card-title center">REASON
                             <input type="text" name="" id="reason_keyword" onchange="load_reason()">
                             
@@ -99,7 +100,7 @@
                         <div class="col s12 m12">
                         <div class="card z-depth-5" style="height:70vh;overflow:auto;">
                             <div class="card-content">
-                            <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button>
+                            <!-- <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button> -->
                             <span class="card-title center">DEPARTMENT
                             <input type="text" name="" id="dept_keyword" onchange="load_dept()">
                             </span>
@@ -189,12 +190,111 @@
         const get_agency_del =(id)=>{
             var r = confirm("CONFIRMATION: To confirm deleting this Agency click OK!");
             if(r == true){
-                alert('delete');
+                $.ajax({
+                    url :'../function/admin-controller.php',
+                    type: 'POST',
+                    cache: false,
+                    data:{
+                        method: 'delete_agency',
+                        id:id
+                    },success:function(response){
+                        // console.log(response);
+                        if(response == 'success'){
+                            swal('Notification','Agency successfully deleted!','success');
+                            load_agency_list();
+                        }else{
+                            swal('Notification','Error!','error');
+                        }
+                    }
+                });
             }else{
-                alert('no delete');
+                // alert('no delete');
+            }
+        }   
+
+        // ADD AGENCY
+        const add_agency =()=>{
+            var code = $('#agency_code').val();
+            var agency_name = $('#agency_name').val();
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'register_agency',
+                    code:code,
+                    agency_name:agency_name,
+                },success:function(response){
+                    console.log(response);
+                    if(response == 'success'){
+                        swal('Notification','New Agency added!','success');
+                        $('#agency_code').val('');
+                        $('#agency_name').val('');
+                        $('.modal').modal('close','#add_agency_modal');
+                        load_agency_list();
+                    }else{
+                        swal('Notification','An error has occured!','error');
+                    }
+                }
+            }); 
+        }
+
+        // ADD REASON
+        const add_reason =()=>{
+            var credit = $('#reason_code').val();
+            var desc = $('#reason_desc').val();
+            if(credit == '' || desc == ''){
+                swal('Notification','Please complete the form!','info');
+            }else{
+                $.ajax({
+                    url : '../function/admin-controller.php',
+                    type: 'POST',
+                    cache: false,
+                    data:{
+                        method: 'add_reason',
+                        credit:credit,
+                        desc:desc
+                    },success:function(response){
+                        // console.log(response);
+                        if(response == 'success'){
+                            swal('Notification','New Agency added!','success');
+                            $('#reason_code').val('');
+                            $('#reason_desc').val('');
+                            $('.modal').modal('close','#add_reason_modal');
+                            load_reason();
+                        }else{
+                            swal('Notification','Error!','error');
+                        }
+                    }
+                });
             }
         }
 
+        // DELETE REASON
+        const get_reason_del =(id)=>{
+            var r = confirm("CONFIRMATION: To confirm deleting this REASON click OK!");
+            if(r == true){
+                $.ajax({
+                    url :'../function/admin-controller.php',
+                    type: 'POST',
+                    cache: false,
+                    data:{
+                        method: 'delete_reason',
+                        id:id
+                    },success:function(response){
+                        // console.log(response);
+                        if(response == 'success'){
+                            swal('Notification','Reason successfully deleted!','success');
+                            load_reason();
+                        }else{
+                            swal('Notification','Error!','error');
+                        }
+                    }
+                });
+            }else{
+                // alert('no delete');
+            }
+        }
     </script>
 </body>
 

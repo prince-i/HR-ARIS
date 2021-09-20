@@ -467,7 +467,7 @@
         $stmt = $conn->prepare($fetch);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<tr ondblclick="get_agency_del(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="delete_agency_modal">';
+            echo '<tr ondblclick="get_agency_del(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
             echo '<td>'.$x['agencyCode'].'</td>';
             echo '<td>'.$x['agencyName'].'</td>';
             echo '</tr>';
@@ -475,7 +475,31 @@
     }
 
     // DELETE AGENCY
-    // elseif($method == '')
+    elseif($method == 'delete_agency'){
+        $id = $_POST['id'];
+        $sql = "DELETE FROM aris_agency WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
+
+    // ADD AGENCY
+    elseif($method == 'register_agency'){
+        $code = $_POST['code'];
+        $name = $_POST['agency_name'];
+        $sql = "INSERT INTO aris_agency (`agencyCode`,`agencyName`) VALUES ('$code','$name')";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
 
     elseif($method == 'load_reason'){
         $word = $_POST['keyword'];
@@ -483,13 +507,36 @@
         $stmt = $conn->prepare($fetch);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<tr>';
+            echo '<tr ondblclick="get_reason_del(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
             echo '<td>'.$x['reason_categ'].'</td>';
             echo '<td>'.$x['reason2'].'</td>';
             echo '</tr>';
         }
     }
-
+    // ADD REASON
+    elseif($method == 'add_reason'){
+        $credit = $_POST['credit'];
+        $desc = $_POST['desc'];
+        $query = "INSERT INTO aris_absent_reason (`reason_categ`,`reason2`) VALUES ('$credit','$desc')";
+        $stmt = $conn->prepare($query);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+    // DELETE REASON
+    elseif($method == 'delete_reason'){
+        $id = $_POST['id'];
+        $sql = "DELETE FROM aris_absent_reason WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+    // LOAD DEPT
     elseif($method == 'load_dept'){
         $word = $_POST['keyword'];
         $fetch = "SELECT *FROM aris_department WHERE deptCode LIKE '$word%' OR deptSection LIKE '$word%' OR deptSubSection LIKE '$word%' ORDER BY deptCode ASC";
@@ -499,7 +546,7 @@
             echo '<tr>';
             echo '<td>'.$x['deptCode'].'</td>';
             echo '<td>'.$x['deptSection'].'</td>';
-            echo '<td>'.$x['deptSubSection'].'</td>';
+            echo '<td>'.$x['deptSubsection'].'</td>';
             echo '</tr>';
         }
     }
