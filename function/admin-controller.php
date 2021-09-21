@@ -1,5 +1,5 @@
 <?php
-    ini_set('memory_limit','256M');
+    ini_set('memory_limit','512M');
     include 'conn.php'; 
     include 'sas-conn.php';
     $method = $_POST['method'];
@@ -417,25 +417,74 @@
             $less_ml = $grand_total - $x['ml'];
             echo '<tr>';
             echo '<td>'.$row.'</td>';
-            echo '<td class="per_section_reason_awol">'.$x['section'].'</td>';
-            echo '<td>'.$x['awol'].'</td>';
-            echo '<td>'.$x['bl'].'</td>';
-            echo '<td>'.$x['el'].'</td>';
-            echo '<td>'.$x['cancel'].'</td>';
-            echo '<td>'.$x['ml'].'</td>';
-            echo '<td>'.$x['prolong'].'</td>';
-            echo '<td>'.$x['sl'].'</td>';
-            echo '<td>'.$x['sus'].'</td>';
-            echo '<td>'.$x['vl'].'</td>';
-            echo '<td>'.$grand_total.'</td>';
-            echo '<td>'.$less_ml.'</td>';
+            echo '<td>'.$x['section'].'</td>';
+            echo '<td class="per_section_reason_awol">'.$x['awol'].'</td>';
+            echo '<td class="per_section_reason_bl">'.$x['bl'].'</td>';
+            echo '<td class="per_section_reason_el">'.$x['el'].'</td>';
+            echo '<td class="per_section_reason_cancel">'.$x['cancel'].'</td>';
+            echo '<td class="per_section_reason_ml">'.$x['ml'].'</td>';
+            echo '<td class="per_section_reason_prolong">'.$x['prolong'].'</td>';
+            echo '<td class="per_section_reason_sl">'.$x['sl'].'</td>';
+            echo '<td class="per_section_reason_sus">'.$x['sus'].'</td>';
+            echo '<td class="per_section_reason_vl">'.$x['vl'].'</td>';
+            echo '<td class="per_section_total_col">'.$grand_total.'</td>';
+            echo '<td class="per_section_less_ml">'.$less_ml.'</td>';
             echo '</tr>';
             
          }
+
             echo '<tr>';
             echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
             echo '<td><b id="awol_grand_total"></b></td>';
+            echo '<td><b id="bl_grand_total"></b></td>';
+            echo '<td><b id="el_grand_total"></b></td>';
+            echo '<td><b id="cancel_grand_total"></b></td>';
+            echo '<td><b id="ml_grand_total"></b></td>';
+            echo '<td><b id="prolong_grand_total"></b></td>';
+            echo '<td><b id="sl_grand_total"></b></td>';
+            echo '<td><b id="sus_grand_total"></b></td>';
+            echo '<td><b id="vl_grand_total"></b></td>';
+            echo '<td><b id="gd_grand_total"></b></td>';
+            echo '<td><b id="less_ml_total"></b></td>';
             echo '</tr>';
+
+            $sql = "SELECT SUM(total_mp) as total_mp FROM aris_total_mp WHERE shift ='$shift'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                $total_mp = $x['total_mp'];
+            }
+
+            echo '<tr>';
+            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b>'.$total_mp.'</b></td>';
+            echo '<td><b>'.$total_mp.'</b></td>';
+            echo '</tr>';
+
+            echo '<tr>';
+            echo '<td colspan="2"><b>PERCENTAGE</b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b></b></td>';
+            echo '<td><b id="percentage_grand_total"></b></td>';
+            echo '<td><b></b></td>';
+            echo '</tr>';
+
         }
 
     // GET TOP REASON
@@ -630,6 +679,17 @@
             echo 'success';
         }else{
             echo 'fail';
+        }
+    }
+
+    // LOAD TOTAL MP
+    elseif($method == 'total_mp'){
+        $shift = $_POST['x'];
+        $sql = "SELECT SUM(total_mp) as total_mp FROM aris_total_mp WHERE shift ='$shift'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo $x['total_mp'];
         }
     }
 

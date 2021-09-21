@@ -54,7 +54,6 @@
                         </div>
                         <div class="col s2 input-field">
                             <select name="" id="generateShift" class="browser-default">
-                                <option value="">ALL SHIFT</option>
                                 <option value="DS">DS</option>
                                 <option value="NS">NS</option>
                             </select>
@@ -65,13 +64,15 @@
                         </div>
                         <!-- EXPORT -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12" onclick="">export</button>
+                            <button class="btn #2196f3 blue col s12" onclick="export_excel()">export all</button>
                         </div>
                     </div>
                     </div>
 <!-- END FILTERING FORMS    -------------------------------------- -->
 
-                    <div class="row" style="max-height:80vh;overflow:auto;">
+                    <input type="text" name="" id="total_mp_count_data">
+
+                    <div class="row" style="max-height:80vh;overflow:auto;" id="printable_pdf">
                     <!-- ---------------------------------------------------------- -->
                         <h5 class="center blue-text">PER PROVIDER</h5>
                         <!-- REPORT 1 -->
@@ -246,10 +247,28 @@
                     generate_chart_per_provider(provider_data,provider_data_count);
                     setTimeout(() => {
                         load_per_reason(genFrom,genTo,genShift);
+                        load_total_mp(genShift);
                     }, 500);
                   }
             });
         }
+
+        const load_total_mp =(x)=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'total_mp',
+                    x:x
+                },success:function(response){
+                    console.log(response);
+                    $('#total_mp_count_data').val(response);
+                }
+            });
+        }
+
+
 
         const load_per_reason =(x,y,z)=>{
             // console.log(x); 
@@ -362,11 +381,71 @@
                     $('.per_section_reason_awol').each(function(){
                         awol_data.push($(this).html());
                     });
-                    // TOTAL AWOL
+                    var bl_data = [];
+                    $('.per_section_reason_bl').each(function(){
+                        bl_data.push($(this).html());
+                    });
+                    var el_data = [];
+                    $('.per_section_reason_el').each(function(){
+                        el_data.push($(this).html());
+                    });
+                    var for_cancel = [];
+                    $('.per_section_reason_cancel').each(function(){
+                        for_cancel.push($(this).html());
+                    });
+                    var ml_data = [];
+                    $('.per_section_reason_ml').each(function(){
+                        ml_data.push($(this).html());
+                    });
+                    var prolong_data = [];
+                    $('.per_section_reason_prolong').each(function(){
+                        prolong_data.push($(this).html());
+                    });
+                    var sl_data = [];
+                    $('.per_section_reason_sl').each(function(){
+                        sl_data.push($(this).html());
+                    });
+
+                    var sus_data = [];
+                    $('.per_section_reason_sus').each(function(){
+                        sus_data.push($(this).html());
+                    });
+
+                    var vl_data = [];
+                    $('.per_section_reason_vl').each(function(){
+                        vl_data.push($(this).html());
+                    });
+
+                    var total_col = [];
+                    $('.per_section_total_col').each(function(){
+                        total_col.push($(this).html());
+                    });
+
+                    var less_ml_data = [];
+                    $('.per_section_less_ml').each(function(){
+                        less_ml_data.push($(this).html());
+                    });
+
+                    // TOTAL 
                     $('#awol_grand_total').html(eval(awol_data.join('+')));
-
-
+                    $('#bl_grand_total').html(eval(bl_data.join('+')));
+                    $('#el_grand_total').html(eval(el_data.join('+')));
+                    $('#cancel_grand_total').html(eval(for_cancel.join('+')));
+                    $('#ml_grand_total').html(eval(ml_data.join('+')));
+                    $('#prolong_grand_total').html(eval(prolong_data.join('+')));
+                    $('#sl_grand_total').html(eval(sl_data.join('+')));
+                    $('#sus_grand_total').html(eval(sus_data.join('+')));
+                    $('#vl_grand_total').html(eval(vl_data.join('+')));
+                    $('#gd_grand_total').html(eval(total_col.join('+')));
+                    $('#less_ml_total').html(eval(less_ml_data.join('+')));
                     // console.log(response);
+
+                    // CALCULATE PERCENTAGE
+                    var total_mp = $('#total_mp_count_data').val();
+                    var grand_total = $('#gd_grand_total').html();
+                    var percentage_grand_total = (parseInt(grand_total) / parseInt(total_mp)*100);
+                    var percentage_grand_total = Math.round(percentage_grand_total);
+                    
 
                 }
             });
@@ -580,6 +659,15 @@
                                  
             });
         }
+
+        // EXPORT 
+        const export_excel =()=>{
+            var dateFrom = document.querySelector('#generatedateFrom').value;
+            var dateTo = document.querySelector('#generatedateTo').value;
+            var shift = document.querySelector('#generateShift').value;
+            window.open('export_summary.php?dateFrom='+dateFrom+'&&dateTo='+dateTo+'&&shift='+shift,'_blank');
+        }
+
     </script>
 </body>
 

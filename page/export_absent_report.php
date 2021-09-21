@@ -1,6 +1,12 @@
 <?php
 
-require '../function/conn.php';
+// require '../function/conn.php';
+require '../function/session.php';
+if($_SESSION['role'] != 'admin'){
+    session_unset();
+    session_destroy();
+    header('location:../index.php');
+}
 $from = $_GET['absent_date'];
 $shift = $_GET['shift'];
 $count = 0;
