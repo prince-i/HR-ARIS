@@ -264,6 +264,7 @@
         var reason2 = str[8];
         var absent_date = str[9];
         var shift = str[10];
+        var number_of_absent = str[11];
 
         // DISTRIBUTING VALUES
         $('#editIDAbsent').val(id);
@@ -275,9 +276,14 @@
         $('#processLinePrev').html(process_line);
         $('#reasonPrev').html(reason);
         $('#reason2Prev').html(reason2);
-        $('#date_absentPrev').html(absent_date);
-        $('#shiftPrev').html(shift);
+        $('#date_absentPrev').val(absent_date);
+        $('#shiftPrev').val(shift);
+        $('#number_absent_prev').val(number_of_absent);
     }
+
+    // UPDATE FILED ABSENT BY ADMIN
+    
+
 
 
 

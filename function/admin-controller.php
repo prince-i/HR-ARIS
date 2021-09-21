@@ -589,7 +589,10 @@
                         .$x['reason'].'*!*'
                         .$x['reason_2'].'*!*'
                         .$x['date_absent'].'*!*'
-                        .$x['shift'].'&quot;)">
+                        .$x['shift'].'*!*'
+                        .$x['number_absent'].
+
+                        '&quot;)">
                         '.$x['emp_id_number'].'</a>
                     </td>';
                 echo '<td>'.$x['name'].'</td>';
