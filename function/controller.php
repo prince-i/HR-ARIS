@@ -92,7 +92,7 @@ elseif($method == 'load_file_history'){
             </td>';
             echo '<td>'.$x['provider'].'</td>';
             echo '<td>
-                    <a href="#modal-edit-absent-file" class="modal-trigger" 
+                    <a href="#modal_edit_absent_file" class="modal-trigger" 
                     onclick="getToEdit(&quot;'
                     .$x['id'].'*!*'
                     .$x['provider'].'*!*'
@@ -104,7 +104,9 @@ elseif($method == 'load_file_history'){
                     .$x['reason'].'*!*'
                     .$x['reason_2'].'*!*'
                     .$x['date_absent'].'*!*'
-                    .$x['shift'].'&quot;)">
+                    .$x['shift'].'*!*'
+                    .$x['number_absent']
+                    .'&quot;)">
                     '.$x['emp_id_number'].'</a>
                 </td>';
             echo '<td>'.$x['name'].'</td>';
@@ -163,6 +165,22 @@ elseif($method == 'load_file_history'){
         }
     }
 
+    // UPDATE ABSENTEE FILE
+    elseif($method == 'update_absentee'){
+        $id = $_POST['up_id'];
+        $number_absent = $_POST['up_number_absent'];
+        $date_absent = $_POST['up_date_absent'];
+        $shift = $_POST['up_shift'];
+
+        // UPDATE DETAILS
+        $updateQL = "UPDATE aris_absent_filing SET number_absent = '$number_absent', date_absent = '$date_absent', shift = '$shift' WHERE id = '$id'";
+        $stmt = $conn->prepare($updateQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
 
 
 

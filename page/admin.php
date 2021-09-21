@@ -283,6 +283,7 @@
 
     // UPDATE FILED ABSENT BY ADMIN
     const update_absent_detail =()=> {
+        var emp_id = $('#employeeIDPrev').html();
         var up_id = $('#edit_id_absent').val();
         var up_number_absent = $('#number_absent_prev').val();
         var up_date_absent = $("#date_absentPrev").val();
@@ -293,7 +294,29 @@
             swal('Alert','Please select the absent date!','info');
         }else{
             // AJAX
-            
+            $.ajax({
+                url :'../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'update_absentee',
+                    up_id:up_id,
+                    up_number_absent:up_number_absent,
+                    up_date_absent:up_date_absent,
+                    up_shift:up_shift,
+                    emp_id:emp_id
+                },success:function(response){
+                    console.log(response);
+                    if(response == 'success'){
+                        swal('Notice','Successfully updated!','success');
+                        load_uploaded_absent();
+                        $('.modal').modal('close','#modal_edit_absent_file');
+                    }                    
+                    else{
+                        swal('Notice','Error in updating!','error');
+                    }
+                }
+            });
         }
     }
 

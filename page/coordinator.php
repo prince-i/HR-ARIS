@@ -245,9 +245,10 @@
         var reason2 = str[8];
         var absent_date = str[9];
         var shift = str[10];
+        var number_of_absent = str[11];
 
         // DISTRIBUTING VALUES
-        $('#editIDAbsent').val(id);
+        $('#edit_id_absent').val(id);
         $('#providerPrev').html(provider);
         $('#employeeIDPrev').html(employee_id);
         $('#employeeName').html(name);
@@ -256,8 +257,48 @@
         $('#processLinePrev').html(process_line);
         $('#reasonPrev').html(reason);
         $('#reason2Prev').html(reason2);
-        $('#date_absentPrev').html(absent_date);
-        $('#shiftPrev').html(shift);
+        $('#date_absentPrev').val(absent_date);
+        $('#shiftPrev').val(shift);
+        $('#number_absent_prev').val(number_of_absent);
+    }
+
+    // UPDATE ABSENTEE
+    const update_absent_detail =()=> {
+        var emp_id = $('#employeeIDPrev').html();
+        var up_id = $('#edit_id_absent').val();
+        var up_number_absent = $('#number_absent_prev').val();
+        var up_date_absent = $("#date_absentPrev").val();
+        var up_shift = $('#shiftPrev').val();
+        if(up_number_absent == ''){
+            swal('Alert','Please enter number of absences!','info');
+        }else if(up_date_absent == ''){
+            swal('Alert','Please select the absent date!','info');
+        }else{
+            // AJAX
+            $.ajax({
+                url :'../function/controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'update_absentee',
+                    up_id:up_id,
+                    up_number_absent:up_number_absent,
+                    up_date_absent:up_date_absent,
+                    up_shift:up_shift,
+                    // emp_id:emp_id
+                },success:function(response){
+                    console.log(response);
+                    if(response == 'success'){
+                        swal('Notice','Successfully updated!','success');
+                        load_filed_absent();
+                        $('.modal').modal('close','#modal_edit_absent_file');
+                    }
+                    else{
+                        swal('Notice','Error in updating!','error');
+                    }
+                }
+            });
+        }
     }
 
 </script>

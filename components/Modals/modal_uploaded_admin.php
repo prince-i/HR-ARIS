@@ -1,4 +1,4 @@
-<div class="modal" id="modal-edit-absent-file">
+<div class="modal" id="modal_edit_absent_file">
 <div class="modal-footer">
     <button class="modal-close btn-flat" style="font-size:25px;">&times;</button>
 </div>

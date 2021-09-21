@@ -8,7 +8,7 @@
         $shift = $_POST['genShift'];
         $count = 0;
         // GROUP BY ID NUMBER AND REASON
-        $generate = "SELECT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
+        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -430,11 +430,12 @@
             echo '<td>'.$grand_total.'</td>';
             echo '<td>'.$less_ml.'</td>';
             echo '</tr>';
+            
+         }
             echo '<tr>';
             echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
             echo '<td><b id="awol_grand_total"></b></td>';
             echo '</tr>';
-         }
         }
 
     // GET TOP REASON
@@ -577,7 +578,7 @@
                 </td>';
                 echo '<td>'.$x['provider'].'</td>';
                 echo '<td>
-                        <a href="#modal-edit-absent-file" class="modal-trigger" 
+                        <a href="#modal_edit_absent_file" class="modal-trigger" 
                         onclick="getToEdit(&quot;'
                         .$x['id'].'*!*'
                         .$x['provider'].'*!*'
@@ -615,7 +616,24 @@
         }
         }
 
-    
+    // UPDATE ABSENTEE FILE
+    elseif($method == 'update_absentee'){
+        $id = $_POST['up_id'];
+        $number_absent = $_POST['up_number_absent'];
+        $date_absent = $_POST['up_date_absent'];
+        $shift = $_POST['up_shift'];
+        $emp_id = $_POST['emp_id'];
+        // UPDATE DETAILS
+        $updateQL = "UPDATE aris_absent_filing SET number_absent = '$number_absent', date_absent = '$date_absent', shift = '$shift' WHERE id = '$id'";
+        $stmt = $conn->prepare($updateQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
 
+
+    // KILL CONNECTION
     $conn = null;
 ?>
