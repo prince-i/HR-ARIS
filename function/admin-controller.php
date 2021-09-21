@@ -591,7 +591,6 @@
                         .$x['date_absent'].'*!*'
                         .$x['shift'].'*!*'
                         .$x['number_absent'].
-
                         '&quot;)">
                         '.$x['emp_id_number'].'</a>
                     </td>';

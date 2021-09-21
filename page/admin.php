@@ -267,7 +267,7 @@
         var number_of_absent = str[11];
 
         // DISTRIBUTING VALUES
-        $('#editIDAbsent').val(id);
+        $('#edit_id_absent').val(id);
         $('#providerPrev').html(provider);
         $('#employeeIDPrev').html(employee_id);
         $('#employeeName').html(name);
@@ -282,7 +282,20 @@
     }
 
     // UPDATE FILED ABSENT BY ADMIN
-    
+    const update_absent_detail =()=> {
+        var up_id = $('#edit_id_absent').val();
+        var up_number_absent = $('#number_absent_prev').val();
+        var up_date_absent = $("#date_absentPrev").val();
+        var up_shift = $('#shiftPrev').val();
+        if(up_number_absent == ''){
+            swal('Alert','Please enter number of absences!','info');
+        }else if(up_date_absent == ''){
+            swal('Alert','Please select the absent date!','info');
+        }else{
+            // AJAX
+            
+        }
+    }
 
 
 

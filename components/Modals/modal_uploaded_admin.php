@@ -4,7 +4,7 @@
 </div>
 <div class="modal-content">
     <div class="row">
-        <input type="hidden" name="" id="editIDAbsent">
+        <input type="hidden" name="" id="edit_id_absent">
         <div class="col s12">
             <table class="center">
                 <tr>
@@ -30,7 +30,7 @@
                     <td id="reasonPrev"></td>
                     <td><b># OF ABSENT:</b></td>
                     <td>
-                        <input type="number" id="number_absent_prev" class="center col s6">
+                        <input type="number" id="number_absent_prev" class="center col s6" min="0">
                     </td>
                 </tr>
                 <tr>
