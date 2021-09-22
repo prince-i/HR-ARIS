@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2021 at 05:36 AM
+-- Generation Time: Sep 22, 2021 at 04:21 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -77,8 +77,8 @@ INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `po
 (345, 'FAS', '21-06711', 'Arce, Prince C.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-11', NULL, '2021-09-11'),
 (346, 'FAS', '14-01899', 'Bathan, Laurice A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Toothache', 'IT Clerk', 'DS', '2021-09-11', NULL, '2021-09-11'),
 (347, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', NULL, 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-11', NULL, '2021-09-11'),
-(350, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', NULL, 'N/A', 'N/A', 'N/A', 'ML', 'Maternity leave', 'addeven', 'NS', '2021-09-12', NULL, '2021-09-12'),
-(351, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', NULL, 'FG Preparation', 'FG Preparation', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
+(350, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', NULL, 'N/A', 'N/A', 'N/A', 'ML', 'Maternity leave', 'addeven', 'DS', '2021-09-12', '1', '2021-09-12'),
+(351, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', NULL, 'FG Preparation', 'FG Preparation', 'N/A', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', '12', '2021-09-12'),
 (352, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', NULL, 'Section 1', 'Suzuki Final', '5101', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
 (353, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', NULL, 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
 (354, 'ADD EVEN', 'AEFL18080', 'Basares, Emmalyn S.', NULL, 'Section 1', 'Suzuki Initial', '5117', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-12', NULL, '2021-09-12'),
@@ -136,7 +136,23 @@ INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `po
 (438, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '18', '2021-09-18'),
 (439, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-20', '15', '2021-09-18'),
 (440, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '17', '2021-09-18'),
-(441, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '16', '2021-09-18');
+(441, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-20', '16', '2021-09-18'),
+(442, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'LBM', 'HR', 'DS', '2021-09-01', '1', '2021-09-18'),
+(443, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Settle Important Matter', 'HR', 'DS', '2021-09-22', '17', '2021-09-18'),
+(444, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Hip Pain', 'HR', 'DS', '2021-09-30', '1', '2021-09-18'),
+(445, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Vaccination', 'HR', 'DS', '2021-09-30', '1', '2021-09-18'),
+(446, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'HR', 'DS', '2021-09-08', '1', '2021-09-18'),
+(447, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'HR', 'DS', '2021-09-08', '1', '2021-09-18'),
+(450, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-22', '1', '2021-09-20'),
+(451, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'IT Clerk', 'DS', '2021-09-22', '1', '2021-09-20'),
+(452, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-21', '17', '2021-09-20'),
+(453, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-21', '13', '2021-09-20'),
+(454, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-21', '16', '2021-09-21'),
+(455, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-21', '16', '2021-09-21'),
+(456, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'NS', '2021-09-22', '16', '2021-09-21'),
+(457, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'IT Clerk', 'DS', '2021-09-23', '18', '2021-09-21'),
+(458, 'ADD EVEN', 'AEFL18056', 'Mirabete, Maricris', 'Associate', 'Section 2', 'Mazda J12 Final', '1008', 'VL', 'Settle Important Matter', 'addeven', 'DS', '2021-09-21', '1', '2021-09-21'),
+(459, 'ADD EVEN', 'AEFL18199', 'Palmero, Roxanne D.', 'Associate', 'Section 1', 'Suzuki Final', '5119', 'VL', 'Taking Care of Family Member', 'addeven', 'DS', '2021-09-21', '1', '2021-09-21');
 
 -- --------------------------------------------------------
 
@@ -394,6 +410,58 @@ INSERT INTO `aris_department` (`id`, `deptCode`, `deptSection`, `deptSubsection`
 (105, 'EQD', 'Equipment Management', 'Equipment Management'),
 (106, 'EQD', 'Equipment Management', 'ISO / Document Control'),
 (107, 'EQD', 'Equipment Engineering', 'Equipment Engineering');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aris_shift`
+--
+
+CREATE TABLE `aris_shift` (
+  `id` int(14) NOT NULL,
+  `shift_code` varchar(10) DEFAULT NULL,
+  `shift_desc` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `aris_shift`
+--
+
+INSERT INTO `aris_shift` (`id`, `shift_code`, `shift_desc`) VALUES
+(1, 'DS', 'DAYSHIFT'),
+(2, 'NS', 'NIGHTSHIFT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aris_total_mp`
+--
+
+CREATE TABLE `aris_total_mp` (
+  `id` int(14) NOT NULL,
+  `shift` varchar(10) DEFAULT NULL,
+  `total_mp` varchar(100) DEFAULT NULL,
+  `agency_code` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `aris_total_mp`
+--
+
+INSERT INTO `aris_total_mp` (`id`, `shift`, `total_mp`, `agency_code`) VALUES
+(1, 'NS', '1618', 'FAS'),
+(2, 'DS', '2434', 'FAS'),
+(3, 'DS', '434', 'ADD EVEN'),
+(4, 'NS', '336', 'ADD EVEN'),
+(5, 'DS', '0', 'GOLDENHAND'),
+(6, 'NS', '841', 'MAXIM'),
+(7, 'DS', '1522', 'MAXIM'),
+(8, 'DS', '1823', 'PKIMT'),
+(9, 'NS', '1237', 'PKIMT'),
+(10, 'NS', '466', 'MEGATREND'),
+(11, 'DS', '573', 'MEGATREND'),
+(12, 'DS', '943', 'ONE SOURCE'),
+(13, 'NS', '770', 'ONE SOURCE');
 
 -- --------------------------------------------------------
 
@@ -752,6 +820,18 @@ ALTER TABLE `aris_department`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `aris_shift`
+--
+ALTER TABLE `aris_shift`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `aris_total_mp`
+--
+ALTER TABLE `aris_total_mp`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `aris_users`
 --
 ALTER TABLE `aris_users`
@@ -771,25 +851,37 @@ ALTER TABLE `falp_calendar`
 -- AUTO_INCREMENT for table `aris_absent_filing`
 --
 ALTER TABLE `aris_absent_filing`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=460;
 
 --
 -- AUTO_INCREMENT for table `aris_absent_reason`
 --
 ALTER TABLE `aris_absent_reason`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `aris_agency`
 --
 ALTER TABLE `aris_agency`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `aris_department`
 --
 ALTER TABLE `aris_department`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+
+--
+-- AUTO_INCREMENT for table `aris_shift`
+--
+ALTER TABLE `aris_shift`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `aris_total_mp`
+--
+ALTER TABLE `aris_total_mp`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `aris_users`

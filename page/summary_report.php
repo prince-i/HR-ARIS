@@ -70,7 +70,7 @@
                     </div>
 <!-- END FILTERING FORMS    -------------------------------------- -->
 
-                    <input type="text" name="" id="total_mp_count_data">
+                    <input type="hidden" name="" id="total_mp_count_data">
 
                     <div class="row" style="max-height:80vh;overflow:auto;" id="printable_pdf">
                     <!-- ---------------------------------------------------------- -->
@@ -181,14 +181,35 @@
                                     <tbody id="absence_per_section_expanded"></tbody>
                                 </table>
                             </div>
-                            <!-- GRAPH -->
-                            <div class="col s6">
-                                <canvas id="per_section_chart" width="400" height="200"></canvas>
-                            </div>
+                            
                         </div>
 
-
-
+                        <!-- ----------------------------------------------------------------- -->
+                        <div class="row divider"></div>
+                        <h5 class="center blue-text">PER PROVIDER & REASON </h5>
+                        <!-- REPORT 3 -->
+                        <div class="row col s12">
+                            <div class="col s12" id="">
+                                <table class="centered" style="zoom:70%;" id="">
+                                    <thead>
+                                    <th>#</th>
+                                    <th>PROVIDER</th>
+                                    <th>AWOL</th>
+                                    <th>BL</th>
+                                    <th>EL</th>
+                                    <th>FOR CANCEL</th>
+                                    <th>ML</th>
+                                    <th>PROLONG ABSENT</th>
+                                    <th>SL</th>
+                                    <th>SUS</th>
+                                    <th>VL</th>
+                                    <th>GRAND TOTAL</th>
+                                    </thead>
+                                    <tbody id="absence_per_provider_expanded"></tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
 
 
 
@@ -267,8 +288,6 @@
                 }
             });
         }
-
-
 
         const load_per_reason =(x,y,z)=>{
             // console.log(x); 
@@ -443,13 +462,70 @@
                     // CALCULATE PERCENTAGE
                     var total_mp = $('#total_mp_count_data').val();
                     var grand_total = $('#gd_grand_total').html();
-                    var percentage_grand_total = (parseInt(grand_total) / parseInt(total_mp)*100);
-                    var percentage_grand_total = Math.round(percentage_grand_total);
-                    
-
+                    var less_ml_total = $('#less_ml_total').html();
+                    var percentage_grand_total = (parseFloat(grand_total) / parseFloat(total_mp)*100);
+                    var percentage_grand_total = parseFloat(percentage_grand_total.toFixed(2));
+                    $('#percentage_grand_total').html(percentage_grand_total);
+                    // CALCULATE LESS ML PERCENTAGE
+                    var less_ml_percentage = (parseFloat(less_ml_total) / parseFloat(total_mp)*100);
+                    var less_ml_percentage = parseFloat(less_ml_percentage.toFixed(2));
+                    $('#percentage_ml_total').html(less_ml_percentage);
+                    setTimeout(() => {
+                        load_per_provider_reason(from,to,shift);
+                    }, 500);
                 }
             });
         }
+        
+        const load_per_provider_reason =(from,to,shift)=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'generate_absence_per_provider_reason_expanded',
+                    from:from,
+                    shift:shift,
+                    to:to
+                },success:function(response){
+                    // console.log(response);
+                    $('#absence_per_provider_expanded').html(response);
+                    // GET TOTALS
+                    var awol = [];
+                    var bl = [];
+                    var el = [];
+                    var cancel =  [];
+                    var ml = [];
+                    var prolong = [];
+                    var sl = [];
+                    var sus = [];
+                    var vl = [];
+                    var total = [];
+                    $('.provider_awol').each(function(){awol.push($(this).html());});
+                    $('.provider_bl').each(function(){bl.push($(this).html());});
+                    $('.provider_el').each(function(){el.push($(this).html());});
+                    $('.provider_cancel').each(function(){cancel.push($(this).html());});
+                    $('.provider_ml').each(function(){ml.push($(this).html());});
+                    $('.provider_prolong').each(function(){prolong.push($(this).html());});
+                    $('.provider_sl').each(function(){sl.push($(this).html());});
+                    $('.provider_sus').each(function(){sus.push($(this).html());});
+                    $('.provider_vl').each(function(){vl.push($(this).html());});
+                    $('.provider_total').each(function(){total.push($(this).html());});
+                    // COMPUTATION
+                    $('#provider_awol_total').html(eval(awol.join('+')));
+                    $('#provider_bl_total').html(eval(bl.join('+')));
+                    $('#provider_el_total').html(eval(el.join('+')));
+                    $('#provider_cancel_total').html(eval(cancel.join('+')));
+                    $('#provider_ml_total').html(eval(ml.join('+')));
+                    $('#provider_prolong_total').html(eval(prolong.join('+')));
+                    $('#provider_sl_total').html(eval(sl.join('+')));
+                    $('#provider_sus_total').html(eval(sus.join('+')));
+                    $('#provider_vl_total').html(eval(vl.join('+')));
+                    $('#provider_grand_total').html(eval(total.join('+')));
+                }
+            });
+        }
+
 
         // PER AGENCY CHART
         const generate_chart_per_provider =(x,y)=>{
@@ -659,6 +735,10 @@
                                  
             });
         }
+
+
+
+
 
         // EXPORT 
         const export_excel =()=>{

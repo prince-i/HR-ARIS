@@ -448,6 +448,7 @@
             echo '<td><b id="less_ml_total"></b></td>';
             echo '</tr>';
 
+            // GET TOTAL MP COUNT SHIT
             $sql = "SELECT SUM(total_mp) as total_mp FROM aris_total_mp WHERE shift ='$shift'";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
@@ -482,10 +483,67 @@
             echo '<td><b></b></td>';
             echo '<td><b></b></td>';
             echo '<td><b id="percentage_grand_total"></b></td>';
-            echo '<td><b></b></td>';
+            echo '<td><b id="percentage_ml_total"></b></td>';
             echo '</tr>';
 
         }
+
+    elseif($method == 'generate_absence_per_provider_reason_expanded'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        $count = 0;
+        // COUNT
+        $sql = "SELECT provider,
+                COUNT(if(reason LIKE 'AWOL%',1,NULL)) as awol, 
+                COUNT(if(reason LIKE 'BL%' AND number_absent < 15,1,NULL)) as bl, 
+                COUNT(if(reason LIKE 'EL%' AND number_absent < 15,1,NULL)) as el, 
+                COUNT(if(reason LIKE 'For Cancel%',1,NULL)) as cancel, 
+                COUNT(if(reason LIKE 'ML%',1,NULL)) as ml, 
+                COUNT(if((reason LIKE 'SL%' OR reason LIKE 'VL%' OR reason LIKE 'BL%' OR reason LIKE 'EL%') AND number_absent >= 15,1,NULL)) as prolong, 
+                COUNT(if(reason LIKE 'SL%' AND number_absent < 15,1,NULL)) as sl, 
+                COUNT(if(reason LIKE 'SUS%',1,NULL)) as sus, 
+                COUNT(if(reason LIKE 'VL%' AND number_absent < 15,1,NULL)) as vl, 
+                COUNT(id) as total_absent FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY provider ORDER BY total_absent DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $a){
+            $count++;
+            $grand_total_prov = $a['awol'] + $a['bl'] + $a['el'] + $a['cancel'] + $a['ml'] + $a['prolong'] + $a['sl'] + $a['sus'] + $a['vl'];
+            echo '<tr>';
+            echo '<td>'.$count.'</td>';
+            echo '<td>'.$a['provider'].'</td>';
+            echo '<td class="provider_awol">'.$a['awol'].'</td>';
+            echo '<td class="provider_bl">'.$a['bl'].'</td>';
+            echo '<td class="provider_el">'.$a['el'].'</td>';
+            echo '<td class="provider_cancel">'.$a['cancel'].'</td>';
+            echo '<td class="provider_ml">'.$a['ml'].'</td>';
+            echo '<td class="provider_prolong">'.$a['prolong'].'</td>';
+            echo '<td class="provider_sl">'.$a['sl'].'</td>';
+            echo '<td class="provider_sus">'.$a['sus'].'</td>';
+            echo '<td class="provider_vl">'.$a['vl'].'</td>';
+            echo '<td class="provider_total">'.$grand_total_prov.'</td>';
+            echo '</tr>';
+        }
+            echo '<tr>';
+            echo '<td colspan="2"><b>GRAND TOTAL<b></td>';
+            echo '<td><b id="provider_awol_total"></b></td>';
+            echo '<td><b id="provider_bl_total"></b></td>';
+            echo '<td><b id="provider_el_total"></b></td>';
+            echo '<td><b id="provider_cancel_total"></b></td>';
+            echo '<td><b id="provider_ml_total"></b></td>';
+            echo '<td><b id="provider_prolong_total"></b></td>';
+            echo '<td><b id="provider_sl_total"></b></td>';
+            echo '<td><b id="provider_sus_total"></b></td>';
+            echo '<td><b id="provider_vl_total"></b></td>';
+            echo '<td><b id="provider_grand_total"></b></td>';
+            echo '</tr>';
+    }
+
+
+
+
+
 
     // GET TOP REASON
     elseif($method == 'generate_top_reason'){
