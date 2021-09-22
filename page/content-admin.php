@@ -374,7 +374,7 @@
                         if(response == 'exists'){
                             swal('Alert!','Already exists!','info');
                         }else if(response == 'success'){
-                            swal('Alert!','Successfully added!','info');
+                            swal('Alert!','Successfully added!','success');
                             load_mp();
                             $('.modal').modal('close','#add_mp_total');
                             $('#mp_count_agency_code').val('');
@@ -417,9 +417,39 @@
                         value_count:value_count
                     },success:function(response){
                         console.log(response);
+                        if(response == 'success'){
+                            swal('Alert!','Successfully updated!','success');
+                            load_mp();
+                            $('.modal').modal('close','#modal_mp_view');
+                        }else{
+                            swal('Alert!','Error!','info');
+                        }
                     }
                 });
             }
+        }
+
+        const delete_mp_data =(x)=>{
+            var id = $('#'+x).val();
+            // console.log(id);
+            $.ajax({
+                url:'../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'delete_mp_data',
+                    id:id
+                },success:function(response){
+                    console.log(response);
+                    if(response == 'success'){
+                            swal('Alert!','Successfully deleted!','success');
+                            load_mp();
+                            $('.modal').modal('close','#modal_mp_view');
+                        }else{
+                            swal('Alert!','Error!','info');
+                        }
+                }
+            });
         }
     </script>
 </body>

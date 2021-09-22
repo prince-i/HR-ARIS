@@ -24,7 +24,7 @@
             </div>
 
             <div class="col s6 input-field">
-                <button class="btn red col s12" onclick="delete_mp_data()">delete</button>
+                <button class="btn red col s12" onclick="delete_mp_data('mp_id')">delete</button>
             </div>
 
         </div>

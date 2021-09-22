@@ -790,8 +790,28 @@
     }
     // UPDATE MP
     elseif($method == 'update_mp_data'){
-        
+        $id = $_POST['mp_id'];
+        $value = $_POST['value_count'];
+        $sql = "UPDATE aris_total_mp SET total_mp = '$value' WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
     }
+    // DELETE MP
+    elseif($method == 'delete_mp_data'){
+        $id = $_POST['id'];
+        $delete = "DELETE FROM aris_total_mp WHERE id = '$id'";
+        $stmt = $conn->prepare($delete);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
 
     // KILL CONNECTION
     $conn = null;
