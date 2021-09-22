@@ -16,6 +16,8 @@
     include '../components/Modals/modal_logout.php';
     include '../components/Modals/add_agency.php';
     include '../components/Modals/add_reason.php';
+    include '../components/Modals/add_mp_total.php';
+    include '../components/Modals/mp_count_view.php';
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
@@ -64,61 +66,94 @@
                     <div class="row">
                     <!-- CARD 1 AGENCY -->
                         <div class="col s12 m6">
-                        <div class="card z-depth-5" style="height:70vh;overflow:auto;">
+                        <div class="card z-depth-5">
                             <div class="card-content" style="">
                             <span class="card-title center">AGENCY <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_agency_modal">&plus;</button></span>
-                            <table style="zoom:75%;">
-                                <thead>
-                                    <th>AGENCY CODE</th>
-                                    <th>AGENCY NAME</th>
-                                </thead>
-                                <tbody id="agency_list"></tbody>
-                            </table>
+                            <div class="row" style="height:50vh;overflow:auto;">
+                                <table>
+                                    <thead>
+                                        <th>AGENCY CODE</th>
+                                        <th>AGENCY NAME</th>
+                                    </thead>
+                                    <tbody id="agency_list"></tbody>
+                                </table>
+                            </div>
+                            
                         </div>
                         </div>
                         </div>
                     <!-- CARD 2 REASON -->
                         <div class="col s12 m6">
-                        <div class="card z-depth-5" style="height:70vh;overflow:auto;">
+                        <div class="card z-depth-5">
                             <div class="card-content">
                             <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_reason_modal">&plus;</button>
                             <span class="card-title center">REASON
-                            <input type="text" name="" id="reason_keyword" onchange="load_reason()">
+                            <input type="text" name="" id="reason_keyword" onchange="load_reason()" placeholder="Search Reason">
                             
                             </span>
-                            <table style="zoom:75%;">
-                                <thead>
-                                    <th>CATEGORY</th>
-                                    <th>DESCRIPTION</th>
-                                </thead>
-                                <tbody id="reason_list"></tbody>
-                            </table>
+                            <div class="row" style="height:41vh;overflow:auto;">
+                                <table>
+                                    <thead>
+                                        <th>CATEGORY</th>
+                                        <th>DESCRIPTION</th>
+                                    </thead>
+                                    <tbody id="reason_list"></tbody>
+                                </table>    
+                            </div>
+                            
                         </div> 
                         </div>
                         </div>
                     <!-- CARD 3 DEPARTMENT -->
-                        <div class="col s12 m12">
-                        <div class="card z-depth-5" style="height:70vh;overflow:auto;">
+                        <div class="col s12 m6">
+                        <div class="card z-depth-5" >
                             <div class="card-content">
                             <!-- <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button> -->
                             <span class="card-title center">DEPARTMENT
-                            <input type="text" name="" id="dept_keyword" onchange="load_dept()">
+                            <input type="text" name="" id="dept_keyword" onchange="load_dept()" placeholder="Find Department">
                             </span>
+                            <div class="row" style="height:70vh;overflow:auto;">
+                                <table class="centered">
+                                    <thead>
+                                        <th>DEPT CODE</th>
+                                        <th>SECTION</th>
+                                        <th>SUBSECTION</th>
+                                    </thead>
+                                    <tbody id="department_list"></tbody>
+                                </table>
+                            </div>
                             
-                            <table>
-                                <thead>
-                                    <th>DEPT CODE</th>
-                                    <th>SECTION</th>
-                                    <th>SUBSECTION</th>
-                                </thead>
-                                <tbody id="department_list"></tbody>
-                            </table>
                         </div>
                         </div>
+                    </div>
+
+                          <!-- CARD 4 TOTAL MP -->
+                    <div class="col s12 m6">
+                        <div class="card z-depth-5" >
+                            <div class="card-content">
+                            <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_mp_total">&plus;</button>
+                            <span class="card-title center">TOTAL MP
+                            <input type="text" name="" id="mp_keyword" onchange="load_mp()" placeholder="Search">
+                            <select name="" id="shift_filter" class="browser-default z-depth-4" onchange="load_mp()">
+                            <option value="">ALL SHIFT</option>
+                            <option value="DS">DS</option>
+                            <option value="NS">NS</option>
+                            </select>
+                            </span>
+                            <div class="row" style="height:62vh;overflow:auto;">
+                                <table class="centered">
+                                    <thead>
+                                        <th>SHIFT</th>
+                                        <th>MP COUNT</th>
+                                        <th>AGENCY</th>
+                                    </thead>
+                                    <tbody id="total_mp_list"></tbody>
+                                </table>
+                            </div>
+                            
                         </div>
+                    </div>
                      <!-- END OF CARD -->
-
-
 
                     </div>
                     </div>
@@ -136,6 +171,9 @@
         $(document).ready(function(){
             $('.modal').modal();
             load_agency_list();
+            load_dept();
+            load_reason();
+            load_mp();
         });
         // LOAD AGENCY
         const load_agency_list =()=>{
@@ -147,9 +185,6 @@
                      method: 'load_agency'
                  },success:function(response){
                     $('#agency_list').html(response);
-                    setTimeout(() => {
-                        load_reason();
-                    }, 300);
                  }
              });
         }
@@ -165,7 +200,6 @@
                     keyword:keyword
                 },success:function(response){
                     $('#reason_list').html(response);
-                    load_dept();
                 }
             });
         }
@@ -185,6 +219,27 @@
                 }
             });
         }
+
+        // LOAD TOTAL MP COUNT
+        const load_mp =()=>{
+            var mp_keyword = $('#mp_keyword').val();
+            var mp_shift = $('#shift_filter').val();
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_mp_count',
+                    mp_keyword:mp_keyword,
+                    mp_shift:mp_shift
+                },success:function(response){
+                    // console.log(response);
+                    $('#total_mp_list').html(response);
+                }
+            });
+        }
+
+
 
         // GET ID TO DELETE FROM AGENCY 
         const get_agency_del =(id)=>{
@@ -293,6 +348,77 @@
                 });
             }else{
                 // alert('no delete');
+            }
+        }
+
+        // CREATE NEW MP
+        const save_mp_count =()=> {
+            var agency = $('#mp_count_agency_code').val();
+            var shift = $('#mp_count_shift').val();
+            var count = $('#mp_count_total').val();
+
+            if(agency == '' || shift == '' || count == ''){
+                swal('Alert!','Please fill up the fields completely!','info');
+            }else{
+                $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                        method: 'add_mp_count',
+                        agency:agency,
+                        shift:shift,
+                        count:count
+                    },success:function(response){
+                        // console.log(response);
+                        if(response == 'exists'){
+                            swal('Alert!','Already exists!','info');
+                        }else if(response == 'success'){
+                            swal('Alert!','Successfully added!','info');
+                            load_mp();
+                            $('.modal').modal('close','#add_mp_total');
+                            $('#mp_count_agency_code').val('');
+                            $('#mp_count_shift').val('');
+                            $('#mp_count_total').val('');
+                        }else{
+                            swal('Alert!','Error!','info');
+                        }
+                    }
+                });
+            }
+           
+        }
+
+        const get_mp =(param)=>{
+            var data = param.split('~!~');
+            var id = data[0];
+            var shift = data[1];
+            var total_mp = data[2];
+            var agency_code = data[3];
+            $('#mp_id').val(id);
+            $('#mp_shift').val(shift);
+            $('#mp_agency').val(agency_code);
+            $('#mp_count_val').val(total_mp);
+        }
+
+        const update_mp_data =()=>{
+            var mp_id = $('#mp_id').val();
+            var value_count = $('#mp_count_val').val();
+            if(value_count == '' || value_count == undefined || value_count == 0){
+                swal('Alert!','Please enter appropriate count of MP!','info');
+            }else{
+                $.ajax({
+                    url: '../function/admin-controller.php',
+                    type: 'POST',
+                    cache: false,
+                    data:{
+                        method: 'update_mp_data',
+                        mp_id:mp_id,
+                        value_count:value_count
+                    },success:function(response){
+                        console.log(response);
+                    }
+                });
             }
         }
     </script>

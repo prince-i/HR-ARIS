@@ -540,8 +540,21 @@
             echo '</tr>';
     }
 
-
-
+    // LOAD MP COUNT
+    elseif($method == 'load_mp_count'){
+        $mp_word = $_POST['mp_keyword'];
+        $mp_shift = $_POST['mp_shift'];
+        $sql = "SELECT *FROM aris_total_mp WHERE agency_code LIKE '$mp_word%' AND shift LIKE '$mp_shift%' ORDER BY agency_code ASC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr onclick="get_mp(&quot;'.$x['id'].'~!~'.$x['shift'].'~!~'.$x['total_mp'].'~!~'.$x['agency_code'].'&quot;)" style="cursor:pointer" class="modal-trigger" data-target="modal_mp_view">';
+            echo '<td>'.$x['shift'].'</td>';
+            echo '<td>'.$x['total_mp'].'</td>';
+            echo '<td>'.$x['agency_code'].'</td>';
+            echo '</tr>';
+        }
+    }
 
 
 
@@ -751,6 +764,34 @@
         }
     }
 
+    // CREATE NEW MP COUNT
+    elseif($method == 'add_mp_count'){
+        $agency = $_POST['agency'];
+        $shift = $_POST['shift'];
+        $count = $_POST['count'];
+
+        // CHECK IF ALREADY EXISTED IN DATABASE
+        $check = "SELECT id FROM aris_total_mp WHERE shift = '$shift' AND agency_code = '$agency'";
+        $stmt = $conn->prepare($check);
+        $stmt->execute();
+        $stmt->fetchALL();
+        if($stmt->rowCount() > 0){
+            echo 'exists';
+        }else{
+            // INSERT
+            $save = "INSERT INTO aris_total_mp (`shift`,`total_mp`,`agency_code`) VALUES ('$shift','$count','$agency')";
+            $stmt = $conn->prepare($save);
+            if($stmt->execute()){
+                echo 'success';
+            }else{
+                echo 'fail';
+            }
+        }
+    }
+    // UPDATE MP
+    elseif($method == 'update_mp_data'){
+        
+    }
 
     // KILL CONNECTION
     $conn = null;
