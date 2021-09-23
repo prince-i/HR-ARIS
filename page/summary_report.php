@@ -105,7 +105,7 @@
                         </div>
                         <!-- EXPORT -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12" onclick="export_excel()">export all</button>
+                            <button class="btn #2196f3 blue col s12" onclick="print_all()">print all</button>
                         </div>
                     </div>
                     </div>
@@ -915,11 +915,18 @@
                                  
             });
         }
-
-
-        // EXPORT 
-        const export_excel =()=>{
-          
+        // PRINT 
+        const print_all =()=>{           
+            var w = window.open();
+            $('canvas').hide();
+            $('button').hide();
+            $('table').attr('border','1');
+            $('table').css('border-collapse','collapse');
+            w.document.write('<style>font-family:arial;</style>')
+            w.document.write($('#dashboard').html());
+            w.print();
+            // w.close();
+            location.reload();
         }
         // EXPORT PER PROVIDER
         function export_per_provider(table_id, separator = ',') {
@@ -945,32 +952,32 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-    }   
-        //EXPORT PER REASON
+        }   
+            //EXPORT PER REASON
         function export_per_reason(table_id, separator = ',') {
-            var rows = document.querySelectorAll('table#' + table_id + ' tr');
-            var csv = [];
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll('td, th');
-                for (var j = 0; j < cols.length; j++) {
-                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
-                    data = data.replace(/"/g, '""');
-                    row.push('"' + data + '"');
+                var rows = document.querySelectorAll('table#' + table_id + ' tr');
+                var csv = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll('td, th');
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                        data = data.replace(/"/g, '""');
+                        row.push('"' + data + '"');
+                    }
+                    csv.push(row.join(separator));
                 }
-                csv.push(row.join(separator));
-            }
-            var csv_string = csv.join('\n');
-            // Download it
-            var filename = 'Absent Report per Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
-            var link = document.createElement('a');
-            link.style.display = 'none';
-            link.setAttribute('target', '_blank');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
-            link.setAttribute('download', filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-    }
+                var csv_string = csv.join('\n');
+                // Download it
+                var filename = 'Absent Report per Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+                var link = document.createElement('a');
+                link.style.display = 'none';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        }
         // EXPORT PER REASON2
         function export_per_reason2(table_id, separator = ',') {
             var rows = document.querySelectorAll('table#' + table_id + ' tr');
@@ -995,82 +1002,82 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-    }
-    // EXPORT PER SECTION
-    function export_per_section(table_id, separator = ',') {
-            var rows = document.querySelectorAll('table#' + table_id + ' tr');
-            var csv = [];
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll('td, th');
-                for (var j = 0; j < cols.length; j++) {
-                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
-                    data = data.replace(/"/g, '""');
-                    row.push('"' + data + '"');
+        }
+        // EXPORT PER SECTION
+        function export_per_section(table_id, separator = ',') {
+                var rows = document.querySelectorAll('table#' + table_id + ' tr');
+                var csv = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll('td, th');
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                        data = data.replace(/"/g, '""');
+                        row.push('"' + data + '"');
+                    }
+                    csv.push(row.join(separator));
                 }
-                csv.push(row.join(separator));
-            }
-            var csv_string = csv.join('\n');
-            // Download it
-            var filename = 'Absent Report per Section'+ '_' + new Date().toLocaleDateString() + '.csv';
-            var link = document.createElement('a');
-            link.style.display = 'none';
-            link.setAttribute('target', '_blank');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
-            link.setAttribute('download', filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-    }
-    // EXPORT PER SECTION REASON
-    function export_per_section_reason(table_id, separator = ',') {
-            var rows = document.querySelectorAll('table#' + table_id + ' tr');
-            var csv = [];
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll('td, th');
-                for (var j = 0; j < cols.length; j++) {
-                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
-                    data = data.replace(/"/g, '""');
-                    row.push('"' + data + '"');
+                var csv_string = csv.join('\n');
+                // Download it
+                var filename = 'Absent Report per Section'+ '_' + new Date().toLocaleDateString() + '.csv';
+                var link = document.createElement('a');
+                link.style.display = 'none';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        }
+        // EXPORT PER SECTION REASON
+        function export_per_section_reason(table_id, separator = ',') {
+                var rows = document.querySelectorAll('table#' + table_id + ' tr');
+                var csv = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll('td, th');
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                        data = data.replace(/"/g, '""');
+                        row.push('"' + data + '"');
+                    }
+                    csv.push(row.join(separator));
                 }
-                csv.push(row.join(separator));
-            }
-            var csv_string = csv.join('\n');
-            // Download it
-            var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
-            var link = document.createElement('a');
-            link.style.display = 'none';
-            link.setAttribute('target', '_blank');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
-            link.setAttribute('download', filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-    }
-    // EXPORT PER PROVIDER AND REASON
-    function export_per_provider_reason(table_id, separator = ',') {
-            var rows = document.querySelectorAll('table#' + table_id + ' tr');
-            var csv = [];
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll('td, th');
-                for (var j = 0; j < cols.length; j++) {
-                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
-                    data = data.replace(/"/g, '""');
-                    row.push('"' + data + '"');
+                var csv_string = csv.join('\n');
+                // Download it
+                var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+                var link = document.createElement('a');
+                link.style.display = 'none';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        }
+        // EXPORT PER PROVIDER AND REASON
+        function export_per_provider_reason(table_id, separator = ',') {
+                var rows = document.querySelectorAll('table#' + table_id + ' tr');
+                var csv = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll('td, th');
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                        data = data.replace(/"/g, '""');
+                        row.push('"' + data + '"');
+                    }
+                    csv.push(row.join(separator));
                 }
-                csv.push(row.join(separator));
-            }
-            var csv_string = csv.join('\n');
-            // Download it
-            var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
-            var link = document.createElement('a');
-            link.style.display = 'none';
-            link.setAttribute('target', '_blank');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
-            link.setAttribute('download', filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-    }
+                var csv_string = csv.join('\n');
+                // Download it
+                var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+                var link = document.createElement('a');
+                link.style.display = 'none';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        }
     </script>
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2021 at 04:21 AM
+-- Generation Time: Sep 23, 2021 at 10:44 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -452,8 +452,7 @@ INSERT INTO `aris_total_mp` (`id`, `shift`, `total_mp`, `agency_code`) VALUES
 (1, 'NS', '1618', 'FAS'),
 (2, 'DS', '2434', 'FAS'),
 (3, 'DS', '434', 'ADD EVEN'),
-(4, 'NS', '336', 'ADD EVEN'),
-(5, 'DS', '0', 'GOLDENHAND'),
+(5, 'DS', '20', 'GOLDENHAND'),
 (6, 'NS', '841', 'MAXIM'),
 (7, 'DS', '1522', 'MAXIM'),
 (8, 'DS', '1823', 'PKIMT'),
@@ -461,7 +460,9 @@ INSERT INTO `aris_total_mp` (`id`, `shift`, `total_mp`, `agency_code`) VALUES
 (10, 'NS', '466', 'MEGATREND'),
 (11, 'DS', '573', 'MEGATREND'),
 (12, 'DS', '943', 'ONE SOURCE'),
-(13, 'NS', '770', 'ONE SOURCE');
+(13, 'NS', '770', 'ONE SOURCE'),
+(14, 'NS', '300', 'GOLDENHAND'),
+(16, 'NS', '304', 'ADD EVEN');
 
 -- --------------------------------------------------------
 
@@ -863,7 +864,7 @@ ALTER TABLE `aris_absent_reason`
 -- AUTO_INCREMENT for table `aris_agency`
 --
 ALTER TABLE `aris_agency`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `aris_department`
@@ -881,7 +882,7 @@ ALTER TABLE `aris_shift`
 -- AUTO_INCREMENT for table `aris_total_mp`
 --
 ALTER TABLE `aris_total_mp`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `aris_users`
