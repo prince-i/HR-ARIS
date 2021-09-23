@@ -634,7 +634,6 @@
             });
         }
 
-
         // PER AGENCY CHART
         const generate_chart_per_provider =(x,y)=>{
             var ctx = document.getElementById('per_agency_chart');
