@@ -296,7 +296,8 @@
                 echo '</tr>';
             }
                 echo '<tr>';
-                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td><b>GRAND TOTAL</b></td>';
+                echo '<td></td>';
                 echo '<td class="" id="total_absent_provider"></td>';
                 echo '</tr>';
         }else{
@@ -323,7 +324,8 @@
                 echo '</tr>';
             }
             echo '<tr>';
-            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td><b>GRAND TOTAL</b></td>';
+            echo '<td></td>';
             echo '<td class="" id="total_absent_reason"></td>';
             echo '</tr>';
         }else{
@@ -350,7 +352,8 @@
                 echo '</tr>';
             }
                 echo '<tr>';
-                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td><b>GRAND TOTAL</b></td>';
+                echo '<td></td>';
                 echo '<td class="" id="total_absent_reason2"></td>';
                 echo '</tr>';
         }else{
@@ -377,7 +380,8 @@
                 echo '</tr>';
             }
                 echo '<tr>';
-                echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+                echo '<td><b>GRAND TOTAL</b></td>';
+                echo '<td></td>';
                 echo '<td class="" id="total_absent_section"></td>';
                 echo '</tr>';
         }else{
@@ -434,7 +438,8 @@
          }
 
             echo '<tr>';
-            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td><b>GRAND TOTAL</b></td>';
+            echo '<td></td>';
             echo '<td><b id="awol_grand_total"></b></td>';
             echo '<td><b id="bl_grand_total"></b></td>';
             echo '<td><b id="el_grand_total"></b></td>';
@@ -457,7 +462,8 @@
             }
 
             echo '<tr>';
-            echo '<td colspan="2"><b>GRAND TOTAL</b></td>';
+            echo '<td><b>GRAND TOTAL</b></td>';
+            echo '<td></td>';
             echo '<td><b></b></td>';
             echo '<td><b></b></td>';
             echo '<td><b></b></td>';
@@ -472,7 +478,8 @@
             echo '</tr>';
 
             echo '<tr>';
-            echo '<td colspan="2"><b>PERCENTAGE</b></td>';
+            echo '<td><b>PERCENTAGE</b></td>';
+            echo '<td></td>';
             echo '<td><b></b></td>';
             echo '<td><b></b></td>';
             echo '<td><b></b></td>';
@@ -526,7 +533,8 @@
             echo '</tr>';
         }
             echo '<tr>';
-            echo '<td colspan="2"><b>GRAND TOTAL<b></td>';
+            echo '<td><b>GRAND TOTAL<b></td>';
+            echo '<td></td>';
             echo '<td><b id="provider_awol_total"></b></td>';
             echo '<td><b id="provider_bl_total"></b></td>';
             echo '<td><b id="provider_el_total"></b></td>';

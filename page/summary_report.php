@@ -21,6 +21,47 @@
             min-height:90vh;
             overflow-y:auto;
         }
+        .spinner {
+        width: 40px;
+        height: 40px;
+
+        position: relative;
+        margin: 100px auto;
+        }
+
+        .double-bounce1, .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #333;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+        }
+
+        .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+        }
+
+        @-webkit-keyframes sk-bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+        }
+
+        @keyframes sk-bounce {
+        0%, 100% { 
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        } 50% { 
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+        }
     </style>
 </head>
 <body>
@@ -71,14 +112,21 @@
 <!-- END FILTERING FORMS    -------------------------------------- -->
 
                     <input type="hidden" name="" id="total_mp_count_data">
+                    <!-- LOADER -->
+                    <div class="spinner" id="spinner" style="display:none;">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                    </div>
 
-                    <div class="row" style="max-height:80vh;overflow:auto;" id="printable_pdf">
+                    <!-- LOADER -->
+                    <div class="row" id="dashboard" style="max-height:80vh;overflow:auto;display:none;" id="printable_pdf">
+                    
                     <!-- ---------------------------------------------------------- -->
-                        <h5 class="center blue-text">PER PROVIDER</h5>
+                        <h5 class="center blue-text">PER PROVIDER <span class="right"><button class="btn blue" onclick="export_per_provider('per_provider_tbl')">&darr;</button></span></h5>
                         <!-- REPORT 1 -->
                         <div class="row col s12">
                             <div class="col s6">
-                                <table class="centered" style="zoom:75%;">
+                                <table class="centered" style="zoom:75%;" id="per_provider_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>PROVIDER</th>
@@ -95,11 +143,15 @@
                         <!-- ------------------------------------------------------ -->
 
                         <div class="row divider"></div>
-                        <h5 class="center blue-text">PER REASON</h5>
+                        <h5 class="center blue-text">PER REASON
+                            <span class="right">
+                                <button class="btn blue" onclick="export_per_reason('per_reason_tbl')">&darr;</button>
+                            </span>
+                        </h5>
                         <!-- REPORT 2 -->
                         <div class="row col s12">
                             <div class="col s6">
-                                <table class="centered" style="zoom:75%;">
+                                <table class="centered" style="zoom:75%;" id="per_reason_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>REASON</th>
@@ -115,11 +167,15 @@
                         </div>
                         <!-- ---------------------------------------------------------- -->
                         <div class="row divider"></div>
-                        <h5 class="center blue-text">PER REASON2</h5>
+                        <h5 class="center blue-text">PER REASON2
+                        <span class="right">
+                                <button class="btn blue" onclick="export_per_reason2('per_reason2_tbl')">&darr;</button>
+                            </span>
+                        </h5>
                         <!-- REPORT 3 -->
                         <div class="row col s12">
                             <div class="col s4">
-                                <table class="centered" style="zoom:75%;">
+                                <table class="centered" style="zoom:75%;" id="per_reason2_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>REASON2</th>
@@ -137,11 +193,15 @@
                     <!-- -------------------------------------------------------------- -->
 
                     <div class="row divider"></div>
-                        <h5 class="center blue-text">PER SECTION</h5>
+                        <h5 class="center blue-text">PER SECTION
+                            <span class="right">
+                                <button class="btn blue" onclick="export_per_section('per_section_tbl')">&darr;</button>
+                            </span>
+                        </h5>
                         <!-- REPORT 3 -->
                         <div class="row col s12">
                             <div class="col s6">
-                                <table class="centered" style="zoom:75%;">
+                                <table class="centered" style="zoom:75%;" id="per_section_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>REASON2</th>
@@ -158,11 +218,15 @@
 
                         <!-- =--------------------------- -->
                         <div class="row divider"></div>
-                        <h5 class="center blue-text">PER SECTION & REASON </h5>
+                        <h5 class="center blue-text">PER SECTION & REASON
+                        <span class="right">
+                                <button class="btn blue" onclick="export_per_section_reason('per_section_reason_tbl')">&darr;</button>
+                            </span>
+                        </h5>
                         <!-- REPORT 3 -->
                         <div class="row col s12">
                             <div class="col s12" id="">
-                                <table class="centered" style="zoom:70%;" id="">
+                                <table class="centered" style="zoom:70%;" id="per_section_reason_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>SECTION</th>
@@ -186,11 +250,15 @@
 
                         <!-- ----------------------------------------------------------------- -->
                         <div class="row divider"></div>
-                        <h5 class="center blue-text">PER PROVIDER & REASON </h5>
+                        <h5 class="center blue-text">PER PROVIDER & REASON
+                            <span class="right">
+                                <button class="btn blue" onclick="export_per_provider_reason('per_provider_reason_tbl')">&darr;</button>
+                            </span>
+                            </h5>
                         <!-- REPORT 3 -->
                         <div class="row col s12">
                             <div class="col s12" id="">
-                                <table class="centered" style="zoom:70%;" id="">
+                                <table class="centered" style="zoom:70%;" id="per_provider_reason_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>PROVIDER</th>
@@ -263,6 +331,7 @@
         });
 
         const load_absence_per_provider =()=>{
+            $('#spinner').css('display','block');
             $('#generatedateFrom').attr('disabled',true);
             $('#generatedateTo').attr('disabled',true);
             $('#generateShift').attr('disabled',true);
@@ -630,6 +699,10 @@
                     var average = parseFloat((grand_total_absent / grand_total_mp)*100);
                     var average = parseFloat(average.toFixed(2));
                     $('#nq_total_percentage').html(average+'%');
+                    $('#spinner').fadeOut(function(){
+                        $('#dashboard').fadeIn();
+                    });
+                   
                 }
             });
         }
@@ -846,13 +919,165 @@
 
         // EXPORT 
         const export_excel =()=>{
-            var dateFrom = document.querySelector('#generatedateFrom').value;
-            var dateTo = document.querySelector('#generatedateTo').value;
-            var shift = document.querySelector('#generateShift').value;
-            window.open('export_summary.php?dateFrom='+dateFrom+'&&dateTo='+dateTo+'&&shift='+shift,'_blank');
+          
         }
-
+        // EXPORT PER PROVIDER
+        function export_per_provider(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Provider'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }   
+        //EXPORT PER REASON
+        function export_per_reason(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }
+        // EXPORT PER REASON2
+        function export_per_reason2(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Reason2'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }
+    // EXPORT PER SECTION
+    function export_per_section(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Section'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }
+    // EXPORT PER SECTION REASON
+    function export_per_section_reason(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }
+    // EXPORT PER PROVIDER AND REASON
+    function export_per_provider_reason(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'Absent Report per Section and Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    }
     </script>
+
+
+
+
+
+
 </body>
 
 </html>
