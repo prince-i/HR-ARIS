@@ -211,7 +211,36 @@
                             
                         </div>
 
-
+                        <!-- ----------------------------------------------------------------- -->
+                        <div class="row divider"></div>
+                        <h5 class="center blue-text">QUARANTINE REPORT</h5>
+                        <!-- REPORT 3 -->
+                        <div class="row col s12">
+                            <div class="col s6" id="">
+                            <h6 class="center">WITH QUARANTINE</h6>
+                                <table class="centered" style="zoom:70%;" id="">
+                                    <thead>
+                                    <th>PROVIDER</th>
+                                    <th>TOTAL</th>
+                                    <th>TOTAL ABSENT</th>
+                                    <th>PERCENTAGE</th>
+                                    </thead>
+                                    <tbody id="absence_with_quarantine"></tbody>
+                                </table>
+                            </div>
+                            <h6 class="center">WITHOUT QUARANTINE</h6>
+                            <div class="col s6" id="">
+                                <table class="centered" style="zoom:70%;" id="">
+                                    <thead>
+                                    <th>PROVIDER</th>
+                                    <th>TOTAL</th>
+                                    <th>TOTAL ABSENT</th>
+                                    <th>PERCENTAGE</th>
+                                    </thead>
+                                    <tbody id="absence_without_quarantine"></tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <!-- END MAIN RIGHT CONTAINER -->
                     </div>
@@ -465,11 +494,11 @@
                     var less_ml_total = $('#less_ml_total').html();
                     var percentage_grand_total = (parseFloat(grand_total) / parseFloat(total_mp)*100);
                     var percentage_grand_total = parseFloat(percentage_grand_total.toFixed(2));
-                    $('#percentage_grand_total').html(percentage_grand_total);
+                    $('#percentage_grand_total').html(percentage_grand_total+'%');
                     // CALCULATE LESS ML PERCENTAGE
                     var less_ml_percentage = (parseFloat(less_ml_total) / parseFloat(total_mp)*100);
                     var less_ml_percentage = parseFloat(less_ml_percentage.toFixed(2));
-                    $('#percentage_ml_total').html(less_ml_percentage);
+                    $('#percentage_ml_total').html(less_ml_percentage+'%');
                     setTimeout(() => {
                         load_per_provider_reason(from,to,shift);
                     }, 500);
@@ -522,6 +551,85 @@
                     $('#provider_sus_total').html(eval(sus.join('+')));
                     $('#provider_vl_total').html(eval(vl.join('+')));
                     $('#provider_grand_total').html(eval(total.join('+')));
+                    setTimeout(() => {
+                        load_with_quarantine(from,to,shift);
+                    }, 500);
+                }
+            });
+        }
+
+        // LOAD WITH QUARANTINE 
+        const load_with_quarantine =(from,to,shift)=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_with_quarantine',
+                    from:from,
+                    to:to,
+                    shift:shift
+                },success:function(data){
+                    // console.log(data);
+                    $('#absence_with_quarantine').html(data);
+                    var total_mp = [];
+                    var absent_count = [];
+                    $('.q_total_mp_per_provider').each(function(){
+                        total_mp.push($(this).html());
+                    });
+                    $('.q_total_mp_absent_provider').each(function(){
+                        absent_count.push($(this).html());
+                    });
+
+                    // SUM OF COLUMNS
+                    $('#q_total_mp').html(eval(total_mp.join('+')));
+                    $('#q_total_absent').html(eval(absent_count.join('+')));
+                    //GRAND TOTAL AVERAGE
+                    var grand_total_mp = $('#q_total_mp').html();
+                    var grand_total_absent = $('#q_total_absent').html();
+                    // PER = TOTAL ABSENT / TOTAL MP
+                    var percentage = parseFloat((grand_total_absent / grand_total_mp)*100);
+                    var percentage = parseFloat(percentage.toFixed(2));
+                    $('#q_total_percentage').html(percentage+'%');
+                    setTimeout(() => {
+                        load_without_quarantine(from,to,shift);
+                    }, 500);
+                }
+            });
+        }
+
+        // LOAD WITHOUT QUARANTINE
+        const load_without_quarantine =(from,to,shift)=>{
+            $.ajax({
+                url: '../function/admin-controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_without_quarantine',
+                    from:from,
+                    to:to,
+                    shift:shift
+                },success:function(response){
+                    $('#absence_without_quarantine').html(response);
+                    // console.log(response);
+                    var nq_mp_count = [];
+                    var nq_absent_count = [];
+                    $('.nq_total_mp_per_provider').each(function(){
+                        nq_mp_count.push($(this).html());
+                    });
+                    $('.nq_total_mp_absent_provider').each(function(){
+                        nq_absent_count.push($(this).html());
+                    });
+                    //SUM OF COLUMNS
+                    $('#nq_total_mp').html(eval(nq_mp_count.join('+')));
+                    $('#nq_total_absent').html(eval(nq_absent_count.join('+')));
+                    // AVERAGE GRAND TOTAL
+                    var grand_total_mp = $('#nq_total_mp').html();
+                    var grand_total_absent = $('#nq_total_absent').html();
+                    // AVE = ABSENT / TOTAL MP
+                    var average = parseFloat((grand_total_absent / grand_total_mp)*100);
+                    var average = parseFloat(average.toFixed(2));
+                    $('#nq_total_percentage').html(average+'%');
                 }
             });
         }
@@ -735,9 +843,6 @@
                                  
             });
         }
-
-
-
 
 
         // EXPORT 

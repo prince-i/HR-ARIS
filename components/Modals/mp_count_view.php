@@ -1,4 +1,4 @@
-<div class="modal" id="modal_mp_view">
+<div class="modal" id="modal_mp_view" style="width:30%;">
 <div class="modal-footer">
     <button class="modal-close right btn-flat" style="font-size:20px;">&times;</button>
 </div>

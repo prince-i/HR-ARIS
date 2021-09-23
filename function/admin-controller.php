@@ -1,5 +1,5 @@
 <?php
-    ini_set('memory_limit','512M');
+    ini_set('memory_limit','1024M');
     include 'conn.php'; 
     include 'sas-conn.php';
     $method = $_POST['method'];
@@ -812,6 +812,81 @@
         }
     }
 
+    // WITH QUARANTINE
+    elseif($method == 'load_with_quarantine'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        // CHECK QUARANTINED COUNT 
+        $get_data = "SELECT provider,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY provider ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $t){
+            $provider = $t['provider'];
+            $absent = $t['absent_count'];
+            echo '<tr>';
+            echo '<td>'.$t['provider'].'</td>';
+            // CHECK THE TOTAL MP PER SHIFT AND PROVIDER
+            $check_mp = "SELECT total_mp FROM aris_total_mp WHERE shift ='$shift' AND agency_code LIKE '$provider%'";
+            $stmt = $conn->prepare($check_mp);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                $total_mp = $x['total_mp'];
+            }
+            // COMPUTE PERCENTAGE
+            $percentage = round(($absent/$total_mp)*100,2);
+            echo '<td class="q_total_mp_per_provider">'.$total_mp.'</td>';
+            echo '<td class="q_total_mp_absent_provider">'.$t['absent_count'].'</td>';
+            echo '<td class="q_total_percentage_provider">'.$percentage.'</td>';
+            echo '</tr>';
+        }
+            echo '<tr>';
+            echo '<td><b>TOTAL</b></td>';
+            echo '<td><b id="q_total_mp"></b></td>';
+            echo '<td><b id="q_total_absent"</b></td>';
+            echo '<td><b id="q_total_percentage"</b></td>';
+            echo '</tr>';
+    }
+
+    // WITHOUT QUARANTINE
+    elseif($method == 'load_without_quarantine'){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        $shift = $_POST['shift'];
+        // CHECK QUARANTINED COUNT 
+        $get_data = "SELECT provider,
+        COUNT(id) as absent_count,
+        COUNT(if(reason_2 LIKE 'home quarantine%',1,NULL)) as quarantine_count
+        FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY provider ORDER BY absent_count DESC";
+        $stmt = $conn->prepare($get_data);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $t){
+            $provider = $t['provider'];
+            $absent = $t['absent_count'];
+            $quarantined = $t['quarantine_count'];
+            echo '<tr>';
+            echo '<td>'.$t['provider'].'</td>';
+            // CHECK THE TOTAL MP PER SHIFT AND PROVIDER
+            $check_mp = "SELECT total_mp FROM aris_total_mp WHERE shift ='$shift' AND agency_code LIKE '$provider%'";
+            $stmt = $conn->prepare($check_mp);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                $total_mp = $x['total_mp'];
+            }
+            // COMPUTE PERCENTAGE
+            $percentage = round(($absent/$total_mp)*100,2);
+            echo '<td class="nq_total_mp_per_provider">'.$total_mp.'</td>';
+            echo '<td class="nq_total_mp_absent_provider">'.($absent - $quarantined).'</td>';
+            echo '<td class="nq_total_percentage_provider">'.$percentage.'</td>';
+            echo '</tr>';
+        }
+            echo '<tr>';
+            echo '<td><b>TOTAL</b></td>';
+            echo '<td><b id="nq_total_mp"></b></td>';
+            echo '<td><b id="nq_total_absent"</b></td>';
+            echo '<td><b id="nq_total_percentage"</b></td>';
+            echo '</tr>';
+    }
 
     // KILL CONNECTION
     $conn = null;
