@@ -69,7 +69,7 @@
                         <div class="card z-depth-5">
                             <div class="card-content" style="">
                             <span class="card-title center">AGENCY <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5 modal-trigger" data-target="add_agency_modal">&plus;</button></span>
-                            <div class="row" style="height:50vh;overflow:auto;">
+                            <div class="row" style="height:50vh;overflow:auto;position:relative;">
                                 <table>
                                     <thead>
                                         <th>AGENCY CODE</th>
@@ -91,7 +91,7 @@
                             <input type="text" name="" id="reason_keyword" onchange="load_reason()" placeholder="Search Reason">
                             
                             </span>
-                            <div class="row" style="height:41vh;overflow:auto;">
+                            <div class="row" style="height:41vh;overflow:auto;position:relative;">
                                 <table>
                                     <thead>
                                         <th>CATEGORY</th>
@@ -104,8 +104,15 @@
                         </div> 
                         </div>
                         </div>
-                    <!-- CARD 3 DEPARTMENT -->
-                        <div class="col s12 m6">
+                 
+
+                    </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                   <!-- CARD 3 DEPARTMENT -->
+                   <div class="col s12 m6">
                         <div class="card z-depth-5" >
                             <div class="card-content">
                             <!-- <button class="btn right #0277bd light-blue darken-4 waves-effect light-waves z-depth-5">&plus;</button> -->
@@ -154,9 +161,6 @@
                         </div>
                     </div>
                      <!-- END OF CARD -->
-
-                    </div>
-                    </div>
                 </div>
             </div>
     </div>
