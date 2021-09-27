@@ -65,7 +65,7 @@
                         </div>
                         <!-- EXPORT -->
                         <div class="col s2 input-field">
-                            <button class="btn #2196f3 blue col s12" onclick="">export</button>
+                            <button class="btn #2196f3 blue col s12" onclick="export_top_reason('top_reason_tbl')">export</button>
                         </div>
                     </div>
                     </div>
@@ -77,7 +77,7 @@
                         <!-- REPORT 1 -->
                         <div class="row col s12">
                             <div class="col s6">
-                                <table class="centered" style="zoom:75%;">
+                                <table class="centered" style="zoom:75%;" id="top_reason_tbl">
                                     <thead>
                                     <th>#</th>
                                     <th>REASON</th>
@@ -222,7 +222,32 @@
                 }
             });
         }
-   
+        
+
+        function export_top_reason(table_id, separator = ',') {
+                var rows = document.querySelectorAll('table#' + table_id + ' tr');
+                var csv = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll('td, th');
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                        data = data.replace(/"/g, '""');
+                        row.push('"' + data + '"');
+                    }
+                    csv.push(row.join(separator));
+                }
+                var csv_string = csv.join('\n');
+                // Download it
+                var filename = 'Top Reason'+ '_' + new Date().toLocaleDateString() + '.csv';
+                var link = document.createElement('a');
+                link.style.display = 'none';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        }
     </script>
 </body>
 
