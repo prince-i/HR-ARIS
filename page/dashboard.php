@@ -25,6 +25,32 @@
 
     ?>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <style>
+        div::-webkit-scrollbar {
+            width: 0.6em;
+        }
+        
+        div::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        div::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid darkgrey;
+        }
+        body::-webkit-scrollbar {
+            width: 0.6em;
+        }
+        
+        body::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid darkgrey;
+        }  
+    </style>
 
 </head>
 <body>
@@ -81,7 +107,7 @@
         <div class="col s4">
             <button class="btn-small red" disabled id="delete_absent" onclick="del_selected_data()">DELETE &times;</button>
         </div>
-        <div class="col s12" style="overflow:auto;max-height:65vh;">
+        <div class="col s12" style="overflow:auto;height:65vh;position:relative;">
             <table class="centered" style="zoom:80%;">
                 <thead style="font-size:12px;">
                     <th>
