@@ -95,6 +95,11 @@
 
                 echo '<td class="">
                         <select class="browser-default z-depth-4 eachShift">';
+                        // CHANGE ADS TO DS SHIFT AS DEFAULT
+                        if($d['empShift'] == 'ADS'){
+                            $d['empShift'] = 'DS';
+                        }
+
                          if($d['empShift'] == 'DS'){
                              echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
                              echo '<option value="NS">NS</option>';
