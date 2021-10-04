@@ -60,7 +60,9 @@
             <a href="#!" class="brand-logo">HR-ARIS (Clerk Dashboard) </a>
             <ul class="right hide-on-med-and-down">
             <!-- <li><a href="sass.html">Sass</a></li> -->
+            <li><a target="_blank" href="reason_code_ref.php">Reference</a></li>
             <li><a href="#modal_logout" class="modal-trigger z-depth-5"><?=$fullname;?></a></li>
+            
             </ul>
         </div>
         </nav>

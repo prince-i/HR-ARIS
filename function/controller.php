@@ -152,6 +152,7 @@ elseif($method == 'load_file_history'){
         }
     }
 
+
     // FETCH REASON BY CATEGORY
     elseif($method == 'getReason'){
         $categ = $_POST['value'];
@@ -181,9 +182,5 @@ elseif($method == 'load_file_history'){
             echo 'fail';
         }
     }
-
-
-
-
     $conn = null;
 ?>

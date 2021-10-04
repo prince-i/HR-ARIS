@@ -32,7 +32,10 @@
     while($row = fgetcsv($file_data))
     {
     $row_data[] = array(
-    'id'  => $row[0]
+    'id'  => $row[0],
+    'reason_code' => $row[1],
+    'shift' => $row[2],
+
     );
     }
     $c = 0;
@@ -52,9 +55,12 @@
     echo '<th>REASON2</th>';
     echo '<th>SHIFT</th>';
     echo '</thead>';
+    
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
+        $reason_code = $x['reason_code'];
+        $shift = $x['shift'];
         $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empDeptCode LIKE '$deptCode%' AND empDeptSection LIKE '$deptSection%' AND empSubSect LIKE '$deptSubSection%' AND status  = 'Active' AND empAgency = 'FAS'";
         $stmt = $conn_sas->prepare($query);
         $stmt->execute();
@@ -73,10 +79,10 @@
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
                 echo '<td><input type="text" class="datepicker absent_date_file center" value="'.$server_date.'"/></td>';
                 echo '<td><input type="number" class="no_of_absence center" value="1" min="0"/></td>';
-                echo '<td >
-                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
-                            <option value="">REASON</option>';
-                            $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason";
+                echo '<td>
+                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">';
+                            
+                            $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
                             $stmt = $conn->prepare($get_reason);
                             $stmt->execute();
                             foreach($stmt->fetchALL() as $x){
@@ -87,12 +93,21 @@
                         </select>
                         </td>';
 
-                echo '<td >
-                        <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">
-                            <option value="">REASON 2</option>
-                        </select>
+                // echo '<td >
+                //         <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">
+                //             <option value="">REASON 2</option>
+                //         </select>
+                //     </td>';
+                echo '<td>
+                        <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">';
+                            $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
+                            $stmt = $conn->prepare($get_reason2);
+                            $stmt->execute();
+                            foreach($stmt->fetchALL() as $x){
+                                echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                            }
+                echo     '</select>
                     </td>';
-
                 echo '<td class="">
                         <select class="browser-default z-depth-4 eachShift">';
                         // CHANGE ADS TO DS SHIFT AS DEFAULT
@@ -288,9 +303,13 @@
         });
     }    
 
+   
+
     const load_reason =(x)=>{
         // VARIABLE X IS THE ID OF REASON SELECT TAG
         var value = $('#reason'+x).val();
+        var code = '<?=$reason_code;?>';
+        console.log(code);
         console.log(value);
         $.ajax({
             url: '../function/controller.php',
