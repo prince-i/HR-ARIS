@@ -81,13 +81,23 @@
                 echo '<td><input type="number" class="no_of_absence center" value="1" min="0"/></td>';
                 echo '<td>
                         <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">';
-                            
-                            $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
-                            $stmt = $conn->prepare($get_reason);
-                            $stmt->execute();
-                            foreach($stmt->fetchALL() as $x){
-                                echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                            if($reason_code == ''){
+                                echo '<option value=""></option>';
+                                $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                                }
+                            }else{
+                                $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                                }
                             }
+                            
                         
                         echo'
                         </select>
@@ -100,12 +110,23 @@
                 //     </td>';
                 echo '<td>
                         <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">';
-                            $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
-                            $stmt = $conn->prepare($get_reason2);
-                            $stmt->execute();
-                            foreach($stmt->fetchALL() as $x){
-                                echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                            if($reason_code == ''){
+                                echo '<option value=""></option>';
+                                $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason2);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                                }
+                            }else{
+                                $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason2);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                                }
                             }
+                            
                 echo     '</select>
                     </td>';
                 echo '<td class="">
