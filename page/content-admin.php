@@ -317,7 +317,7 @@
                     },success:function(response){
                         console.log(response);
                         if(response == 'success'){
-                            swal('Notification','New Agency added!','success');
+                            swal('Notification','New Reason added!','success');
                             $('#reason_code').val('');
                             $('#reason_desc').val('');
                             $('.modal').modal('close','#add_reason_modal');

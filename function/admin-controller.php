@@ -667,24 +667,27 @@
                 $new_seq_num = $sequence_number + 1;
                 // GET DIGIT LENGTH
                 $count_seq_num_digit = strlen($new_seq_num);
-                if($count_seq_num_digit > 2){
-                    echo '1 digit';
+                if($count_seq_num_digit < 2){
+                    $new_seq_num = '0'.$new_seq_num;
+                    $reason_code = $credit."-".$new_seq_num;
+                }else{
+                    $reason_code = $credit."-".$new_seq_num;
                 }
-                echo $reason_code = $credit."-".$new_seq_num;
+                
             }
         }else{
             // IF NO EXISTING CATEGORY GENERATE SEQUENCE = 01
-           echo $reason_code = $credit."-".'01';
+            $reason_code = $credit."-".'01';
         }
 
 
-        // $query = "INSERT INTO aris_absent_reason (`reason_categ`,`reason2`) VALUES ('$credit','$desc')";
-        // $stmt = $conn->prepare($query);
-        // if($stmt->execute()){
-        //     echo 'success';
-        // }else{
-        //     echo 'fail';
-        // }
+        $query = "INSERT INTO aris_absent_reason (`reason_categ`,`reason2`,`code`) VALUES ('$credit','$desc','$reason_code')";
+        $stmt = $conn->prepare($query);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
     }
     // DELETE REASON
     elseif($method == 'delete_reason'){
