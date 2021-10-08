@@ -95,7 +95,8 @@
                                 <table>
                                     <thead>
                                         <th>CATEGORY</th>
-                                        <th>DESCRIPTION</th>
+                                        <th>REASON</th>
+                                        <th>CODE</th>
                                     </thead>
                                     <tbody id="reason_list"></tbody>
                                 </table>    

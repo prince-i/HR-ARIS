@@ -32,7 +32,10 @@
     while($row = fgetcsv($file_data))
     {
     $row_data[] = array(
-    'id'  => $row[0]
+    'id'  => $row[0],
+    'reason_code' => $row[1],
+    'shift' => $row[2],
+    'number_absent' => $row[3]
     );
     }
     $c = 0;
@@ -55,6 +58,10 @@
     foreach($row_data as $x){
         $c++;
         $id = $x['id'];
+        $reason_code = $x['reason_code'];
+        $shift = $x['shift'];
+        $shift = strtoupper($shift);
+        $number_absent = $x['number_absent'];
         $query = "SELECT *FROM a_m_employee WHERE idNumber = '$id' AND empAgency LIKE '$deptCode%' AND status  = 'Active'";
         $stmt = $conn_sas->prepare($query);
         $stmt->execute();
@@ -72,42 +79,82 @@
                 echo '<td class="subsection">'.$d['empSubSect'].'</td>';
                 echo '<td class="linenumber">'.$d['lineNo'].'</td>';
                 echo '<td><input type="text" class="datepicker absent_date_file center" value="'.$server_date.'"/></td>';
-                echo '<td><input type="number" class="no_of_absence center" value="1" min="0"/></td>';
-                echo '<td >
-                        <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">
-                            <option value="">REASON</option>';
-                            $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason";
-                            $stmt = $conn->prepare($get_reason);
-                            $stmt->execute();
-                            foreach($stmt->fetchALL() as $x){
-                                echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
-                            }
-                        
-                        echo'
-                        </select>
-                        </td>';
+                echo '<td>';
+                if($number_absent == '' || empty($number_absent) || $number_absent == '0') {
+                    echo '<input type="number" class="no_of_absence center" value="1" min="0"/>';
+                }else{
+                    echo '<input type="number" class="no_of_absence center" value="'.$number_absent.'" min="0"/>';
+                }
+                echo '</td>';
+                echo '<td>
+                <select id="reason'.$c.'" class="browser-default z-depth-4 reason" onchange="load_reason('.$c.')">';
+                if($reason_code == ''){
+                    echo '<option value=""></option>';
+                    $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
+                    $stmt = $conn->prepare($get_reason);
+                    $stmt->execute();
+                    foreach($stmt->fetchALL() as $x){
+                        echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                    }
+                }else{
+                    $get_reason = "SELECT DISTINCT reason_categ FROM aris_absent_reason WHERE code LIKE '$reason_code%'";
+                    $stmt = $conn->prepare($get_reason);
+                    $stmt->execute();
+                    foreach($stmt->fetchALL() as $x){
+                        echo '<option value="'.$x['reason_categ'].'">'.$x['reason_categ'].'</option>';
+                    }
+                }
+            echo'
+            </select>
+                </td>';
 
-                echo '<td >
-                        <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">
-                            <option value="">REASON 2</option>
-                        </select>
+                echo '<td>
+                        <select id="reason2'.$c.'" class="browser-default z-depth-4 reason2">';
+                            if($reason_code == ''){
+                                echo '<option value=""></option>';
+                                $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason2);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                                }
+                            }else{
+                                $get_reason2 = "SELECT reason2 from aris_absent_reason WHERE code LIKE '$reason_code%'";
+                                $stmt = $conn->prepare($get_reason2);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['reason2'].'">'.$x['reason2'].'</option>';
+                                }
+                            }
+                            
+                echo'</select>
                     </td>';
 
                 echo '<td class="">
                         <select class="browser-default z-depth-4 eachShift">';
-                        
-                        // CHANGE ADS TO DS SHIFT AS DEFAULT
-                        if($d['empShift'] == 'ADS'){
-                            $d['empShift'] = 'DS';
+                        if($shift == 'ADS'){
+                            $shift = 'DS';
                         }
-                        
-                        if($d['empShift'] == 'DS'){
-                             echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                         if($shift == 'DS'){
+                             echo '<option value="'.$shift.'">'.$shift.'</option>';
                              echo '<option value="NS">NS</option>';
-                         }else{
-                            echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                         }elseif($shift == 'NS'){
+                            echo '<option value="'.$shift.'">'.$shift.'</option>';
                             echo '<option value="DS">DS</option>';
-                         }  
+                         }else{
+                            //CSV INPUT IS EMPTY IT WILL GET THE SHIFT FROM SAS MASTERLIST
+                            if($d['empShift'] == 'ADS'){
+                                    $d['empShift'] = 'DS';
+                                }
+        
+                                 if($d['empShift'] == 'DS'){
+                                     echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                                     echo '<option value="NS">NS</option>';
+                                 }else{
+                                    echo '<option value="'.$d['empShift'].'">'.$d['empShift'].'</option>';
+                                    echo '<option value="DS">DS</option>';
+                                 }  
+                         }
                         '</select>
                         </td>';
                 echo '</tr>';
