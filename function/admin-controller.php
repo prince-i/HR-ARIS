@@ -643,20 +643,48 @@
             echo '<tr ondblclick="get_reason_del(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
             echo '<td>'.$x['reason_categ'].'</td>';
             echo '<td>'.$x['reason2'].'</td>';
+            echo '<td>'.$x['code'].'</td>';
             echo '</tr>';
         }
     }
     // ADD REASON
     elseif($method == 'add_reason'){
         $credit = $_POST['credit'];
+        $credit = strtoupper($credit);
         $desc = $_POST['desc'];
-        $query = "INSERT INTO aris_absent_reason (`reason_categ`,`reason2`) VALUES ('$credit','$desc')";
-        $stmt = $conn->prepare($query);
-        if($stmt->execute()){
-            echo 'success';
+
+        // GET LATEST CODE NUMBER PER CREDIT
+        $check_sequence = "SELECT code FROM aris_absent_reason WHERE reason_categ LIKE '$credit%' ORDER BY id DESC LIMIT 1";
+        $stmt = $conn->prepare($check_sequence);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $r_code = $x['code'];
+                // GET THE SEQUENCE NUMBER USING EXPLODE
+                $r_code_exploded = explode('-',$r_code);
+                $sequence_number = $r_code_exploded[1];
+                // GENERATE NEW REASON CODE WITH LATEST SEQUENCE NUMBER
+                $new_seq_num = $sequence_number + 1;
+                // GET DIGIT LENGTH
+                $count_seq_num_digit = strlen($new_seq_num);
+                if($count_seq_num_digit > 2){
+                    echo '1 digit';
+                }
+                echo $reason_code = $credit."-".$new_seq_num;
+            }
         }else{
-            echo 'fail';
+            // IF NO EXISTING CATEGORY GENERATE SEQUENCE = 01
+           echo $reason_code = $credit."-".'01';
         }
+
+
+        // $query = "INSERT INTO aris_absent_reason (`reason_categ`,`reason2`) VALUES ('$credit','$desc')";
+        // $stmt = $conn->prepare($query);
+        // if($stmt->execute()){
+        //     echo 'success';
+        // }else{
+        //     echo 'fail';
+        // }
     }
     // DELETE REASON
     elseif($method == 'delete_reason'){

@@ -315,7 +315,7 @@
                         credit:credit,
                         desc:desc
                     },success:function(response){
-                        // console.log(response);
+                        console.log(response);
                         if(response == 'success'){
                             swal('Notification','New Agency added!','success');
                             $('#reason_code').val('');
