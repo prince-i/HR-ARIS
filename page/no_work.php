@@ -79,27 +79,21 @@
                         </div>
 
                         <div class="col s2 input-field">
-                            <button class="btn #448aff blue accent-2 col s12 waves-effect waves-light" onclick="load_absence_report()">generate</button>
+                            <button class="btn #448aff blue accent-2 col s12 waves-effect waves-light" onclick="load_no_work()">generate</button>
                         </div>
                         
                         <!-- UPLOAD -->
-                        <div class="col s2 input-field">
-                            <button class="btn #01579b light-blue darken-4 col s12 waves-effect waves-light modal-trigger" data-target="modal_upload_absent" onclick="">upload</button>
-                        </div>
-                        <!-- PREVIEW UPLOADED DATA -->
-                        <div class="col s2 input-field">
-                            <button class="btn modal-trigger col s12 #81d4fa light-blue lighten-3 black-text" data-target="modal_admin_preview" onclick="load_uploaded_absent()">Preview Uploaded</button>
-                        </div>
+                        
 
                         <!-- EXPORT -->
-                        <div class="col s1 input-field">
-                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="export_absent_report()">&darr;</button>
+                        <div class="col s3 input-field">
+                            <button class="btn #2196f3 blue col s12 waves-effect waves-light" onclick="export_nowork_report('tbl_absent_report')">export &darr;</button>
                         </div>
                     </div>
                     </div>
 
                     <div class="row">
-                        <h5 class="center blue-text">ABSENCES REPORT</h5>
+                        <h5 class="center blue-text">NO WORK REPORT</h5>
                         <div class="col s12" style="max-height:70vh;overflow:auto;">
                             <table class="centered" style="zoom:75%;" id="tbl_absent_report">
                                 <thead>
@@ -114,7 +108,7 @@
                                 <th>REASON</th>
                                 <th>REASON 2</th>
                                 </thead>
-                                <tbody id="absences_data_render"></tbody>
+                                <tbody id="no_work_data"></tbody>
                             </table>
                         </div>
                     </div>
@@ -135,10 +129,10 @@
                 format: 'yyyy-mm-dd',
                 autoClose: true
             });
-            load_absence_report();
+            load_no_work();
         });
 
-        const load_absence_report =()=>{
+        const load_no_work =()=>{
             var genFrom = $('#generatedateFrom').val();
             var genShift = $('#generateShift').val();
             
@@ -147,192 +141,40 @@
                 type: 'POST',
                 cache: false,
                 data:{
-                    method: 'generateAbsence',
+                    method: 'generate_no_work',
                     genFrom:genFrom,
                     genShift:genShift
                 },success:function(response){
-                    $('#absences_data_render').html(response);
+                    $('#no_work_data').html(response);
                     // console.log(response);
                 }
             });
         }
 
-        const load_uploaded_absent =()=>{
-            var absent_from = $('#absent_from_date').val();
-            var absent_to = $('#absent_to_date').val();
-            var shift = $('#shift_filter').val();
-            $.ajax({
-                url :'../function/admin-controller.php',
-                type: 'POST',
-                cache: false,
-                data:{
-                    method: 'uploaded_absent_admin',
-                    absent_from:absent_from,
-                    absent_to:absent_to,
-                    shift:shift,
-                    uploader: '<?=$fullname;?>'
-                },success:function(response){
-                    // console.log(response);
-                    $('#filed_data_admin').html(response);
+        function export_nowork_report(table_id, separator = ',') {
+            var rows = document.querySelectorAll('table#' + table_id + ' tr');
+            var csv = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll('td, th');
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
                 }
-            });
+                csv.push(row.join(separator));
+            }
+            var csv_string = csv.join('\n');
+            // Download it
+            var filename = 'No Work Employees'+ '_' + new Date().toLocaleDateString() + '.csv';
+            var link = document.createElement('a');
+            link.style.display = 'none';
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
-
-         // CHECK ALL
-    const select_all_file =()=>{
-        var checked_all = document.getElementById('checkAllAbsent');
-        
-        if(checked_all.checked == true){
-            $('.singleCheckFile').each(function(){
-                this.checked = true;
-            });
-        }else{
-            $('.singleCheckFile').each(function(){
-                this.checked = false;
-            });
-        }
-        get_checked_item();
-    }
-
-    // GET CHECKED ITEMS AND LENGTH
-    const get_checked_item =()=>{
-        var checkArr = [];
-        $('input.singleCheckFile:checkbox:checked').each(function(){
-            checkArr.push($(this).val());
-        });
-        var number_selected =  checkArr.length;
-        console.log(checkArr);
-        if(number_selected > 0){
-            $('#delete_absent').attr('disabled',false);
-        }else{
-            $('#delete_absent').attr('disabled',true);
-        }
-    }
-
-    // GET SELECTED DATA ID
-    const del_selected_data =()=>{
-        var items = [];
-        $('input.singleCheckFile:checkbox:checked').each(function(){
-            items.push($(this).val());
-        });
-
-        console.log(items);
-        if(items.length > 0){
-            // RUN AJAX
-            $.ajax({
-                url: '../function/controller.php',
-                type: 'POST',
-                cache: false,
-                data:{
-                    method: 'deleteFileClerk',
-                    items:items
-                },success:function(x){
-                    console.log(x);
-                    if(x == 'deleted'){
-                        load_uploaded_absent();
-                        swal('Done','Successfully deleted!','success');
-                    }else{
-                        swal('Sorry','An error was occured!','error');
-                    }
-                    $('#delete_absent').attr('disabled',true);
-                    $('#checkAllAbsent:checkbox').attr('checked',false);
-                }
-            });
-        }else{
-            console.log('NO ITEM/S SELECTED');
-        }
-    }
-
-    // /EXPORT
-    const export_absent_report =()=>{
-        var absent_date = $('#generatedateFrom').val();
-        var shift = $('#generateShift').val();
-        window.open('export_absent_report.php?absent_date='+absent_date+'&&shift='+shift,'_blank');
-    }
-
-    const getToEdit =(param)=>{
-        // console.log(param);
-        var str = param.split('*!*');
-        var id = str[0];
-        var provider = str[1];
-        var employee_id = str[2];
-        var name = str[3];
-        var section = str[4];
-        var carmodelGroup = str[5];
-        var process_line = str[6];
-        var reason = str[7];
-        var reason2 = str[8];
-        var absent_date = str[9];
-        var shift = str[10];
-        var number_of_absent = str[11];
-
-        // DISTRIBUTING VALUES
-        $('#edit_id_absent').val(id);
-        $('#providerPrev').html(provider);
-        $('#employeeIDPrev').html(employee_id);
-        $('#employeeName').html(name);
-        $('#sectionPrev').html(section);
-        $('#carmodelGroupPrev').html(carmodelGroup);
-        $('#processLinePrev').html(process_line);
-        $('#reasonPrev').html(reason);
-        $('#reason2Prev').html(reason2);
-        $('#date_absentPrev').val(absent_date);
-        $('#shiftPrev').val(shift);
-        $('#number_absent_prev').val(number_of_absent);
-        var server_date = '<?=$server_date;?>';
-        if(absent_date < server_date) {
-            // console.log('cant edit');
-            $('#date_absentPrev').attr('disabled',true);
-            $('#shiftPrev').attr('disabled',true);
-            $('#number_absent_prev').attr('disabled',true);
-            $('#edit_absent_btn').attr('disabled',true);
-            $('#edit_absent_btn').html('uneditable');
-        }else{
-            // console.log('editable');
-        }
-    }
-
-    // UPDATE FILED ABSENT BY ADMIN
-    const update_absent_detail =()=> {
-        var emp_id = $('#employeeIDPrev').html();
-        var up_id = $('#edit_id_absent').val();
-        var up_number_absent = $('#number_absent_prev').val();
-        var up_date_absent = $("#date_absentPrev").val();
-        var up_shift = $('#shiftPrev').val();
-        if(up_number_absent == ''){
-            swal('Alert','Please enter number of absences!','info');
-        }else if(up_date_absent == ''){
-            swal('Alert','Please select the absent date!','info');
-        }else{
-            // AJAX
-            $.ajax({
-                url :'../function/admin-controller.php',
-                type: 'POST',
-                cache: false,
-                data:{
-                    method: 'update_absentee',
-                    up_id:up_id,
-                    up_number_absent:up_number_absent,
-                    up_date_absent:up_date_absent,
-                    up_shift:up_shift,
-                    emp_id:emp_id
-                },success:function(response){
-                    console.log(response);
-                    if(response == 'success'){
-                        swal('Notice','Successfully updated!','success');
-                        load_uploaded_absent();
-                        $('.modal').modal('close','#modal_edit_absent_file');
-                    }                    
-                    else{
-                        swal('Notice','Error in updating!','error');
-                    }
-                }
-            });
-        }
-    }
-
-
-
 
     </script>
 </body>

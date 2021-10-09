@@ -574,13 +574,13 @@
         $to = $_POST['genTo'];
         $shift = $_POST['genShift'];
         $row = 0;
-        $total = "SELECT count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%'";
+        $total = "SELECT count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%')";
         $stmt2 = $conn->prepare($total);
         $stmt2->execute();
         foreach($stmt2->fetchALL() as $total){
             $total_absent = $total['absent_count'];
         }
-        $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
+        $sql = "SELECT reason,count(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -928,6 +928,42 @@
             echo '<td><b id="nq_total_percentage"</b></td>';
             echo '</tr>';
     }
+
+    elseif($method == 'generate_no_work'){
+        $from = $_POST['genFrom'];
+        $shift = $_POST['genShift'];
+        $count = 0;
+        // GROUP BY ID NUMBER AND REASON
+        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' AND (reason LIKE'NW%' OR reason LIKE 'NOWORK%' OR reason LIKE 'NO WORK%') GROUP BY emp_id_number,reason_2";
+        $stmt = $conn->prepare($generate);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                $count++;
+                if($x['number_absent'] >= 15 ){
+                    $reason = 'Prolong Absent';
+                }else{
+                    $reason = $x['reason'];
+                }
+                echo '<tr>';
+                echo '<td>'.$count.'</td>';
+                echo '<td>'.$x['provider'].'</td>';
+                echo '<td>'.$x['emp_id_number'].'</td>';
+                echo '<td>'.$x['name'].'</td>';
+                echo '<td>'.$x['section'].'</td>';
+                echo '<td>'.$x['carmodel_group'].'</td>';
+                echo '<td>'.$x['process_line'].'</td>';
+                echo '<td>'.$x['number_absent'].'</td>';
+                echo '<td>'.$reason.'</td>';
+                echo '<td>'.$x['reason_2'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            echo '<tr>';
+            echo '<td colspan="10">NO RECORD</td>';
+            echo '</tr>';
+    }
+}
 
     // KILL CONNECTION
     $conn = null;
