@@ -279,6 +279,17 @@
         $('#date_absentPrev').val(absent_date);
         $('#shiftPrev').val(shift);
         $('#number_absent_prev').val(number_of_absent);
+        var server_date = '<?=$server_date;?>';
+        if(absent_date < server_date) {
+            // console.log('cant edit');
+            $('#date_absentPrev').attr('disabled',true);
+            $('#shiftPrev').attr('disabled',true);
+            $('#number_absent_prev').attr('disabled',true);
+            $('#edit_absent_btn').attr('disabled',true);
+            $('#edit_absent_btn').html('uneditable');
+        }else{
+            // console.log('editable');
+        }
     }
 
     // UPDATE FILED ABSENT BY ADMIN

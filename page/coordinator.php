@@ -57,7 +57,7 @@
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">HR-ARIS (Coordinator Dashboard) </a>
             <ul class="right hide-on-med-and-down">
-            <!-- <li><a href="sass.html">Sass</a></li> -->
+            <li><a target="_blank" href="reason_code_ref.php">Reference</a></li>
             <li><a href="#modal_logout" class="modal-trigger z-depth-5"><?=$fullname;?></a></li>
             </ul>
         </div>
@@ -285,6 +285,17 @@
         $('#date_absentPrev').val(absent_date);
         $('#shiftPrev').val(shift);
         $('#number_absent_prev').val(number_of_absent);
+        var server_date = '<?=$server_date;?>';
+        if(absent_date < server_date) {
+            // console.log('cant edit');
+            $('#date_absentPrev').attr('disabled',true);
+            $('#shiftPrev').attr('disabled',true);
+            $('#number_absent_prev').attr('disabled',true);
+            $('#edit_absent_btn').attr('disabled',true);
+            $('#edit_absent_btn').html('uneditable');
+        }else{
+            // console.log('editable');
+        }
     }
 
     // UPDATE ABSENTEE

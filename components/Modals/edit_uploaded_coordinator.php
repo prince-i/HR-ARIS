@@ -61,7 +61,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <button class="btn col s12 #0d47a1 blue darken-4 waves-effect light-waves" onclick="update_absent_detail()">Update</button>
+                <button class="btn col s12 #0d47a1 blue darken-4 waves-effect light-waves" onclick="update_absent_detail()" id="edit_absent_btn">Update</button>
             </div>
         </div>
     </div>
