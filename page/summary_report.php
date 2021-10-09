@@ -94,7 +94,7 @@
                             <input type="date" name="" value="<?=$server_date;?>" id="generatedateTo"><label for="">Date To:</label>
                         </div>
                         <div class="col s2 input-field">
-                            <select name="" id="generateShift" class="browser-default">
+                            <select name="" id="generateShift" class="browser-default z-depth-4">
                                 <option value="DS">DS</option>
                                 <option value="NS">NS</option>
                             </select>

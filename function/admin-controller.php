@@ -8,7 +8,7 @@
         $shift = $_POST['genShift'];
         $count = 0;
         // GROUP BY ID NUMBER AND REASON
-        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' GROUP BY emp_id_number,reason_2";
+        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') GROUP BY emp_id_number,reason_2";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -283,11 +283,12 @@
         $shift = $_POST['genShift'];
         $row = 0;
         // GENERATE
-        $get_data = "SELECT provider,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY provider ORDER BY absent_count DESC";
+        $get_data = "SELECT provider,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') AND shift LIKE '$shift%' GROUP BY provider ORDER BY absent_count DESC";
         $stmt = $conn->prepare($get_data);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
+                // if($x['reason'] == 'NW' || $x['reason'] == 'nw')continue;
                 $row++;
                 echo '<tr>';
                 echo '<td>'.$row.'</td>';
@@ -311,7 +312,7 @@
         $shift = $_POST['genShift'];
         $row = 0;
         // GENERATE
-        $get_data = "SELECT reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
+        $get_data = "SELECT reason,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') AND shift LIKE '$shift%' GROUP BY reason ORDER BY absent_count DESC";
         $stmt = $conn->prepare($get_data);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -339,7 +340,7 @@
         $shift = $_POST['shift'];
         $row = 0;
         // GENERATE
-        $get_data = "SELECT reason_2,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY reason_2 ORDER BY absent_count DESC";
+        $get_data = "SELECT reason_2,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') AND shift LIKE '$shift%' GROUP BY reason_2 ORDER BY absent_count DESC";
         $stmt = $conn->prepare($get_data);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -367,7 +368,7 @@
         $shift = $_POST['shift'];
         $row = 0;
         // GENERATE
-        $get_data = "SELECT section,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' GROUP BY section ORDER BY absent_count DESC";
+        $get_data = "SELECT section,COUNT(id) as absent_count FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND (reason NOT LIKE'NW%' AND reason NOT LIKE 'NOWORK%' AND reason NOT LIKE 'NO WORK%') AND shift LIKE '$shift%' GROUP BY section ORDER BY absent_count DESC";
         $stmt = $conn->prepare($get_data);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -415,6 +416,7 @@
          $stmt = $conn->prepare($generate);
          $stmt->execute();
          foreach($stmt->fetchALL() as $x){
+             if($x['section'] == 'n/a' || $x['section'] == 'N/A')continue;
             $row++;
             // CALCULATE LESS ML
             $grand_total = $x['awol'] + $x['bl'] + $x['el'] + $x['cancel'] + $x['ml'] + $x['prolong'] + $x['sl'] + $x['sus'] + $x['vl'];
