@@ -30,7 +30,7 @@ try {
  
     // Content
     $mail->isHTML(true);     
-    $mail->Subject = '';
+    $mail->Subject = 'HR Absenteeism Report Information System Notification';
     $mail->Body    = 
                     'Health and Safety First!<br>     
                     <br>'.$uploader.' successfully filed an absent report for '.$section.'/'.$subSection.' at '.$server_date_time.'.
