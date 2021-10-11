@@ -932,9 +932,10 @@
     elseif($method == 'generate_no_work'){
         $from = $_POST['genFrom'];
         $shift = $_POST['genShift'];
+        $section = $_POST['generateSection'];
         $count = 0;
         // GROUP BY ID NUMBER AND REASON
-        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' AND (reason LIKE'NW%' OR reason LIKE 'NOWORK%' OR reason LIKE 'NO WORK%') GROUP BY emp_id_number,reason_2";
+        $generate = "SELECT DISTINCT provider,emp_id_number,name,section,carmodel_group,process_line, number_absent, reason, reason_2 FROM aris_absent_filing WHERE date_absent = '$from' AND shift LIKE '$shift%' AND (reason LIKE'NW%' OR reason LIKE 'NOWORK%' OR reason LIKE 'NO WORK%') AND section LIKE '$section%' GROUP BY emp_id_number,reason_2";
         $stmt = $conn->prepare($generate);
         $stmt->execute();
         if($stmt->rowCount() > 0){

@@ -79,6 +79,20 @@
                         </div>
 
                         <div class="col s2 input-field">
+                            <select name="" id="generateSection" class="browser-default z-depth-3">
+                                <option value="">ALL SECTION</option>
+                                <?php
+                                $sql = "SELECT DISTINCT deptSection FROM aris_department";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->execute();
+                                foreach($stmt->fetchALL() as $x){
+                                    echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';
+                                }
+                                ?>
+                                </select>
+                        </div>
+
+                        <div class="col s2 input-field">
                             <button class="btn #448aff blue accent-2 col s12 waves-effect waves-light" onclick="load_no_work()">generate</button>
                         </div>
                         
@@ -135,7 +149,7 @@
         const load_no_work =()=>{
             var genFrom = $('#generatedateFrom').val();
             var genShift = $('#generateShift').val();
-            
+            var generateSection = $('#generateSection').val();
             $.ajax({
                 url: '../function/admin-controller.php',
                 type: 'POST',
@@ -143,7 +157,8 @@
                 data:{
                     method: 'generate_no_work',
                     genFrom:genFrom,
-                    genShift:genShift
+                    genShift:genShift,
+                    generateSection:generateSection
                 },success:function(response){
                     $('#no_work_data').html(response);
                     // console.log(response);
