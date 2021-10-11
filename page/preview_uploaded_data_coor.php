@@ -313,10 +313,27 @@
                                 $('#row'+row).remove();
                                 
                             }
+                            // SEND EMAIL NOTIF
+                            send_email('<?=$deptSection;?>','<?=$deptSubSection;?>','<?=$fullname;?>');
                         }               
                     });
                 }
         }
+    
+    const send_email =(section,subSection,uploader)=>{
+        $.ajax({
+            url: '../Components/Plugins/phpmailer/notify_hr_file_clerk.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                section:section,
+                subSection:subSection,
+                uploader:uploader
+            },success:function(response){
+                console.log(response);
+            }
+        });
+    }
 
     // CALCULATE ABSENT DAYS BASE TO FALP CALENDAR
     const calculate_absent_date =(x)=>{
