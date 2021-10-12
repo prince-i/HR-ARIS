@@ -17,7 +17,42 @@
     <div class="row">
         <div class="col s12">
             <div class="col l8 m12 s12 hide-on-med-and-down center">
-                <img src="assets/logo/bio.png" alt="login_background" class="responsive-img" style="min-height:100vh;object-fit:cover;">
+                <!-- <img src="assets/logo/bio.png" alt="login_background" class="responsive-img" style="min-height:100vh;object-fit:cover;"> -->
+                <div class="col s12" style="overflow:auto;">
+                <?php
+                    include 'function/conn.php';
+                        echo '<table border="1">';
+                        echo '<thead>';
+                        echo '<th>SECTION WITH NO ABSENT FILED ('.$server_date.')</th>';
+                        // SELECT SECTION WITH FILE
+                        $get_section = "SELECT section,carmodel_group FROM aris_absent_filing WHERE date_upload = '$server_date'";
+                        $stmt = $conn->prepare($get_section);
+                        $stmt->execute();
+                        foreach($stmt->fetchALL() as $x){
+                            if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
+                            // $section = $x['section'];
+                            $sub = $x['carmodel_group'];
+                            // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
+                            $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users";
+                            $stmt = $conn->prepare($select_sec);
+                            $stmt->execute();
+                            foreach($stmt->fetchall() as $d){
+                                if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
+                                if($d['deptSection'] == ''){
+                                    $concern = $d['deptCode'];
+                                }else{
+                                    $concern = $d['deptCode'].'-'.$d['deptSection'];
+                                }
+                                echo '<tr>';
+                                echo '<td>'.$concern.'</td>';
+                                echo '</tr>';
+                            }
+                        }
+
+
+                        echo '</table>';
+                    ?>
+                </div>
             </div>
 
             <!-- LOGIN -->
