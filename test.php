@@ -15,7 +15,6 @@ include 'function/conn.php';
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
         if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
-        // $section = $x['section'];
         $sub = $x['carmodel_group'];
         // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
         $select_sec = "SELECT DISTINCT deptSection FROM aris_users";
