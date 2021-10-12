@@ -33,7 +33,7 @@
                             // $section = $x['section'];
                             $sub = $x['carmodel_group'];
                             // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
-                            $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users";
+                            $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
                             $stmt = $conn->prepare($select_sec);
                             $stmt->execute();
                             foreach($stmt->fetchall() as $d){
