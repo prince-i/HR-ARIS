@@ -170,7 +170,6 @@
                     absent_from:absent_from,
                     absent_to:absent_to,
                     shift:shift,
-                    uploader: '<?=$fullname;?>'
                 },success:function(response){
                     // console.log(response);
                     $('#filed_data_admin').html(response);

@@ -721,8 +721,7 @@
         $from = $_POST['absent_from'];
         $to = $_POST['absent_to'];
         $shift = $_POST['shift'];
-        echo $uploader = $_POST['uploader'];
-        $query = "SELECT *FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' AND uploader LIKE '$uploader%'";
+        $query = "SELECT *FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
