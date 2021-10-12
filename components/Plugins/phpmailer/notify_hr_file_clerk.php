@@ -24,7 +24,8 @@ try {
 
     //Recipients
     $mail->setFrom('falpsystemgroup2019@gmail.com', 'HR Absenteeism Report System');
-    $mail->addAddress('rubyanne.cabilin.pasahol@furukawaelectric.com', 'aison.silan.cabusay@furukawaelectric.com'); 
+    $mail->addAddress('rubyanne.cabilin.pasahol@furukawaelectric.com', ''); 
+    // $mail->addAddress('aison.silan.cabusay@furukawaelectric.com'); 
     // $mail->addCC('','');
     $mail->addReplyTo('no-reply@gmail.com', 'No-Reply');
  
