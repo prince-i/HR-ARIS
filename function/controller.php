@@ -182,5 +182,37 @@ elseif($method == 'load_file_history'){
             echo 'fail';
         }
     }
+
+    elseif($method == 'update_last_upload_date'){
+        $user = $_POST['x'];
+        $update = "UPDATE aris_users SET last_upload = '$server_date' WHERE username = '$user'";
+        $stmt = $conn->prepare($update);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
+
+
+    elseif($method == 'get_withno_file'){
+        echo '<table border="1">';
+        echo '<thead>';
+        echo '<th>SECTION WITH NO ABSENT FILED AS OF '.$server_date.'</th>';
+        echo '<tbody>';
+        // SELECT SECTION WITH FILE
+        $get_section = "SELECT DISTINCT deptCode,deptSection FROM aris_users WHERE (last_upload < '$server_date' OR last_upload IS NULL) AND role NOT LIKE 'admin%'";
+        $stmt = $conn->prepare($get_section);
+        $stmt->execute();
+        foreach($stmt->fetchall() as $x){
+            echo '<tr>';
+            echo '<td>'.$x['deptSection'].'</td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+    }
+
     $conn = null;
 ?>

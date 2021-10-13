@@ -24,57 +24,40 @@
         <div class="col s12">
             <div class="col l8 m12 s12 hide-on-med-and-down center">
                 <!-- <img src="assets/logo/bio.png" alt="login_background" class="responsive-img" style="min-height:100vh;object-fit:cover;"> -->
-                <div class="col s12" style="overflow:auto;height:90vh;">
+                <div class="col s12" style="overflow:auto;height:90vh;" id="data_render">
                 <?php
-                    include 'function/conn.php';
-                        echo '<table border="1">';
-                        echo '<thead>';
-                        echo '<th>SECTION WITH NO ABSENT FILED AS OF '.$server_date.'</th>';
-                        echo '<tbody>';
-                        // SELECT SECTION WITH FILE
-                        $get_section = "SELECT section,carmodel_group FROM aris_absent_filing WHERE date_upload = '$server_date'";
-                        $stmt = $conn->prepare($get_section);
-                        $stmt->execute();
-                        if($stmt->rowCount() > 0){
-                            foreach($stmt->fetchALL() as $x){
-                                if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
-                                $sub = $x['carmodel_group'];
-                                // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
-                                $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
-                                $stmt = $conn->prepare($select_sec);
-                                $stmt->execute();
-                                foreach($stmt->fetchall() as $d){
-                                    if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A' || $d['deptSection'] == '')continue;
-                                    if($d['deptSection'] == ''){
-                                        $concern = $d['deptCode'];
-                                    }else{
-                                        $concern = $d['deptCode'].'-'.$d['deptSection'];
-                                    }
-                                    echo '<tr>';
-                                    echo '<td>'.$concern.'</td>';
-                                    echo '</tr>';
-                                }
-                            }
-                        }else{
-                                // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
-                                $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
-                                $stmt = $conn->prepare($select_sec);
-                                $stmt->execute();
-                                foreach($stmt->fetchall() as $d){
-                                    if($d['deptSection'] == 'N/A' || $d['deptSection'] == '')continue;
-
-                                    if($d['deptSection'] == ''){
-                                        $concern = $d['deptCode'];
-                                    }else{
-                                        $concern = $d['deptCode'].'-'.$d['deptSection'];
-                                    }
-                                    echo '<tr>';
-                                    echo '<td>'.$concern.'</td>';
-                                    echo '</tr>';
-                            }
-                        }
-                        echo '</tbody>';
-                        echo '</table>';
+                    // include 'function/conn.php';
+                        // echo '<table border="1">';
+                        // echo '<thead>';
+                        // echo '<th>SECTION WITH NO ABSENT FILED AS OF '.$server_date.'</th>';
+                        // echo '<tbody>';
+                        // // SELECT SECTION WITH FILE
+                        // $get_section = "SELECT section,carmodel_group FROM aris_absent_filing WHERE date_upload = '$server_date'";
+                        // $stmt = $conn->prepare($get_section);
+                        // $stmt->execute();
+                        // if($stmt->rowCount() > 0){
+                        //     foreach($stmt->fetchALL() as $x){
+                        //         if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
+                        //         $sub = $x['carmodel_group'];
+                        //         // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
+                        //         $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
+                        //         $stmt = $conn->prepare($select_sec);
+                        //         $stmt->execute();
+                        //         foreach($stmt->fetchall() as $d){
+                        //             if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A' || $d['deptSection'] == 'HR')continue;
+                        //             if($d['deptSection'] == ''){
+                        //                 $concern = $d['deptCode'];
+                        //             }else{
+                        //                 $concern = $d['deptCode'].'-'.$d['deptSection'];
+                        //             }
+                        //             echo '<tr>';
+                        //             echo '<td>'.$concern.'</td>';
+                        //             echo '</tr>';
+                        //         }
+                        //     }
+                        // }
+                        // echo '</tbody>';
+                        // echo '</table>';
                     ?>
                 </div>
             </div>
@@ -108,5 +91,21 @@
     <!-- JS & JQUERY -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            inactive_file();
+        });
+        function inactive_file(){
+            $.post({
+                url: 'function/controller.php',
+                cache: false,
+                data:{
+                    method: 'get_withno_file'
+                },success:function(response){
+                    $('#data_render').html(response);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

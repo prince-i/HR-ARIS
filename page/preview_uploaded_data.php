@@ -312,10 +312,27 @@
                             }
                             // SEND EMAIL NOTIF
                             send_email('<?=$deptSection;?>','<?=$deptSubSection;?>','<?=$fullname;?>');
+                            update_last_upload('<?=$username;?>');
                         }               
                     });
                 }
         }
+
+    const update_last_upload =(x)=>{
+        // console.log(x);
+        $.ajax({
+            url:'../function/controller.php',
+            type: 'POST',
+            cache:false,
+            data:{
+                method: 'update_last_upload_date',
+                x:x
+            },success:function(data){
+                console.log(data);
+            }
+        })
+    }
+
 
     const send_email =(section,subSection,uploader)=>{
         $.ajax({
