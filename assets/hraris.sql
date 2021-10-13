@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2021 at 09:40 AM
+-- Generation Time: Oct 13, 2021 at 05:52 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -222,7 +222,52 @@ INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `po
 (536, 'ADD EVEN', 'AEFL18228', 'Tumlos, Jennifer B.', 'Associate', 'Section 3', 'Daihatsu Initial', 'Second Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-09', '4', '2021-10-09'),
 (537, 'ADD EVEN', 'AEFL18260', 'Rodriguez, Aira Mae M. ', 'Associate', 'Section 5', 'Honda Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-09', '1', '2021-10-09'),
 (538, 'ADD EVEN', 'AEFL18256', 'Piol, Maricel G. ', 'Associate', 'Section 1', 'Suzuki Final', '5124', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-09', '4', '2021-10-09'),
-(539, 'ADD EVEN', 'AEFL20680', 'Paran, Eldhira Ann L.', 'Associate', 'Section 5', 'Section 5 Clerk Final', 'N/A', 'CL', 'Compensatory', 'HR', 'NS', '2021-10-09', '1', '2021-10-09');
+(539, 'ADD EVEN', 'AEFL20680', 'Paran, Eldhira Ann L.', 'Associate', 'Section 5', 'Section 5 Clerk Final', 'N/A', 'CL', 'Compensatory', 'HR', 'NS', '2021-10-09', '1', '2021-10-09'),
+(541, 'FAS', '13-0439', 'De Torres, Andrew M.', 'Staff', 'Equipment Engineering', 'Fabrication', 'N/A', 'NW', 'no work', 'HR', 'DS', '2021-10-09', '1', '2021-10-09'),
+(542, 'FAS', '12-0019', 'Mendoza, Christian Allen M.', 'Assistant Manager', 'Equipment Engineering', 'Fabrication', 'N/A', 'NW', 'no work', 'HR', 'DS', '2021-10-09', '1', '2021-10-09'),
+(559, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'NW', 'no work', 'IT Clerk', 'DS', '2021-10-11', '1', '2021-10-11'),
+(628, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', 'Associate', 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(629, 'ADD EVEN', 'AEFL18056', 'Mirabete, Maricris', 'Associate', 'Section 2', 'Mazda J12 Final', '1008', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(630, 'ADD EVEN', 'AE190109', 'Manaig, Jessa', 'Coordinator', 'N/A', 'N/A', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(631, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', 'Associate', 'FG Preparation', 'FG Preparation', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(632, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', 'Coordinator', 'N/A', 'N/A', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(633, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', 'Associate', 'Section 1', 'Suzuki Final', '5101', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(634, 'ADD EVEN', 'AEFL18080', 'Basares, Emmalyn S.', 'Associate', 'Section 1', 'Suzuki Initial', '5117', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(635, 'ADD EVEN', 'AEFL18083', 'Handugan, Eden G.', 'Associate', 'Section 1', 'Suzuki Final', '5111', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(636, 'ADD EVEN', 'AEFL18097', 'Evangelista, Marienel F.', 'Associate', 'Section 1', 'Suzuki Final', '5102', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(637, 'ADD EVEN', 'AEFL18102', 'Seño, Cecilia S.', 'Associate', 'Section 2', 'Mazda Merge Final', '1123', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(638, 'ADD EVEN', 'AEFL18191', 'Insigne, Razelle P.', 'Associate', 'Section 1', 'Suzuki Final', '5124', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(639, 'ADD EVEN', 'AEFL18081', 'Lomboy, Monica  M.', 'Associate', 'Section 1', 'Suzuki Initial', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '6', '2021-10-11'),
+(640, 'ADD EVEN', 'AEFL18137', 'Comia, Jonalyn M. ', 'Associate', 'Section 1', 'Suzuki Final', '5120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(641, 'ADD EVEN', 'AEFL18199', 'Palmero, Roxanne D.', 'Associate', 'Section 1', 'Suzuki Final', '5119', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(642, 'ADD EVEN', 'AEFL18228', 'Tumlos, Jennifer B.', 'Associate', 'Section 3', 'Daihatsu Initial', 'Second Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(643, 'ADD EVEN', 'AEFL18260', 'Rodriguez, Aira Mae M. ', 'Associate', 'Section 5', 'Honda Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '1', '2021-10-11'),
+(644, 'ADD EVEN', 'AEFL18256', 'Piol, Maricel G. ', 'Associate', 'Section 1', 'Suzuki Final', '5124', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-11', '4', '2021-10-11'),
+(645, 'FAS', '14-01871', 'Jalla, John Bernard L.', 'Supervisor', 'Information Technology', 'Information Technology', 'N/A', 'NW', 'no work', 'HR', 'DS', '2021-10-11', '1', '2021-10-11'),
+(646, 'FAS', '14-02094', 'Basilan, Ma. Zarah Jane A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'VL', 'Taking Care of Family Member', 'HR', 'DS', '2021-10-11', '1', '2021-10-11'),
+(647, 'FAS', '14-01899', 'Bathan, Laurice A.', 'Staff', 'Information Technology', 'Information Technology', 'N/A', 'NW', 'no work', 'HR', 'DS', '2021-10-11', '1', '2021-10-11'),
+(648, 'ADD EVEN', 'AEFL20680', 'Paran, Eldhira Ann L.', 'Associate', 'Section 5', 'Section 5 Clerk Final', 'N/A', 'NW', 'no work', 'HR', 'NS', '2021-10-11', '1', '2021-10-11'),
+(649, 'FAS', '', 'Garcia, Giselle A.', 'Associate', 'Section 1', 'Suzuki Final', 'Secondary Y2R', 'NW', 'no work', 'HR', 'DS', '2021-10-11', '1', '2021-10-11'),
+(651, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'NW', 'no work', 'IT Clerk', 'DS', '2021-10-12', '12', '2021-10-12'),
+(706, 'FAS', '21-06711', 'Arce, Prince C.', 'Junior Staff', 'Information Technology', 'Information Technology', 'N/A', 'NW', 'no work', 'IT Clerk', 'DS', '2021-10-13', '12', '2021-10-13');
+INSERT INTO `aris_absent_filing` (`id`, `provider`, `emp_id_number`, `name`, `position`, `section`, `carmodel_group`, `process_line`, `reason`, `reason_2`, `uploader`, `shift`, `date_absent`, `number_absent`, `date_upload`) VALUES
+(707, 'ADD EVEN', 'AE17025', 'Loyola, Kimberly', 'Coordinator', 'N/A', 'N/A', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(708, 'ADD EVEN', 'AEF19691', 'Lucero,clariza A.', 'Associate', 'FG Preparation', 'FG Preparation', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(709, 'ADD EVEN', 'AEFL18021', 'Calilong, Amie M.', 'Associate', 'Section 1', 'Suzuki Final', '5101', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(710, 'ADD EVEN', 'AE190109', 'Manaig, Jessa', 'Coordinator', 'N/A', 'N/A', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(711, 'ADD EVEN', 'AEFL18056', 'Mirabete, Maricris', 'Associate', 'Section 2', 'Mazda J12 Final', '1008', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(712, 'ADD EVEN', 'AEFL18002', 'Manrique, Domingo S.', 'Associate', 'Quality Assurance', 'QA-Final (Mass Pro)', 'QA D01L Final', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(713, 'ADD EVEN', 'AEFL18080', 'Basares, Emmalyn S.', 'Associate', 'Section 1', 'Suzuki Initial', '5117', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(714, 'ADD EVEN', 'AEFL18097', 'Evangelista, Marienel F.', 'Associate', 'Section 1', 'Suzuki Final', '5102', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(715, 'ADD EVEN', 'AEFL18191', 'Insigne, Razelle P.', 'Associate', 'Section 1', 'Suzuki Final', '5124', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(716, 'ADD EVEN', 'AEFL18083', 'Handugan, Eden G.', 'Associate', 'Section 1', 'Suzuki Final', '5111', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(717, 'ADD EVEN', 'AEFL18137', 'Comia, Jonalyn M. ', 'Associate', 'Section 1', 'Suzuki Final', '5120', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(718, 'ADD EVEN', 'AEFL18102', 'Seño, Cecilia S.', 'Associate', 'Section 2', 'Mazda Merge Final', '1123', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(719, 'ADD EVEN', 'AEFL18081', 'Lomboy, Monica  M.', 'Associate', 'Section 1', 'Suzuki Initial', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '6', '2021-10-13'),
+(720, 'ADD EVEN', 'AEFL18199', 'Palmero, Roxanne D.', 'Associate', 'Section 1', 'Suzuki Final', '5119', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(721, 'ADD EVEN', 'AEFL18228', 'Tumlos, Jennifer B.', 'Associate', 'Section 3', 'Daihatsu Initial', 'Second Process (Daihatsu D01L)', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(722, 'ADD EVEN', 'AEFL18256', 'Piol, Maricel G. ', 'Associate', 'Section 1', 'Suzuki Final', '5124', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '4', '2021-10-13'),
+(723, 'ADD EVEN', 'AEFL18260', 'Rodriguez, Aira Mae M. ', 'Associate', 'Section 5', 'Honda Final', 'N/A', 'SL', 'Home quarantine (Fever,Cough, Cold, Sorethroat, Headache of 2 days or more, Body Pain of 2 days or more, LBM of 2 days or more, close contact, mandatory quarantine)', 'addeven', 'DS', '2021-10-13', '1', '2021-10-13');
 
 -- --------------------------------------------------------
 
@@ -328,8 +373,7 @@ INSERT INTO `aris_absent_reason` (`id`, `reason_categ`, `reason2`, `code`) VALUE
 (86, 'VL', 'Went to province', 'VL-24'),
 (87, 'VL', 'Check up of family member', 'VL-25'),
 (88, 'VL', 'Others', 'VL-26'),
-(90, 'NW', 'no work', 'NW-01'),
-(91, 'NW', 'wala ', 'NW-02');
+(90, 'NW', 'no work', 'NW-01');
 
 -- --------------------------------------------------------
 
@@ -550,24 +594,45 @@ CREATE TABLE `aris_users` (
   `role` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deptCode` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `deptSection` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-  `subSection` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+  `subSection` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `last_upload` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `aris_users`
 --
 
-INSERT INTO `aris_users` (`id`, `username`, `password`, `fullname`, `role`, `deptCode`, `deptSection`, `subSection`) VALUES
-(1, '0000', '0000', 'IT Clerk', 'clerk', 'IT', 'Information Technology', 'Information Technology'),
-(2, 'admin', 'admin', 'HR', 'admin', 'HR', '', ''),
-(3, 'pd5', 'pd5', 'PD5 CLERK', 'clerk', 'PROD', 'Section 3', ''),
-(4, 'pd3', 'pd3', 'clerk pd3', 'clerk', 'PROD', 'Section 3', ''),
-(5, 'pd1', 'pd2', 'pd1 clerk', 'clerk', 'PROD', 'Section 1', ''),
-(6, 'pd2', 'pd2', 'pd2 clerk', 'clerk', 'PROD', 'Section 2', ''),
-(7, 'eqd', 'eqd', 'eqd clerk engineering', 'clerk', 'EQD', 'Equipment Engineering', 'Equipment Engineering'),
-(8, 'fab', 'fab', 'fab clerk', 'clerk', 'EQD', 'Equipment Engineering', 'Fabrication'),
-(9, 'addeven', 'addeven', 'addeven', 'coordinator', 'ADD EVEN', 'Add Even Manpower Resources & Solutions', ''),
-(13, 'ipromote', 'ipromote', 'IPROMOTE AGENCY', 'coordinator', 'IPROMOTE', 'IPromote People Enterprise, Inc.', '');
+INSERT INTO `aris_users` (`id`, `username`, `password`, `fullname`, `role`, `deptCode`, `deptSection`, `subSection`, `last_upload`) VALUES
+(1, '0000', '0000', 'IT Clerk', 'clerk', 'IT', 'Information Technology', 'Information Technology', '2021-10-13'),
+(2, 'admin', 'admin', 'HR', 'admin', 'HR', '', '', NULL),
+(3, 'pd5', 'pd5', 'PD5 CLERK', 'clerk', 'PROD', 'Section 3', '', NULL),
+(4, 'pd3', 'pd3', 'clerk pd3', 'clerk', 'PROD', 'Section 3', '', NULL),
+(5, 'pd1', 'pd2', 'pd1 clerk', 'clerk', 'PROD', 'Section 1', '', NULL),
+(6, 'pd2', 'pd2', 'pd2 clerk', 'clerk', 'PROD', 'Section 2', '', NULL),
+(7, 'eqd', 'eqd', 'eqd clerk engineering', 'clerk', 'EQD', 'Equipment Engineering', 'Equipment Engineering', NULL),
+(8, 'fab', 'fab', 'fab clerk', 'clerk', 'EQD', 'Equipment Engineering', 'Fabrication', NULL),
+(9, 'addeven', 'addeven', 'addeven', 'coordinator', 'ADD EVEN', 'Add Even Manpower Resources & Solutions', '', '2021-10-13'),
+(13, 'ipromote', 'ipromote', 'IPROMOTE AGENCY', 'coordinator', 'IPROMOTE', 'IPromote People Enterprise, Inc.', '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email_recipient`
+--
+
+CREATE TABLE `email_recipient` (
+  `id` int(14) NOT NULL,
+  `email_add` varchar(200) DEFAULT NULL,
+  `type` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `email_recipient`
+--
+
+INSERT INTO `email_recipient` (`id`, `email_add`, `type`) VALUES
+(1, 'rubyanne.cabilin.pasahol@furukawaelectric.com', 'recipient'),
+(2, 'aison.silan.cabusay@furukawaelectric.com', 'cc');
 
 -- --------------------------------------------------------
 
@@ -912,6 +977,12 @@ ALTER TABLE `aris_users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `email_recipient`
+--
+ALTER TABLE `email_recipient`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `falp_calendar`
 --
 ALTER TABLE `falp_calendar`
@@ -925,7 +996,7 @@ ALTER TABLE `falp_calendar`
 -- AUTO_INCREMENT for table `aris_absent_filing`
 --
 ALTER TABLE `aris_absent_filing`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=541;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=724;
 
 --
 -- AUTO_INCREMENT for table `aris_absent_reason`
@@ -962,6 +1033,12 @@ ALTER TABLE `aris_total_mp`
 --
 ALTER TABLE `aris_users`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `email_recipient`
+--
+ALTER TABLE `email_recipient`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `falp_calendar`
