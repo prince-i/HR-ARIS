@@ -7,6 +7,12 @@
     <title>HR-ARIS</title>
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="shortcut icon" href="assets/logo/bio.png" type="image/x-icon">
+    <style>
+       tbody tr{
+            font-weight:bold;
+            color:red;
+        }
+    </style>
 </head>
 <body style="overflow:hidden;">
     <!-- CONTENT -->
@@ -23,7 +29,7 @@
                     include 'function/conn.php';
                         echo '<table border="1">';
                         echo '<thead>';
-                        echo '<th>SECTION WITH NO ABSENT FILED ('.$server_date.')</th>';
+                        echo '<th>SECTION WITH NO ABSENT FILED AS OF '.$server_date.'</th>';
                         echo '<tbody>';
                         // SELECT SECTION WITH FILE
                         $get_section = "SELECT section,carmodel_group FROM aris_absent_filing WHERE date_upload = '$server_date'";
@@ -38,7 +44,7 @@
                                 $stmt = $conn->prepare($select_sec);
                                 $stmt->execute();
                                 foreach($stmt->fetchall() as $d){
-                                    if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
+                                    if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A' || $d['deptSection'] == '')continue;
                                     if($d['deptSection'] == ''){
                                         $concern = $d['deptCode'];
                                     }else{
@@ -55,7 +61,8 @@
                                 $stmt = $conn->prepare($select_sec);
                                 $stmt->execute();
                                 foreach($stmt->fetchall() as $d){
-                                    // if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
+                                    if($d['deptSection'] == 'N/A' || $d['deptSection'] == '')continue;
+
                                     if($d['deptSection'] == ''){
                                         $concern = $d['deptCode'];
                                     }else{
