@@ -161,6 +161,7 @@
             var absent_from = $('#absent_from_date').val();
             var absent_to = $('#absent_to_date').val();
             var shift = $('#shift_filter').val();
+            var section = $('#section_filter').val();
             $.ajax({
                 url :'../function/admin-controller.php',
                 type: 'POST',
@@ -170,6 +171,7 @@
                     absent_from:absent_from,
                     absent_to:absent_to,
                     shift:shift,
+                    section:section
                 },success:function(response){
                     // console.log(response);
                     $('#filed_data_admin').html(response);
@@ -288,6 +290,11 @@
             $('#edit_absent_btn').html('uneditable');
         }else{
             // console.log('editable');
+            $('#date_absentPrev').attr('disabled',false);
+            $('#shiftPrev').attr('disabled',false);
+            $('#number_absent_prev').attr('disabled',false);
+            $('#edit_absent_btn').attr('disabled',false);
+            $('#edit_absent_btn').html('update');
         }
     }
 

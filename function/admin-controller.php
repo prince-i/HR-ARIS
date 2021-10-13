@@ -721,7 +721,8 @@
         $from = $_POST['absent_from'];
         $to = $_POST['absent_to'];
         $shift = $_POST['shift'];
-        $query = "SELECT *FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%'";
+        $section = $_POST['section'];
+        $query = "SELECT *FROM aris_absent_filing WHERE (date_absent >= '$from' AND date_absent <= '$to') AND shift LIKE '$shift%' AND section LIKE '$section%'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){

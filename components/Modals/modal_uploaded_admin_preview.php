@@ -6,7 +6,7 @@
     <div class="modal-content">
         
         <div class="row" style="margin-top:-5%;">
-            <h5 class="center">MY UPLOADED ABSENT</h5>
+            <h5 class="center">UPLOADED ABSENT</h5>
             <div class="col s12">
                 <div class="col s3 input-field">
                     <input type="text" id="absent_from_date" class="datepicker" value="<?=$server_date;?>"><label for="">Absent From:</label>
@@ -16,7 +16,7 @@
                     <input type="text" id="absent_to_date" class="datepicker" value="<?=$server_date;?>"><label for="">Absent To:</label>
                 </div>
 
-                <div class="col s3 input-field ">
+                <div class="col s2 input-field ">
                     <select name="" id="shift_filter" class="browser-default z-depth-4">
                     <option value="">ALL SHIFT</option>
                     <option value="DS">DS</option>
@@ -24,7 +24,21 @@
                     </select>
                 </div>
 
-                <div class="col s3 input-field">
+                <div class="col s2 input-field">
+                    <select name="" id="section_filter" class="browser-default z-depth-5">
+                    <option value="">ALL SECTION</option>
+                        <?php
+                            $sql = "SELECT DISTINCT deptSection FROM aris_department";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            foreach($stmt->fetchALL() as $x){
+                                echo '<option value="'.$x['deptSection'].'">'.$x['deptSection'].'</option>';
+                            }
+                            ?>
+                    </select>
+                </div>
+
+                <div class="col s2 input-field">
                     <button class="col s12 btn blue" onclick="load_uploaded_absent()">Generate</button>
                 </div>
             </div>

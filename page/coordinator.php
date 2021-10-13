@@ -295,6 +295,11 @@
             $('#edit_absent_btn').html('uneditable');
         }else{
             // console.log('editable');
+            $('#date_absentPrev').attr('disabled',false);
+            $('#shiftPrev').attr('disabled',false);
+            $('#number_absent_prev').attr('disabled',false);
+            $('#edit_absent_btn').attr('disabled',false);
+            $('#edit_absent_btn').html('update');
         }
     }
 
