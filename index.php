@@ -18,37 +18,55 @@
         <div class="col s12">
             <div class="col l8 m12 s12 hide-on-med-and-down center">
                 <!-- <img src="assets/logo/bio.png" alt="login_background" class="responsive-img" style="min-height:100vh;object-fit:cover;"> -->
-                <div class="col s12" style="overflow:auto;">
+                <div class="col s12" style="overflow:auto;height:90vh;">
                 <?php
                     include 'function/conn.php';
                         echo '<table border="1">';
                         echo '<thead>';
                         echo '<th>SECTION WITH NO ABSENT FILED ('.$server_date.')</th>';
+                        echo '<tbody>';
                         // SELECT SECTION WITH FILE
                         $get_section = "SELECT section,carmodel_group FROM aris_absent_filing WHERE date_upload = '$server_date'";
                         $stmt = $conn->prepare($get_section);
                         $stmt->execute();
-                        foreach($stmt->fetchALL() as $x){
-                            if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
-                            $sub = $x['carmodel_group'];
-                            // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
-                            $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
-                            $stmt = $conn->prepare($select_sec);
-                            $stmt->execute();
-                            foreach($stmt->fetchall() as $d){
-                                if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
-                                if($d['deptSection'] == ''){
-                                    $concern = $d['deptCode'];
-                                }else{
-                                    $concern = $d['deptCode'].'-'.$d['deptSection'];
+                        if($stmt->rowCount() > 0){
+                            foreach($stmt->fetchALL() as $x){
+                                if($x['section'] == 'N/A' || $x['section'] == 'Vietnamese Officers')continue;
+                                $sub = $x['carmodel_group'];
+                                // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
+                                $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
+                                $stmt = $conn->prepare($select_sec);
+                                $stmt->execute();
+                                foreach($stmt->fetchall() as $d){
+                                    if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
+                                    if($d['deptSection'] == ''){
+                                        $concern = $d['deptCode'];
+                                    }else{
+                                        $concern = $d['deptCode'].'-'.$d['deptSection'];
+                                    }
+                                    echo '<tr>';
+                                    echo '<td>'.$concern.'</td>';
+                                    echo '</tr>';
                                 }
-                                echo '<tr>';
-                                echo '<td>'.$concern.'</td>';
-                                echo '</tr>';
+                            }
+                        }else{
+                                // SELECT ALL SECTION THEN SKIP THE SECTION WITH ABSENT FILED 
+                                $select_sec = "SELECT DISTINCT deptSection,deptCode FROM aris_users ORDER BY deptSection ASC";
+                                $stmt = $conn->prepare($select_sec);
+                                $stmt->execute();
+                                foreach($stmt->fetchall() as $d){
+                                    // if($d['deptSection'] == $sub || $d['deptSection'] == 'N/A')continue;
+                                    if($d['deptSection'] == ''){
+                                        $concern = $d['deptCode'];
+                                    }else{
+                                        $concern = $d['deptCode'].'-'.$d['deptSection'];
+                                    }
+                                    echo '<tr>';
+                                    echo '<td>'.$concern.'</td>';
+                                    echo '</tr>';
                             }
                         }
-
-
+                        echo '</tbody>';
                         echo '</table>';
                     ?>
                 </div>
@@ -68,7 +86,7 @@
                     </div>
                     <!-- BUTTON -->
                     <div class="input-field col s12">
-                        <input type="submit" id="loginbtn" value="login" name="login_session" class="btn-large col s12  blue">
+                        <input type="submit" id="loginbtn" value="login" name="login_session" class="btn-large col s12  blue" id="login_btn">
                     </div>
 
                 </form>
