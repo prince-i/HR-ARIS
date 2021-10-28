@@ -222,11 +222,11 @@
         if(items.length > 0){
             // RUN AJAX
             $.ajax({
-                url: '../function/controller.php',
+                url: '../function/admin-controller.php',
                 type: 'POST',
                 cache: false,
                 data:{
-                    method: 'deleteFileClerk',
+                    method: 'deleteFile',
                     items:items
                 },success:function(x){
                     console.log(x);
