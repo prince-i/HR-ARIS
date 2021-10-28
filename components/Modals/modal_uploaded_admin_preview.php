@@ -41,6 +41,12 @@
                 <div class="col s2 input-field">
                     <button class="col s12 btn blue" onclick="load_uploaded_absent()">Generate</button>
                 </div>
+                
+                <div class="col s2 input-field">
+                    <button class="col s12 btn blue" onclick="export_uploaded()">Export</button>
+                </div>
+
+
             </div>
         </div>
         <div class="row">

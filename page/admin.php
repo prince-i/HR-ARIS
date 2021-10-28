@@ -44,6 +44,7 @@
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">HR-ARIS (HR Admin Dashboard)</a>
             <ul class="right hide-on-med-and-down">
+            <li><a target="_blank" href="reason_code_ref.php">Reference</a></li>
             <li><a href="#modal_logout" class="modal-trigger z-depth-5"><?=$fullname;?></a></li>
             </ul>
         </div>
@@ -335,6 +336,14 @@
                 }
             });
         }
+    }
+
+    const export_uploaded=()=>{
+        var absent_frm = document.getElementById('absent_from_date').value;
+        var absent_to = document.getElementById('absent_to_date').value;
+        var shift = document.getElementById('shift_filter').value;
+        var section = document.getElementById('section_filter').value;
+        window.open('export_filed_absent.php?from='+absent_frm+'&&to='+absent_to+'&&shift='+shift+'&&section='+section);
     }
 
 

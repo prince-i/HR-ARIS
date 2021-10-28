@@ -136,13 +136,26 @@ elseif($method == 'load_file_history'){
         $itemID = $_POST['items'];
         $count = count($itemID);
         foreach($itemID as $x){
-            // DELETE QUERY
-            $del = "DELETE FROM aris_absent_filing WHERE id = '$x'";
-            $stmt = $conn->prepare($del);
-            if($stmt->execute()){
-                // IN EVERY SUCCESS OF FUNCTION MINUS 1 TO THE ORIGINAL ARRAY ITEM COUNT
-                $count = $count - 1;
+            //CHECK ABSENT DATE
+            $check = "SELECT date_absent FROM aris_absent_filing WHERE id = '$x'";
+            $stmt = $conn->prepare($check);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $p){
+                $absent_date = $p['date_absent'];
             }
+
+            if($absent_date < $server_date){
+                // echo 'denied';
+            }else{
+                // DELETE QUERY
+                $del = "DELETE FROM aris_absent_filing WHERE id = '$x'";
+                $stmt = $conn->prepare($del);
+                if($stmt->execute()){
+                    // IN EVERY SUCCESS OF FUNCTION MINUS 1 TO THE ORIGINAL ARRAY ITEM COUNT
+                    $count = $count - 1;
+                }
+            }
+            
         }
         // IF COUNT == 0 THE FUNCTION RETURN SUCCESS
         if($count == 0){

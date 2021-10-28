@@ -245,7 +245,8 @@
                         load_filed_absent();
                         swal('Done','Successfully deleted!','success');
                     }else{
-                        swal('Sorry','An error was occured!','error');
+                        swal('Sorry','For deleting filed absent report from the previous days, please concern it to HR!','error');
+                        load_filed_absent();
                     }
                     $('#delete_absent').attr('disabled',true);
                     $('#checkAllAbsent:checkbox').attr('checked',false);
