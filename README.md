@@ -1,7 +1,7 @@
 # HR-ARIS
 Developer: Prince Arce
 <img src="https://prince-i.github.io/Image/systems/hr-aris.png"/>
-HR-ARIS or Human Resource Absenteeism Report Information System is a web application to file absent report, generate report per day and per selected date range.
+HR-ARIS or Human Resource Absenteeism Report Information System is a web application used to file absent report, generate report per day and per selected date range.
 It is written in PHP7, using the LAMP Stack technology.
 
 Features:
